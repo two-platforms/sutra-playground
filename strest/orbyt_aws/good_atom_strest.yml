@@ -1,0 +1,25 @@
+version: 2                            # only version at the moment 
+ 
+requests:
+  bad_user:
+    request:
+      url: https://api.dev.8om.tech/atom/chat
+      method: POST
+      headers:
+      - name: Authorization
+        value: set_this_from_env_file
+      postData:
+        mimeType: application/json
+        text:
+          userName: Anonymous
+          userId: u1
+          userInput: testing
+          userInterests:
+            - hiking
+          atomName: Taezi
+          atomId: taezi
+          chatType: Text
+    validate:
+      - jsonpath: status
+        expect: 200
+    log: true

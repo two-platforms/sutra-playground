@@ -1,0 +1,17 @@
+version: 2                            # only version at the moment 
+ 
+requests:
+  bad_user:
+    request:
+      url: http://192.168.21.199:5000/atom/ask
+      method: POST
+      postData:
+        mimeType: application/json
+        text:
+          atomName: bad atom
+          userInput: testing
+          userName: Anonymous
+    validate:
+      - jsonpath: status
+        expect: 400
+    log: false
