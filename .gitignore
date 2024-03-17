@@ -26,4 +26,11 @@ dist-ssr
 
 # Mac
 .DS_Store
+
+# Vercel
 .vercel
+
+.eslintcache
+
+# env files
+.env*

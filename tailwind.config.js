@@ -28,5 +28,8 @@ export default {
   },
   darkMode: "class",
   plugins: [nextui()],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
 }
 
