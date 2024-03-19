@@ -37,12 +37,6 @@ const App = () => {
 
   //const errorRef = React.useRef<string | undefined>(undefined);
 
-  const [time, setTime] = React.useState<Date>(new Date());
-
-  React.useEffect(() => {
-    setInterval(() => setTime(new Date()), 1000);
-  }, []);
-
   // // two potential error sources, show both if both erred
   // const addError = (errorMessage: string): void => {
   //   if (errorRef.current) {
@@ -264,15 +258,6 @@ const App = () => {
             </div> */}
             <div>
               <Location /> | <IPv4 />
-            </div>
-            <div>
-              {time.toLocaleString('en-US', {
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric',
-                day: 'numeric',
-                month: 'short',
-              })}
             </div>
           </div>
         </div>
