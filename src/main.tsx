@@ -4,7 +4,7 @@ import App from "./App";
 import "./styles/index.css";
 import "./styles/chatui.css";
 import { NextUIProvider } from "@nextui-org/react";
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from "@vercel/analytics/react";
 // import { SpeedInsights } from '@vercel/speed-insights/next';
 
 document.addEventListener("DOMContentLoaded", (_event) => {
@@ -23,5 +23,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <Analytics />
       {/* <SpeedInsights /> */}
     </NextUIProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

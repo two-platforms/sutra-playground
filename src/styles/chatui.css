@@ -66,10 +66,7 @@
 .cs-main-container .cs-conversation-header {
   z-index: 1;
 }
-.cs-main-container--responsive
-  .cs-chat-container
-  .cs-conversation-header
-  .cs-conversation-header__back {
+.cs-main-container--responsive .cs-chat-container .cs-conversation-header .cs-conversation-header__back {
   display: none;
 }
 .cs-main-container--responsive
@@ -96,60 +93,30 @@
   .cs-main-container--responsive > .cs-conversation-list {
     flex-basis: calc(1.6em + 40px);
   }
-  .cs-main-container--responsive
-    .cs-conversation-list
-    .cs-conversation
-    > .cs-avatar,
-  .cs-main-container--responsive
-    .cs-sidebar
-    .cs-conversation-list
-    .cs-conversation
-    > .cs-avatar {
+  .cs-main-container--responsive .cs-conversation-list .cs-conversation > .cs-avatar,
+  .cs-main-container--responsive .cs-sidebar .cs-conversation-list .cs-conversation > .cs-avatar {
     margin-right: 0;
   }
-  .cs-main-container--responsive
-    .cs-conversation-list
-    .cs-conversation__content,
-  .cs-main-container--responsive
-    .cs-sidebar
-    .cs-conversation-list
-    .cs-conversation__content {
+  .cs-main-container--responsive .cs-conversation-list .cs-conversation__content,
+  .cs-main-container--responsive .cs-sidebar .cs-conversation-list .cs-conversation__content {
     display: none;
   }
-  .cs-main-container--responsive
-    .cs-conversation-list
-    .cs-conversation__operations,
-  .cs-main-container--responsive
-    .cs-sidebar
-    .cs-conversation-list
-    .cs-conversation__operations {
+  .cs-main-container--responsive .cs-conversation-list .cs-conversation__operations,
+  .cs-main-container--responsive .cs-sidebar .cs-conversation-list .cs-conversation__operations {
     display: none;
   }
-  .cs-main-container--responsive
-    .cs-conversation-list
-    .cs-conversation__last-activity-time,
-  .cs-main-container--responsive
-    .cs-sidebar
-    .cs-conversation-list
-    .cs-conversation__last-activity-time {
+  .cs-main-container--responsive .cs-conversation-list .cs-conversation__last-activity-time,
+  .cs-main-container--responsive .cs-sidebar .cs-conversation-list .cs-conversation__last-activity-time {
     display: none;
   }
-  .cs-main-container--responsive
-    .cs-conversation-list
-    .cs-conversation__unread-dot,
-  .cs-main-container--responsive
-    .cs-sidebar
-    .cs-conversation-list
-    .cs-conversation__unread-dot {
+  .cs-main-container--responsive .cs-conversation-list .cs-conversation__unread-dot,
+  .cs-main-container--responsive .cs-sidebar .cs-conversation-list .cs-conversation__unread-dot {
     position: absolute;
     top: 0.3em;
     right: 0.3em;
     margin-right: 0;
   }
-  .cs-main-container--responsive
-    .cs-conversation-header
-    .cs-conversation-header__actions
-    .cs-button--info {
+  .cs-main-container--responsive .cs-conversation-header .cs-conversation-header__actions .cs-button--info {
     display: flex;
   }
 }
@@ -160,10 +127,7 @@
   .cs-main-container--responsive > .cs-sidebar.cs-sidebar--left {
     display: none;
   }
-  .cs-main-container--responsive
-    .cs-chat-container
-    .cs-conversation-header
-    .cs-conversation-header__back {
+  .cs-main-container--responsive .cs-chat-container .cs-conversation-header .cs-conversation-header__back {
     display: flex;
   }
 }
@@ -171,7 +135,12 @@
 .cs-message {
   box-sizing: border-box;
   font-size: 1em;
-  font-family: Helvetica Neue, Segoe UI, Helvetica, Arial, sans-serif;
+  font-family:
+    Helvetica Neue,
+    Segoe UI,
+    Helvetica,
+    Arial,
+    sans-serif;
   color: rgba(0, 0, 0, 0.87);
   display: flex;
   flex-direction: row;
@@ -252,7 +221,12 @@
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   word-break: break-word;
-  font-family: Helvetica Neue, Segoe UI, Helvetica, Arial, sans-serif;
+  font-family:
+    Helvetica Neue,
+    Segoe UI,
+    Helvetica,
+    Arial,
+    sans-serif;
   font-weight: normal;
   /* font-size: 1em; */
   font-variant: normal;
@@ -452,7 +426,12 @@
   box-sizing: border-box;
   display: flex;
   font-size: 0.8em;
-  font-family: Helvetica Neue, Segoe UI, Helvetica, Arial, sans-serif;
+  font-family:
+    Helvetica Neue,
+    Segoe UI,
+    Helvetica,
+    Arial,
+    sans-serif;
   color: rgba(0, 0, 0, 0.6);
   background-color: transparent;
   margin: 0 0 0.2em 0;
@@ -462,7 +441,12 @@
   box-sizing: border-box;
   display: flex;
   font-size: 0.8em;
-  font-family: Helvetica Neue, Segoe UI, Helvetica, Arial, sans-serif;
+  font-family:
+    Helvetica Neue,
+    Segoe UI,
+    Helvetica,
+    Arial,
+    sans-serif;
   color: rgba(0, 0, 0, 0.6);
   background-color: transparent;
   margin: 0.2em 0 0 0;
@@ -488,30 +472,18 @@
 .cs-message-group--incoming .cs-message-group__content {
   order: 1;
 }
-.cs-message-group--incoming
-  .cs-message-group__messages
-  .cs-message:first-child
-  .cs-message__content {
+.cs-message-group--incoming .cs-message-group__messages .cs-message:first-child .cs-message__content {
   border-radius: 0 0.7em 0.7em 0;
 }
-.cs-message-group--incoming
-  .cs-message-group__messages
-  .cs-message
-  .cs-message__content {
+.cs-message-group--incoming .cs-message-group__messages .cs-message .cs-message__content {
   border-radius: 0 0.7em 0.7em 0;
   color: rgba(0, 0, 0, 0.87);
   background-color: #c6e3fa;
 }
-.cs-message-group--incoming
-  .cs-message-group__messages
-  .cs-message:last-child
-  .cs-message__content {
+.cs-message-group--incoming .cs-message-group__messages .cs-message:last-child .cs-message__content {
   border-radius: 0 0.7em 0 0.7em;
 }
-.cs-message-group--incoming
-  .cs-message-group__messages
-  .cs-message:only-child
-  .cs-message__content {
+.cs-message-group--incoming .cs-message-group__messages .cs-message:only-child .cs-message__content {
   border-radius: 0 0.7em 0.7em 0.7em;
 }
 .cs-message-group--outgoing {
@@ -528,30 +500,18 @@
 .cs-message-group--outgoing .cs-message-group__messages .cs-message {
   justify-content: flex-end;
 }
-.cs-message-group--outgoing
-  .cs-message-group__messages
-  .cs-message:first-child
-  .cs-message__content {
+.cs-message-group--outgoing .cs-message-group__messages .cs-message:first-child .cs-message__content {
   border-radius: 0.7em 0 0 0.7em;
 }
-.cs-message-group--outgoing
-  .cs-message-group__messages
-  .cs-message
-  .cs-message__content {
+.cs-message-group--outgoing .cs-message-group__messages .cs-message .cs-message__content {
   border-radius: 0.7em 0 0 0.7em;
   color: rgba(0, 0, 0, 0.87);
   background-color: #6ea9d7;
 }
-.cs-message-group--outgoing
-  .cs-message-group__messages
-  .cs-message:last-child
-  .cs-message__content {
+.cs-message-group--outgoing .cs-message-group__messages .cs-message:last-child .cs-message__content {
   border-radius: 0.7em 0 0.7em 0.7em;
 }
-.cs-message-group--outgoing
-  .cs-message-group__messages
-  .cs-message:only-child
-  .cs-message__content {
+.cs-message-group--outgoing .cs-message-group__messages .cs-message:only-child .cs-message__content {
   border-radius: 0.7em 0.7em 0 0.7em;
 }
 .cs-message-group--avatar-tl .cs-message-group__avatar {
@@ -614,7 +574,12 @@
   color: #6ea9d7;
   background-color: #fff;
   font-size: 0.8em;
-  font-family: Helvetica Neue, Segoe UI, Helvetica, Arial, sans-serif;
+  font-family:
+    Helvetica Neue,
+    Segoe UI,
+    Helvetica,
+    Arial,
+    sans-serif;
   text-align: center;
   display: flex;
   flex-direction: row;
@@ -961,7 +926,12 @@
   box-sizing: border-box;
   flex-grow: 1;
   background-color: #c6e3fa;
-  font-family: Helvetica Neue, Segoe UI, Helvetica, Arial, sans-serif;
+  font-family:
+    Helvetica Neue,
+    Segoe UI,
+    Helvetica,
+    Arial,
+    sans-serif;
   outline: 0;
   border-top: 0 none;
   border-right: 0 none;
@@ -1048,14 +1018,10 @@
   color: rgba(0, 0, 0, 0.87);
   background-color: #fff;
 }
-.cs-chat-container
-  .cs-message-input
-  .cs-message-input__content-editor-wrapper:first-child {
+.cs-chat-container .cs-message-input .cs-message-input__content-editor-wrapper:first-child {
   margin-left: 0.8em;
 }
-.cs-chat-container
-  .cs-message-input
-  .cs-message-input__content-editor-wrapper:last-child {
+.cs-chat-container .cs-message-input .cs-message-input__content-editor-wrapper:last-child {
   margin-right: 0.8em;
 }
 .cs-chat-container .cs-input-toolbox {
@@ -1068,7 +1034,12 @@
 .cs-typing-indicator {
   box-sizing: content-box;
   font-size: inherit;
-  font-family: Helvetica Neue, Segoe UI, Helvetica, Arial, sans-serif;
+  font-family:
+    Helvetica Neue,
+    Segoe UI,
+    Helvetica,
+    Arial,
+    sans-serif;
   display: flex;
   flex-direction: row;
   align-items: stretch;
@@ -1082,8 +1053,7 @@
 }
 .cs-typing-indicator__dot {
   box-sizing: inherit;
-  -webkit-animation: cs-typing-indicator__typing-animation 1.5s infinite
-    ease-in-out;
+  -webkit-animation: cs-typing-indicator__typing-animation 1.5s infinite ease-in-out;
   animation: cs-typing-indicator__typing-animation 1.5s infinite ease-in-out;
   border-radius: 100%;
   display: inline-block;
@@ -1144,7 +1114,12 @@
   box-sizing: border-box;
   color: rgba(0, 0, 0, 0.87);
   /* background-color: #f6fbff; */
-  font-family: Helvetica Neue, Segoe UI, Helvetica, Arial, sans-serif;
+  font-family:
+    Helvetica Neue,
+    Segoe UI,
+    Helvetica,
+    Arial,
+    sans-serif;
   font-size: 1em;
   flex-shrink: 0;
   -webkit-user-select: none;
@@ -1250,7 +1225,12 @@
   flex-direction: row;
   box-sizing: border-box;
   position: relative;
-  font-family: Helvetica Neue, Segoe UI, Helvetica, Arial, sans-serif;
+  font-family:
+    Helvetica Neue,
+    Segoe UI,
+    Helvetica,
+    Arial,
+    sans-serif;
   padding: 0.675em 0.8em 0.675em 0.8em;
   cursor: pointer;
   justify-content: flex-start;
@@ -1281,10 +1261,7 @@
   border-bottom: 0;
   border-left: 0;
 }
-.cs-conversation.cs-conversation:active
-  > .cs-avatar
-  > .cs-status
-  > .cs-status__bullet {
+.cs-conversation.cs-conversation:active > .cs-avatar > .cs-status > .cs-status__bullet {
   border-color: #d5e7f5;
 }
 .cs-conversation.cs-conversation--active {
@@ -1296,10 +1273,7 @@
   border-bottom: 0;
   border-left: 0;
 }
-.cs-conversation.cs-conversation--active
-  > .cs-avatar
-  > .cs-status
-  > .cs-status__bullet {
+.cs-conversation.cs-conversation--active > .cs-avatar > .cs-status > .cs-status__bullet {
   border-color: #d5e7f5;
 }
 .cs-conversation.cs-conversation--active .cs-conversation__name {
@@ -1788,7 +1762,12 @@
   color: rgba(0, 0, 0, 0.87);
   background-color: #fff;
   border: solid 1px #d1dbe3;
-  font-family: Helvetica Neue, Segoe UI, Helvetica, Arial, sans-serif;
+  font-family:
+    Helvetica Neue,
+    Segoe UI,
+    Helvetica,
+    Arial,
+    sans-serif;
   font-weight: normal;
   font-size: inherit;
   font-variant: normal;
@@ -1799,7 +1778,12 @@
   flex-direction: row;
   color: rgba(0, 0, 0, 0.6);
   /* background-color: #f6fbff; */
-  font-family: Helvetica Neue, Segoe UI, Helvetica, Arial, sans-serif;
+  font-family:
+    Helvetica Neue,
+    Segoe UI,
+    Helvetica,
+    Arial,
+    sans-serif;
   font-weight: bold;
   font-size: 0.75em;
   font-variant: normal;
@@ -1828,7 +1812,12 @@
   display: none;
   color: rgba(0, 0, 0, 0.87);
   background-color: #fff;
-  font-family: Helvetica Neue, Segoe UI, Helvetica, Arial, sans-serif;
+  font-family:
+    Helvetica Neue,
+    Segoe UI,
+    Helvetica,
+    Arial,
+    sans-serif;
   font-weight: normal;
   font-size: 0.8em;
   font-variant: normal;
@@ -2170,8 +2159,12 @@
 .ps__rail-x {
   display: none;
   opacity: 0;
-  transition: background-color 0.2s linear, opacity 0.2s linear;
-  -webkit-transition: background-color 0.2s linear, opacity 0.2s linear;
+  transition:
+    background-color 0.2s linear,
+    opacity 0.2s linear;
+  -webkit-transition:
+    background-color 0.2s linear,
+    opacity 0.2s linear;
   height: 15px;
   bottom: 0px;
   position: absolute;
@@ -2180,8 +2173,12 @@
 .ps__rail-y {
   display: none;
   opacity: 0;
-  transition: background-color 0.2s linear, opacity 0.2s linear;
-  -webkit-transition: background-color 0.2s linear, opacity 0.2s linear;
+  transition:
+    background-color 0.2s linear,
+    opacity 0.2s linear;
+  -webkit-transition:
+    background-color 0.2s linear,
+    opacity 0.2s linear;
   width: 15px;
   right: 0;
   left: auto !important;
@@ -2217,8 +2214,12 @@
 .ps__thumb-x {
   background-color: #6ea9d7;
   border-radius: 6px;
-  transition: background-color 0.2s linear, height 0.2s ease-in-out;
-  -webkit-transition: background-color 0.2s linear, height 0.2s ease-in-out;
+  transition:
+    background-color 0.2s linear,
+    height 0.2s ease-in-out;
+  -webkit-transition:
+    background-color 0.2s linear,
+    height 0.2s ease-in-out;
   height: 6px;
   bottom: 2px;
   position: absolute;
@@ -2227,8 +2228,12 @@
 .ps__thumb-y {
   background-color: #c6e3fa;
   border-radius: 6px;
-  transition: background-color 0.2s linear, width 0.2s ease-in-out;
-  -webkit-transition: background-color 0.2s linear, width 0.2s ease-in-out;
+  transition:
+    background-color 0.2s linear,
+    width 0.2s ease-in-out;
+  -webkit-transition:
+    background-color 0.2s linear,
+    width 0.2s ease-in-out;
   width: 6px;
   right: 2px;
   position: absolute;

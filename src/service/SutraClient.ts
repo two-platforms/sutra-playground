@@ -1,21 +1,16 @@
 /* eslint-disable prefer-const */
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig } from "axios";
 
-import { 
-    IonStreamObject,
-    LLMChunk,
-    LLMReply,
-    MultilingualUserInput,
-} from '@two-platforms/ion-multilingual-types';
+import { IonStreamObject, LLMChunk, LLMReply, MultilingualUserInput } from "@two-platforms/ion-multilingual-types";
 
-import { log } from '../utils/log';
-import { K } from '../utils/K';
+import { log } from "../utils/log";
+import { K } from "../utils/K";
 
 // will come from sutra types
 export type SutraServiceStatus = {
-    serviceName: 'multilingual' | 'online';
-    sericeStatus: 'operational' | 'maintenance';
-    counterName: 'inferences' | 'queries';
+    serviceName: "multilingual" | "online";
+    sericeStatus: "operational" | "maintenance";
+    counterName: "inferences" | "queries";
     counterValue: number;
 };
 
@@ -25,18 +20,17 @@ export type OnError = (v: string) => void;
 
 export type SutraCallbacks = {
     onLLMChunk: OnLLMChunk;
-    onLLMReply: OnLLMReply
+    onLLMReply: OnLLMReply;
     onError: OnError;
 };
 
-export type SutraService = 'multilingual' | 'online';
+export type SutraService = "multilingual" | "online";
 
 // static class
 export class Sutra {
     private static cfg: AxiosRequestConfig = import.meta.env.VITE_SUTRA_API_KEY
         ? { headers: { authorization: import.meta.env.VITE_SUTRA_API_KEY } }
         : { headers: {} };
-
 
     private static selectService(serviceName: SutraService): string {
         return `${K.SUTRA_SERVICE}/${serviceName}`;
@@ -45,14 +39,14 @@ export class Sutra {
     // For Node need responseType header set to 'stream', this triggers a warning in browser, but can ignore
     private static makeStreamingConfig(): AxiosRequestConfig {
         const cfg: AxiosRequestConfig = { headers: Sutra.cfg.headers };
-        if (typeof window === 'undefined') {
-            cfg.responseType = 'stream';
+        if (typeof window === "undefined") {
+            cfg.responseType = "stream";
         }
         return cfg;
     }
 
     public static async getStatus(): Promise<SutraServiceStatus | undefined> {
-        const service = Sutra.selectService('multilingual');
+        const service = Sutra.selectService("multilingual");
         const url = `${service}/status`;
 
         try {
@@ -65,7 +59,7 @@ export class Sutra {
     }
 
     public static async postComplete(body: MultilingualUserInput, cbs: SutraCallbacks): Promise<void> {
-        const service = Sutra.selectService('multilingual');
+        const service = Sutra.selectService("multilingual");
         const url = `${service}/completion`;
         const cfg = Sutra.makeStreamingConfig();
 
@@ -81,11 +75,11 @@ export class Sutra {
 
     private static async consumeStream(stream: NodeJS.ReadableStream, cbs: SutraCallbacks): Promise<void> {
         const { onLLMChunk, onLLMReply, onError } = cbs;
-        let value = '';
+        let value = "";
 
         for await (const chunk of stream) {
             const lines = chunk.toString();
-            const splits = lines.split('\n');
+            const splits = lines.split("\n");
 
             // check if full chunk is a partial object
             if (splits.length === 1) {
@@ -101,23 +95,23 @@ export class Sutra {
 
                 // check if last split is a partial object by comparing against '',
                 // if no match then last split is a partial object
-                if (idx === splits.length - 1 && splits[idx] !== '') {
+                if (idx === splits.length - 1 && splits[idx] !== "") {
                     continue;
                 }
 
                 const streamObj = JSON.parse(value) as IonStreamObject;
 
-                if (streamObj.typeName === 'LLMChunk') {
+                if (streamObj.typeName === "LLMChunk") {
                     await sleep(10);
                     onLLMChunk(streamObj as LLMChunk);
                     /**/
-                } else if (streamObj.typeName === 'LLMReply') {
+                } else if (streamObj.typeName === "LLMReply") {
                     onLLMReply(streamObj as LLMReply);
                     /**/
                 } else {
                     onError(`unknown stream object ${streamObj.typeName}`);
                 }
-                value = '';
+                value = "";
             }
         }
     }
