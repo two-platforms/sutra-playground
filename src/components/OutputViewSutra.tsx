@@ -62,6 +62,7 @@ export function OutputViewSutra(props: { modelAtom: PrimitiveAtom<SutraModel>; s
 
   const sendToSutra = async (newText: string) => {
     timerStart = Date.now();
+    answer.set('');
     haveFirstToken = false;
     const request = buildCompletionRequest(newText, model);
     setLoading(true);
