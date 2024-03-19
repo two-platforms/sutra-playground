@@ -10,7 +10,7 @@ import { SutraModel, SutraStats, buildCompletionRequest } from '../service/Sutra
 import { log } from '../utils/log';
 import { otherLoadingAtom, otherStatsAtom } from '../state/atoms';
 
-export function OutputViewSutra(props: { modelAtom: PrimitiveAtom<SutraModel>; statsAtom: PrimitiveAtom<SutraStats>, userInput: string }) {
+export function OutputViewOther(props: { modelAtom: PrimitiveAtom<SutraModel>; statsAtom: PrimitiveAtom<SutraStats>, userInput: string }) {
   const answer = useHookstate('');
   const [loading, setLoading] = useAtom(otherLoadingAtom);
   const [, setAnswer] = React.useState('');

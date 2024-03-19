@@ -17,7 +17,7 @@ import {
 } from '@nextui-org/react';
 
 import './styles/chatui.css';
-import { OutputView } from './components/OutputView';
+// import { OutputView } from './components/OutputView';
 import { StatsView } from './components/StatsView';
 import { IPv4, Location } from './components/GeoInfo';
 // import Ping from "./components/Ping";
@@ -37,6 +37,8 @@ import {
   otherMaxTokensAtom,
   otherStatsAtom,
 } from './state/atoms';
+import { OutputViewSutra } from './components/OutputViewSutra';
+import { OutputViewOther } from './components/OutputViewOther';
 
 const App = () => {
   const [userInput, setUserInput] = useAtom(userInputAtom);
@@ -219,11 +221,11 @@ const App = () => {
               <Divider />
               <CardBody>
                 <p className="py-5 text-xl font-semibold">{userInput}</p>
-                <OutputView modelAtom={sutraModelAtom} statsAtom={sutraStatsAtom} userInput={userInput} />
+                <OutputViewSutra modelAtom={sutraModelAtom} statsAtom={sutraStatsAtom} userInput={userInput} />
               </CardBody>
               <Divider />
               <CardFooter>
-              <StatsView statsAtom={sutraStatsAtom} temperature={sutraTemperature} maxTokens={sutraMaxTokens} />
+                <StatsView statsAtom={sutraStatsAtom} temperature={sutraTemperature} maxTokens={sutraMaxTokens} />
               </CardFooter>
             </Card>
 
@@ -239,7 +241,7 @@ const App = () => {
                 <Divider />
                 <CardBody>
                   <p className="py-5 text-xl font-semibold">{userInput}</p>
-                  <OutputView modelAtom={otherModelAtom} statsAtom={otherStatsAtom} userInput={userInput} />
+                  <OutputViewOther modelAtom={otherModelAtom} statsAtom={otherStatsAtom} userInput={userInput} />
                 </CardBody>
                 <Divider />
                 <CardFooter>
