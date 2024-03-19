@@ -4,7 +4,7 @@ interface Props {
   answer: State<string>;
   loading: boolean;
 }
-export const AnswerMain = ({ answer, loading }: Props) => {
+export const AnswerView = ({ answer, loading }: Props) => {
   return (
     <div className="prose prose-xl prose-p:leading-normal max-w-[600px] leading-normal text-black">
       {answer.get() + (loading && answer.get().length > 0 ? '●' : '')}

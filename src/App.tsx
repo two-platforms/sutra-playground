@@ -14,11 +14,11 @@ import {
   CardFooter,
   Link,
   CardHeader,
-  Chip,
 } from '@nextui-org/react';
 
 import './styles/chatui.css';
 import { OutputView } from './components/OutputView';
+import { StatsView } from './components/StatsView';
 import { IPv4, Location } from './components/GeoInfo';
 // import Ping from "./components/Ping";
 
@@ -31,11 +31,11 @@ import {
   sutraModelAtom,
   sutraTemperatureAtom,
   sutraMaxTokensAtom,
-  sutraLlmMsecAtom,
+  sutraStatsAtom,
   otherModelAtom,
   otherTemperatureAtom,
   otherMaxTokensAtom,
-  otherLlmMsecAtom,
+  otherStatsAtom,
 } from './state/atoms';
 
 const App = () => {
@@ -43,11 +43,9 @@ const App = () => {
   const [sutraModel, setSutraModel] = useAtom(sutraModelAtom);
   const [sutraTemperature, setSutraTemperature] = useAtom(sutraTemperatureAtom);
   const [sutraMaxTokens, setSutraMaxTokens] = useAtom(sutraMaxTokensAtom);
-  const [sutraLlmMsec] = useAtom(sutraLlmMsecAtom);
   const [otherModel, setOtherModel] = useAtom(otherModelAtom);
   const [otherTemperature, setOtherTemperature] = useAtom(otherTemperatureAtom);
   const [otherMaxTokens, setOtherMaxTokens] = useAtom(otherMaxTokensAtom);
-  const [otherLlmMsec] = useAtom(otherLlmMsecAtom);
 
   const [text, setText] = React.useState('');
   const [error] = React.useState<string | undefined>(undefined);
@@ -221,15 +219,11 @@ const App = () => {
               <Divider />
               <CardBody>
                 <p className="py-5 text-xl font-semibold">{userInput}</p>
-                <OutputView modelAtom={sutraModelAtom} llmMsecAtom={sutraLlmMsecAtom} userInput={userInput} />
+                <OutputView modelAtom={sutraModelAtom} statsAtom={sutraStatsAtom} userInput={userInput} />
               </CardBody>
               <Divider />
               <CardFooter>
-                <div>
-                  LLM MSEC: <Chip color="primary">{sutraLlmMsec}</Chip> |
-                  TEMPERATURE: <Chip>{sutraTemperature}</Chip> |
-                  MAX TOKENS: <Chip color="success">{sutraMaxTokens}</Chip>
-                </div>
+              <StatsView statsAtom={sutraStatsAtom} temperature={sutraTemperature} maxTokens={sutraMaxTokens} />
               </CardFooter>
             </Card>
 
@@ -245,15 +239,11 @@ const App = () => {
                 <Divider />
                 <CardBody>
                   <p className="py-5 text-xl font-semibold">{userInput}</p>
-                  <OutputView modelAtom={otherModelAtom} llmMsecAtom={otherLlmMsecAtom} userInput={userInput} />
+                  <OutputView modelAtom={otherModelAtom} statsAtom={otherStatsAtom} userInput={userInput} />
                 </CardBody>
                 <Divider />
                 <CardFooter>
-                  <div>
-                    LLM MSEC: <Chip color="primary">{otherLlmMsec}</Chip> |
-                    TEMPERATURE: <Chip>{otherTemperature}</Chip> |
-                    MAX TOKENS: <Chip color="success">{otherMaxTokens}</Chip>
-                  </div>
+                  <StatsView statsAtom={otherStatsAtom} temperature={otherTemperature} maxTokens={otherMaxTokens} />
                 </CardFooter>
               </Card>
             )}

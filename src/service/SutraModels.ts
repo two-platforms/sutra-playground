@@ -12,6 +12,28 @@ export interface SutraModel {
     maxTokens: number;
 }
 
+export interface SutraStats {
+    ttftService: number;        // time to first token, measured on sutra-server
+    ttltService: number;        // time to last token, measured on sutra-server
+    ttftClient: number;         // time to first token, measured on client
+    ttltClient: number;         // time to last token, measured on client
+    tps: number;                // tokens per second, measured on client
+    tokenCount: number;         // number of tokens in the generated content
+    wordCount: number;          // number of words in the generated content
+}
+
+export function initStats(): SutraStats {
+    return {
+        ttftService: 0,
+        ttltService: 0,
+        ttftClient: 0,
+        ttltClient: 0,
+        tps: 0,
+        tokenCount: 0,
+        wordCount: 0,
+    };
+}
+
 export const SUTRA_MODELS: SutraModel[] = [
     {
         displayName: 'SUTRA LARGE',
