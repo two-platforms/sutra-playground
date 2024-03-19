@@ -11,4 +11,8 @@ const otherModelAtom = atom<SutraModel>(OTHER_MODELS[0]);
 
 const userInputAtom = atom("");
 
-export { agentInfoAtom, darkModeAtom, sutraModelAtom, otherModelAtom, userInputAtom };
+const sutraStatsAtom = atom({});
+const otherStatsAtom = atom({});
+
+
+export { agentInfoAtom, darkModeAtom, sutraModelAtom, otherModelAtom, userInputAtom, sutraStatsAtom, otherStatsAtom};

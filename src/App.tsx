@@ -178,7 +178,7 @@ const App = () => {
           <div className="flex h-64 flex-1 flex-row justify-between gap-3">
             <Card className="w-full">
               <CardHeader className="flex gap-3">
-                <Image alt="nextui logo" height={40} radius="sm" src={sutraModel.iconUrl} width={40} />
+                <Image alt="sutra" height={40} radius="sm" src={sutraModel.iconUrl} width={40} />
                 <div className="flex flex-col">
                   <p className="text-md">{sutraModel.modelId}</p>
                   <p className="text-small text-default-500">{sutraModel.provider}</p>
