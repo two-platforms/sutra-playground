@@ -14,8 +14,6 @@ import {
   CardFooter,
   Link,
   CardHeader,
-  Button,
-  Badge,
   Chip,
 } from '@nextui-org/react';
 
@@ -27,12 +25,14 @@ import { IPv4, Location } from './components/GeoInfo';
 // const darkMode = useDarkMode(true);
 
 import { SutraModel, SUTRA_MODELS, OTHER_MODELS } from './service/SutraModels';
-import { agentInfoAtom, sutraModelAtom, otherModelAtom, userInputAtom } from './state/atoms';
+import { agentInfoAtom, sutraModelAtom, otherModelAtom, userInputAtom, sutraMsecAtom, otherMsecAtom } from './state/atoms';
 
 const App = () => {
   const [sutraModel, setSutraModel] = useAtom(sutraModelAtom);
   const [otherModel, setOtherModel] = useAtom(otherModelAtom);
   const [userInput, setUserInput] = useAtom(userInputAtom);
+  const [sutraMsec] = useAtom(sutraMsecAtom);
+  const [otherMsec] = useAtom(otherMsecAtom);
   const [text, setText] = React.useState('');
   const [error] = React.useState<string | undefined>(undefined);
   const [compareDUO, setCompareDUO] = React.useState(true);
@@ -200,7 +200,7 @@ const App = () => {
               <Divider />
               <CardFooter>
                 <div>
-                  TOKENS <Chip color='primary'>332</Chip> | TEMPERATURE:<Chip>0.7</Chip> | MAX TOKENS:<Chip color='success'>22k</Chip>
+                  TOKENS <Chip color='primary'>{sutraMsec}</Chip> | TEMPERATURE:<Chip>0.7</Chip> | MAX TOKENS:<Chip color='success'>22k</Chip>
                 </div>
               </CardFooter>
             </Card>
@@ -222,7 +222,7 @@ const App = () => {
                 <Divider />
                 <CardFooter>
                 <div>
-                  TOKENS <Chip color='primary'>332</Chip> | TEMPERATURE:<Chip>0.7</Chip> | MAX TOKENS:<Chip color='success'>22k</Chip>
+                  TOKENS <Chip color='primary'>{otherMsec}</Chip> | TEMPERATURE:<Chip>0.7</Chip> | MAX TOKENS:<Chip color='success'>22k</Chip>
                 </div>
                 </CardFooter>
               </Card>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHookstate } from '@hookstate/core';
 import { useAtom, PrimitiveAtom } from 'jotai';
+import { sutraMsecAtom,otherMsecAtom } from '../state/atoms';
 
 import { LLMChunk, LLMReply, MultilingualUserInput } from '@two-platforms/ion-multilingual-types';
 
@@ -15,6 +16,8 @@ export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; userIn
   const answer = useHookstate('');
   const [, setLoading] = React.useState(false);
   const [, setAnswer] = React.useState('');
+  const [, setSutraMsec] = useAtom(sutraMsecAtom);
+  const [, setOtherMsec] = useAtom(otherMsecAtom);
 
   // from jotaiState
   const [model] = useAtom(props.modelAtom);
@@ -38,7 +41,10 @@ export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; userIn
       log.info(`${model.provider}: onLLMReply:`, v);
       if (v.isFinal) {
         setAnswer(answer.get());
+        if (model.provider === 'TWO.AI') setSutraMsec(v.llmMsec);
+        else setOtherMsec(v.llmMsec);
         setLoading(false);
+        
       }
     },
     onError: (v: string) => {
