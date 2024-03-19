@@ -1,13 +1,16 @@
-import * as React from "react";
-import axios from "axios";
+import * as React from 'react';
+import axios from 'axios';
+
+import { K } from '../utils/K';
+import { log } from '../utils/log';
 
 export default function Ping()  {
     const [ping, setPing] = React.useState(null)  
   
     React.useEffect(() => {
-      axios.get("https://orbyt-server-kovceexzdq-du.a.run.app/ping").then((response) => {
+      axios.get(`${K.SUTRA_SERVICE.replace('sutra', 'ping')}`).then((response) => {
         setPing(response.data);
-        console.log({ping});
+        log.debug({ping});
       });
     }, []);
   
@@ -15,7 +18,7 @@ export default function Ping()  {
   
     return (
       <>
-        {ping['awsRegion']}
+        {ping['httpCode']}
       </>
     );
   }

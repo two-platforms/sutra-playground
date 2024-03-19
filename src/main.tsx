@@ -7,7 +7,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import { Analytics } from '@vercel/analytics/react';
 // import { SpeedInsights } from '@vercel/speed-insights/next';
 
-document.addEventListener("DOMContentLoaded", (event) => {
+document.addEventListener("DOMContentLoaded", (_event) => {
   // we can move only if we are not in a browser's tab
   const isBrowser = matchMedia("(display-mode: browser)").matches;
   if (!isBrowser) {
