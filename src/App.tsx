@@ -14,6 +14,9 @@ import {
   CardFooter,
   Link,
   CardHeader,
+  Button,
+  Badge,
+  Chip,
 } from '@nextui-org/react';
 
 import './styles/chatui.css';
@@ -81,17 +84,16 @@ const App = () => {
         {/* MAIN PANEL */}
         {/* <div className="flex flex-col"> */}
         <BG />
-                {/* MENU  */}
-                <div className="sticky top-0 flex h-screen w-72 flex-col gap-4 p-4">
-               
-
+        {/* MENU  */}
+        <div className="sticky top-0 flex h-screen w-72 flex-col gap-4 p-4">
           {/* SELECTS */}
           <>
             {/* Sutra model selection */}
             <Select
               aria-label="Select Sutra Model"
               placeholder="Select Sutra Model"
-              labelPlacement="outside"
+              labelPlacement="inside"
+              label="Select Sutra Model"
               selectedKeys={[sutraModel.modelId]}
               classNames={{
                 base: 'max-w-xs',
@@ -123,7 +125,8 @@ const App = () => {
               <Select
                 aria-label="Select Other Model"
                 placeholder="Select Other Model"
-                // labelPlacement="outside"
+                labelPlacement="inside"
+                label="Select Other Model"
                 selectedKeys={[otherModel.modelId]}
                 classNames={{
                   base: 'max-w-xs',
@@ -153,7 +156,6 @@ const App = () => {
           </>
 
           {/* SWITCHES */}
-          <Divider />
           <>
             <Switch isSelected={compareDUO} size="sm" onChange={() => setCompareDUO(!compareDUO)}>
               Compare Mode
@@ -161,15 +163,21 @@ const App = () => {
           </>
 
           <Divider />
-          <div className="absolute bottom-4 left-4 flex flex-col gap-1 items-start font-mono text-sm">
-          <Image className='h-8' src='sutra.svg'/>
-            <div className='font-bold'>PLAYGROUND {packageJson.version}</div>
-            <Divider />
+          <div className="absolute bottom-4 left-4 flex flex-col items-start gap-0 font-mono text-sm">
+            <Image className="h-8" src="sutra.svg" />
+            <div className="font-bold">PLAYGROUND {packageJson.version}</div>
+            <Divider className="my-2" />
             <div>
               {agentInfoAtom.os.name.toUpperCase()} | {agentInfoAtom.browser.name.toUpperCase()}
             </div>
-            <div><Location/></div>
-            <div><IPv4 /></div>
+            <div>
+              <Location />
+            </div>
+            <div>
+              <IPv4 />
+            </div>
+            <Divider className="my-2" />
+            <Link isExternal showAnchorIcon size='sm' href="https://docs.two.ai">SUTRA API</Link>
           </div>
         </div>
         {/* 100vh */}
@@ -186,14 +194,14 @@ const App = () => {
               </CardHeader>
               <Divider />
               <CardBody>
-              <p className="py-5 text-xl font-semibold">{userInput}</p>
+                <p className="py-5 text-xl font-semibold">{userInput}</p>
                 <OutputView modelAtom={sutraModelAtom} userInput={userInput} />
               </CardBody>
               <Divider />
               <CardFooter>
-                <Link isExternal showAnchorIcon href="https://github.com/nextui-org/nextui">
-                  TOKENS:343
-                </Link>
+                <div>
+                  TOKENS <Chip color='primary'>332</Chip> | TEMPERATURE:<Chip>0.7</Chip> | MAX TOKENS:<Chip color='success'>22k</Chip>
+                </div>
               </CardFooter>
             </Card>
 
@@ -213,9 +221,9 @@ const App = () => {
                 </CardBody>
                 <Divider />
                 <CardFooter>
-                  <Link isExternal showAnchorIcon href="https://github.com/nextui-org/nextui">
-                    Visit source code on GitHub.
-                  </Link>
+                <div>
+                  TOKENS <Chip color='primary'>332</Chip> | TEMPERATURE:<Chip>0.7</Chip> | MAX TOKENS:<Chip color='success'>22k</Chip>
+                </div>
                 </CardFooter>
               </Card>
             )}
@@ -233,7 +241,7 @@ const App = () => {
           <Input
             isClearable
             variant="faded"
-            placeholder="Write your message"
+            placeholder="Ask Anything..."
             fullWidth
             size="lg"
             className="flex"
