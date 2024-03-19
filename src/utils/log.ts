@@ -1,4 +1,4 @@
-import { K, DEBUG_LEVEL, INFO_LEVEL, WARN_LEVEL, ERROR_LEVEL, FATAL_LEVEL } from "./K";
+import { K, DEBUG_LEVEL, INFO_LEVEL, WARN_LEVEL, ERROR_LEVEL, FATAL_LEVEL } from './K';
 
 export const log = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
