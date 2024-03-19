@@ -1,9 +1,10 @@
 import { MultilingualUserInput } from '@two-platforms/ion-multilingual-types';
 
-export const DEFAULT_TEMPERATURE = 0.7;
+export const DEFAULT_TEMPERATURE = 0.3;
 export const DEFAULT_MAXTOKENS = 1024;
 
 export interface SutraModel {
+    displayName: string;
     modelId: string;
     provider: string;
     iconUrl: string;
@@ -13,14 +14,16 @@ export interface SutraModel {
 
 export const SUTRA_MODELS: SutraModel[] = [
     {
-        modelId: 'SUTRA-50B-ONLINE',
+        displayName: 'SUTRA LARGE',
+        modelId: 'sutra-50B-multilingual',
         provider: 'TWO.AI',
         iconUrl: 'two.png',
         temperature: DEFAULT_TEMPERATURE,
         maxTokens: DEFAULT_MAXTOKENS,
     },
     {
-        modelId: 'SUTRA-9B-ONLINE',
+        displayName: 'SUTRA SMALL',
+        modelId: 'sutra-9B-multilingual',
         provider: 'TWO.AI',
         iconUrl: 'genie.png',
         temperature: DEFAULT_TEMPERATURE,
@@ -30,6 +33,7 @@ export const SUTRA_MODELS: SutraModel[] = [
 
 export const OTHER_MODELS: SutraModel[] = [
     {
+        displayName: 'OTHER1',
         modelId: 'GPT4',
         provider: 'OpenAI',
         iconUrl: 'openai.png',
@@ -37,6 +41,7 @@ export const OTHER_MODELS: SutraModel[] = [
         maxTokens: DEFAULT_MAXTOKENS,
     },
     {
+        displayName: 'OTHER2',
         modelId: 'GPT3.5',
         provider: 'OpenAI',
         iconUrl: 'openai.png',
@@ -44,6 +49,7 @@ export const OTHER_MODELS: SutraModel[] = [
         maxTokens: DEFAULT_MAXTOKENS,
     },
     {
+        displayName: 'OTHER3',
         modelId: 'Mixtral13B',
         provider: 'Mistral',
         iconUrl: 'mistral.png',
@@ -51,6 +57,7 @@ export const OTHER_MODELS: SutraModel[] = [
         maxTokens: DEFAULT_MAXTOKENS,
     },
     {
+        displayName: 'OTHER4',
         modelId: 'HyperClovaX',
         provider: 'Naver',
         iconUrl: 'naver.png',
@@ -59,6 +66,7 @@ export const OTHER_MODELS: SutraModel[] = [
 
     },
     {
+        displayName: 'OTHER5',
         modelId: 'Perplexity',
         provider: 'Perplexity',
         iconUrl: 'perplexity.png',
@@ -69,6 +77,5 @@ export const OTHER_MODELS: SutraModel[] = [
 
 export function buildCompletionRequest(prompt: string, model: SutraModel): MultilingualUserInput {
     const { modelId, temperature, maxTokens } = model;
-    // @ts-expect-error - maxTokens will be number in ion-multilingual-types update
     return { prompt, modelId, temperature, maxTokens };
 }

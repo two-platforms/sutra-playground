@@ -118,7 +118,7 @@ const App = () => {
               placeholder="Select Sutra Model"
               labelPlacement="inside"
               label="Select Sutra Model"
-              selectedKeys={[sutraModel.modelId]}
+              selectedKeys={[sutraModel.displayName]}
               classNames={{
                 base: 'max-w-xs',
                 trigger: 'h-12',
@@ -127,17 +127,17 @@ const App = () => {
                 return (
                   <div className="flex items-center gap-2">
                     <div className="flex flex-col">
-                      <span className="text-small">{sutraModel.modelId}</span>
+                      <span className="text-small">{sutraModel.displayName}</span>
                     </div>
                   </div>
                 );
               }}
             >
               {SUTRA_MODELS.map((m) => (
-                <SelectItem key={m.modelId} textValue={m.modelId} onClick={() => changeSutra(m)}>
+                <SelectItem key={m.displayName} textValue={m.displayName} onClick={() => changeSutra(m)}>
                   <div className="flex items-center gap-2">
                     <div className="flex flex-col">
-                      <span className="text-small">{m.modelId}</span>
+                      <span className="text-small">{m.displayName}</span>
                     </div>
                   </div>
                 </SelectItem>
@@ -151,7 +151,7 @@ const App = () => {
                 placeholder="Select Other Model"
                 labelPlacement="inside"
                 label="Select Other Model"
-                selectedKeys={[otherModel.modelId]}
+                selectedKeys={[otherModel.displayName]}
                 classNames={{
                   base: 'max-w-xs',
                   trigger: 'h-12',
@@ -160,17 +160,17 @@ const App = () => {
                   return (
                     <div className="flex items-center gap-2">
                       <div className="flex flex-col">
-                        <span className="text-small">{otherModel.modelId}</span>
+                        <span className="text-small">{otherModel.displayName}</span>
                       </div>
                     </div>
                   );
                 }}
               >
                 {OTHER_MODELS.map((m) => (
-                  <SelectItem key={m.modelId} textValue={m.modelId} onClick={() => changeOther(m)}>
+                  <SelectItem key={m.displayName} textValue={m.displayName} onClick={() => changeOther(m)}>
                     <div className="flex items-center gap-2">
                       <div className="flex flex-col">
-                        <span className="text-small">{m.modelId}</span>
+                        <span className="text-small">{m.displayName}</span>
                       </div>
                     </div>
                   </SelectItem>
@@ -214,7 +214,7 @@ const App = () => {
               <CardHeader className="flex gap-3">
                 <Image alt="sutra" height={40} radius="sm" src={sutraModel.iconUrl} width={40} />
                 <div className="flex flex-col">
-                  <p className="text-md">{sutraModel.modelId}</p>
+                  <p className="text-md">{sutraModel.displayName}</p>
                   <p className="text-small text-default-500">{sutraModel.provider}</p>
                 </div>
               </CardHeader>
@@ -238,7 +238,7 @@ const App = () => {
                 <CardHeader className="flex gap-3">
                   <Image alt="nextui logo" height={40} radius="sm" src={otherModel.iconUrl} width={40} />
                   <div className="flex flex-col">
-                    <p className="text-md">{otherModel.modelId}</p>
+                    <p className="text-md">{otherModel.displayName}</p>
                     <p className="text-small text-default-500">{otherModel.provider}</p>
                   </div>
                 </CardHeader>
