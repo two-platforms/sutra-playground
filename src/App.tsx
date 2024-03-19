@@ -107,20 +107,20 @@ const App = () => {
   const sutraCallbacks: SutraCallbacks = {
     onLLMChunk: (v: LLMChunk) => {
       //answer.set((current) => current + v.content);
-      log.info("onLLMChunk:", v.content);
+      log.info("Sutra: onLLMChunk:", v.content);
       if (v.isFinal) setSutraInFlight(false);
     },
     onLLMReply: (v: LLMReply) => {
       //setllmMsec(v.llmMsec);
       //setQuerySuccess(v.success);
-      log.info("onLLMReply:", v);
+      log.info("Sutra: onLLMReply:", v);
       if (v.isFinal) {
         //setAnswer(answer.get());
         setSutraInFlight(false);
       }
     },
     onError: (v: string) => {
-      log.error("onError:", v);
+      log.error("Sutra: onError:", v);
       setSutraInFlight(false);
     },
   };
@@ -129,20 +129,20 @@ const App = () => {
     const otherCallbacks: SutraCallbacks = {
       onLLMChunk: (v: LLMChunk) => {
         //answer.set((current) => current + v.content);
-        log.info("onLLMChunk:", v.content);
+        log.info("Other: onLLMChunk:", v.content);
         if (v.isFinal) setOtherInFlight(false);
       },
       onLLMReply: (v: LLMReply) => {
         //setllmMsec(v.llmMsec);
         //setQuerySuccess(v.success);
-        log.info("onLLMReply:", v);
+        log.info("Other: onLLMReply:", v);
         if (v.isFinal) {
           //setAnswer(answer.get());
           setOtherInFlight(false);
         }
       },
       onError: (v: string) => {
-        log.error("onError:", v);
+        log.error("Other: onError:", v);
         setOtherInFlight(false);
       },
     };
