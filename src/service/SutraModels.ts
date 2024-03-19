@@ -3,14 +3,15 @@ export interface SutraModel {
     provider: string;
     maxTokens?: string;
     temperature?: number;
+    iconUrl?: string;
 }
 
 export const SUTRA_MODELS: SutraModel[] = [
-    { modelId: "sutra-50B-online", provider: "Sutra" },
-    { modelId: "sutra-9B-online", provider: "Sutra" },
+    { modelId: "SUTRA-50B-ONLINE", provider: "TWO.AI", iconUrl: "genie.png" },
+    { modelId: "SUTRA-9B-ONLINE", provider: "TWO.AI", iconUrl: "genie.png" },
 ];
 
 export const OTHER_MODELS: SutraModel[] = [
-    { modelId: "GPT4", provider: "OpenAI" },
-    { modelId: "GPT3.5", provider: "OpenAI" },
+    { modelId: "GPT4", provider: "OpenAI", iconUrl: "openai.png"},
+    { modelId: "GPT3.5", provider: "OpenAI", iconUrl: "openai.png" },
 ];

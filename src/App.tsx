@@ -98,12 +98,12 @@ const App = () => {
                   alt="nextui logo"
                   height={40}
                   radius="sm"
-                  src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
+                  src={sutraModel.iconUrl}
                   width={40}
                 />
                 <div className="flex flex-col">
-                  <p className="text-md">SUTRA</p>
-                  <p className="text-small text-default-500">{packageJson.version}</p>
+                  <p className="text-md">{sutraModel.modelId}</p>
+                  <p className="text-small text-default-500">{sutraModel.provider}</p>
                 </div>
               </CardHeader>
               <Divider />
@@ -125,12 +125,12 @@ const App = () => {
                     alt="nextui logo"
                     height={40}
                     radius="sm"
-                    src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
+                    src={otherModel.iconUrl}
                     width={40}
                   />
                   <div className="flex flex-col">
-                    <p className="text-md">SUTRA</p>
-                    <p className="text-small text-default-500">{packageJson.version}</p>
+                    <p className="text-md">{otherModel.modelId}</p>
+                    <p className="text-small text-default-500">{otherModel.provider}</p>
                   </div>
                 </CardHeader>
                 <Divider />
