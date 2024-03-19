@@ -24,14 +24,13 @@ import { IPv4, Location } from './components/GeoInfo';
 // const darkMode = useDarkMode(true);
 
 import { SutraModel, SUTRA_MODELS, OTHER_MODELS } from './service/SutraModels';
-import { agentInfoAtom, sutraModelAtom, otherModelAtom } from './state/atoms';
+import { agentInfoAtom, sutraModelAtom, otherModelAtom, userInputAtom } from './state/atoms';
 
 const App = () => {
   const [sutraModel, setSutraModel] = useAtom(sutraModelAtom);
   const [otherModel, setOtherModel] = useAtom(otherModelAtom);
-
+  const [userInput, setUserInput] = useAtom(userInputAtom);
   const [text, setText] = React.useState('');
-  const [userInput, setUserInput] = React.useState('');
   const [error] = React.useState<string | undefined>(undefined);
   const [compareDUO, setCompareDUO] = React.useState(true);
 
@@ -71,8 +70,8 @@ const App = () => {
     if (ev && ev.code !== 'Enter') return;
     if (text.length === 0) return;
     console.log('setting userInput', text);
-
     setUserInput(text);
+    setText('');
   };
 
   return (
@@ -82,96 +81,10 @@ const App = () => {
         {/* MAIN PANEL */}
         {/* <div className="flex flex-col"> */}
         <BG />
-        {/* 100vh */}
-        <div className="z-10 flex h-screen max-h-screen w-full flex-col gap-3 p-4">
-          {/* CHAT */}
-          <div className="flex h-64 flex-1 flex-row justify-between gap-3">
-            <Card className="w-full">
-              <CardHeader className="flex gap-3">
-                <Image
-                  alt="nextui logo"
-                  height={40}
-                  radius="sm"
-                  src={sutraModel.iconUrl}
-                  width={40}
-                />
-                <div className="flex flex-col">
-                  <p className="text-md">{sutraModel.modelId}</p>
-                  <p className="text-small text-default-500">{sutraModel.provider}</p>
-                </div>
-              </CardHeader>
-              <Divider />
-              <CardBody>
-                <OutputView modelAtom={sutraModelAtom} userInput={userInput} />
-              </CardBody>
-              <Divider />
-              <CardFooter>
-                <Link isExternal showAnchorIcon href="https://github.com/nextui-org/nextui">
-                  TOKENS:343
-                </Link>
-              </CardFooter>
-            </Card>
+                {/* MENU  */}
+                <div className="sticky top-0 flex h-screen w-72 flex-col gap-4 p-4">
+               
 
-            {compareDUO && (
-              <Card className="w-full">
-                <CardHeader className="flex gap-3">
-                  <Image
-                    alt="nextui logo"
-                    height={40}
-                    radius="sm"
-                    src={otherModel.iconUrl}
-                    width={40}
-                  />
-                  <div className="flex flex-col">
-                    <p className="text-md">{otherModel.modelId}</p>
-                    <p className="text-small text-default-500">{otherModel.provider}</p>
-                  </div>
-                </CardHeader>
-                <Divider />
-                <CardBody>
-                  <OutputView modelAtom={otherModelAtom} userInput={userInput} />
-                </CardBody>
-                <Divider />
-                <CardFooter>
-                  <Link isExternal showAnchorIcon href="https://github.com/nextui-org/nextui">
-                    Visit source code on GitHub.
-                  </Link>
-                </CardFooter>
-              </Card>
-            )}
-          </div>
-
-          {error !== undefined && (
-            <Card className="absolute top-0 z-10 max-w-sm self-center rounded-t-none">
-              <CardBody>
-                <div>{error}</div>
-              </CardBody>
-            </Card>
-          )}
-
-          {/* INPUT */}
-          <Input
-            isClearable
-            variant="faded"
-            placeholder="Write your message"
-            fullWidth
-            size="lg"
-            className="flex"
-            defaultValue=""
-            onClear={() => {
-              console.log('input cleared');
-              setText('');
-            }}
-            onChange={handleNewText}
-            onKeyUp={issueNewText}
-            value={text}
-            autoFocus={true}
-          />
-        </div>
-
-        {/* MENU  */}
-
-        <div className="sticky top-0 flex h-screen w-72 flex-col gap-4 p-4">
           {/* SELECTS */}
           <>
             {/* Sutra model selection */}
@@ -243,23 +156,97 @@ const App = () => {
           <Divider />
           <>
             <Switch isSelected={compareDUO} size="sm" onChange={() => setCompareDUO(!compareDUO)}>
-              DUO Mode
+              Compare Mode
             </Switch>
           </>
 
           <Divider />
-          <div className="absolute bottom-4 right-4 flex flex-col items-end font-mono text-xs">
-            <div>GENIE {packageJson.version}</div>
+          <div className="absolute bottom-4 left-4 flex flex-col gap-1 items-start font-mono text-sm">
+          <Image className='h-8' src='sutra.svg'/>
+            <div className='font-bold'>PLAYGROUND {packageJson.version}</div>
+            <Divider />
             <div>
               {agentInfoAtom.os.name.toUpperCase()} | {agentInfoAtom.browser.name.toUpperCase()}
             </div>
-            {/* <div>
-              SERVER: <Ping />
-            </div> */}
-            <div>
-              <Location /> | <IPv4 />
-            </div>
+            <div><Location/></div>
+            <div><IPv4 /></div>
           </div>
+        </div>
+        {/* 100vh */}
+        <div className="z-10 flex h-screen max-h-screen w-full flex-col gap-3 p-4">
+          {/* CHAT */}
+          <div className="flex h-64 flex-1 flex-row justify-between gap-3">
+            <Card className="w-full">
+              <CardHeader className="flex gap-3">
+                <Image alt="nextui logo" height={40} radius="sm" src={sutraModel.iconUrl} width={40} />
+                <div className="flex flex-col">
+                  <p className="text-md">{sutraModel.modelId}</p>
+                  <p className="text-small text-default-500">{sutraModel.provider}</p>
+                </div>
+              </CardHeader>
+              <Divider />
+              <CardBody>
+              <p className="py-5 text-xl font-semibold">{userInput}</p>
+                <OutputView modelAtom={sutraModelAtom} userInput={userInput} />
+              </CardBody>
+              <Divider />
+              <CardFooter>
+                <Link isExternal showAnchorIcon href="https://github.com/nextui-org/nextui">
+                  TOKENS:343
+                </Link>
+              </CardFooter>
+            </Card>
+
+            {compareDUO && (
+              <Card className="w-full">
+                <CardHeader className="flex gap-3">
+                  <Image alt="nextui logo" height={40} radius="sm" src={otherModel.iconUrl} width={40} />
+                  <div className="flex flex-col">
+                    <p className="text-md">{otherModel.modelId}</p>
+                    <p className="text-small text-default-500">{otherModel.provider}</p>
+                  </div>
+                </CardHeader>
+                <Divider />
+                <CardBody>
+                  <p className="py-5 text-xl font-semibold">{userInput}</p>
+                  <OutputView modelAtom={otherModelAtom} userInput={userInput} />
+                </CardBody>
+                <Divider />
+                <CardFooter>
+                  <Link isExternal showAnchorIcon href="https://github.com/nextui-org/nextui">
+                    Visit source code on GitHub.
+                  </Link>
+                </CardFooter>
+              </Card>
+            )}
+          </div>
+
+          {error !== undefined && (
+            <Card className="absolute top-0 z-10 max-w-sm self-center rounded-t-none">
+              <CardBody>
+                <div>{error}</div>
+              </CardBody>
+            </Card>
+          )}
+
+          {/* INPUT */}
+          <Input
+            isClearable
+            variant="faded"
+            placeholder="Write your message"
+            fullWidth
+            size="lg"
+            className="flex"
+            defaultValue=""
+            onClear={() => {
+              console.log('input cleared');
+              setText('');
+            }}
+            onChange={handleNewText}
+            onKeyUp={issueNewText}
+            value={text}
+            autoFocus={true}
+          />
         </div>
       </div>
       {/* </main> */}
