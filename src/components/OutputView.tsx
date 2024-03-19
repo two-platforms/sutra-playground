@@ -11,7 +11,7 @@ import { log } from '../utils/log';
 
 export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; llmMsecAtom: PrimitiveAtom<number>, userInput: string }) {
   const answer = useHookstate('');
-  const [, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [, setAnswer] = React.useState('');
 
   // from jotaiState
@@ -55,7 +55,7 @@ export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; llmMse
   return (
     <React.Fragment>
       <>
-        <AnswerMain answer={answer} />
+        <AnswerMain answer={answer} loading={loading} />
       </>
     </React.Fragment>
   );
