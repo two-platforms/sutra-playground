@@ -8,10 +8,11 @@ import { AnswerView } from './AnswerView';
 import { Sutra, SutraCallbacks } from '../service/SutraClient';
 import { SutraModel, SutraStats, buildCompletionRequest } from '../service/SutraModels';
 import { log } from '../utils/log';
+import { sutraLoadingAtom, sutraStatsAtom } from '../state/atoms';
 
 export function OutputViewSutra(props: { modelAtom: PrimitiveAtom<SutraModel>; statsAtom: PrimitiveAtom<SutraStats>, userInput: string }) {
   const answer = useHookstate('');
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useAtom(sutraLoadingAtom);  
   const [, setAnswer] = React.useState('');
 
   // from jotaiState
