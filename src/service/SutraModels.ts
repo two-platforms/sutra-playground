@@ -14,6 +14,7 @@ export const SUTRA_MODELS: SutraModel[] = [
 export const OTHER_MODELS: SutraModel[] = [
     { modelId: "GPT4", provider: "OpenAI", iconUrl: "openai.png"},
     { modelId: "GPT3.5", provider: "OpenAI", iconUrl: "openai.png" },
-    { modelId: "Mixtral13B", provider: "Mistral", iconUrl: "openai.png" },
-    { modelId: "HyperClovaX", provider: "Naver", iconUrl: "openai.png" },
+    { modelId: "Mixtral13B", provider: "Mistral", iconUrl: "mistral.png" },
+    { modelId: "HyperClovaX", provider: "Naver", iconUrl: "naver.png" },
+    { modelId: "Perplexity", provider: "Perplexity", iconUrl: "perplexity.png"}
 ];
