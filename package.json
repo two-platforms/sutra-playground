@@ -1,9 +1,10 @@
 {
   "name": "sutra-playground",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "lab2": "vite --host",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
@@ -15,6 +16,7 @@
     "@nextui-org/react": "^2.2.10",
     "@two-platforms/ionchat": "8.1.15",
     "@two-platforms/orbyt": "6.2.0",
+    "@two-platforms/ion-multilingual-types": "1.0.0",
     "@vercel/analytics": "^1.2.2",
     "axios": "^1.6.8",
     "framer-motion": "^11.0.14",
