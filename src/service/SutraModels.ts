@@ -36,7 +36,7 @@ export function initStats(): SutraStats {
 
 export const SUTRA_MODELS: SutraModel[] = [
     {
-        displayName: 'SUTRA LARGE',
+        displayName: 'SUTRA-50B-MULTILINGUAL',
         modelId: 'sutra-50B-multilingual',
         provider: 'TWO.AI',
         iconUrl: 'two.png',
@@ -44,7 +44,7 @@ export const SUTRA_MODELS: SutraModel[] = [
         maxTokens: DEFAULT_MAXTOKENS,
     },
     {
-        displayName: 'SUTRA SMALL',
+        displayName: 'SUTRA-9B-MULTILINGUAL',
         modelId: 'sutra-9B-multilingual',
         provider: 'TWO.AI',
         iconUrl: 'genie.png',
@@ -55,7 +55,7 @@ export const SUTRA_MODELS: SutraModel[] = [
 
 export const OTHER_MODELS: SutraModel[] = [
     {
-        displayName: 'OTHER1',
+        displayName: 'GPT-4',
         modelId: 'GPT4',
         provider: 'OpenAI',
         iconUrl: 'openai.png',
@@ -63,7 +63,7 @@ export const OTHER_MODELS: SutraModel[] = [
         maxTokens: DEFAULT_MAXTOKENS,
     },
     {
-        displayName: 'OTHER2',
+        displayName: 'GPT-3.5',
         modelId: 'GPT3.5',
         provider: 'OpenAI',
         iconUrl: 'openai.png',
@@ -71,7 +71,7 @@ export const OTHER_MODELS: SutraModel[] = [
         maxTokens: DEFAULT_MAXTOKENS,
     },
     {
-        displayName: 'OTHER3',
+        displayName: 'MIXTRAL-13B',
         modelId: 'Mixtral13B',
         provider: 'Mistral',
         iconUrl: 'mistral.png',
@@ -79,7 +79,7 @@ export const OTHER_MODELS: SutraModel[] = [
         maxTokens: DEFAULT_MAXTOKENS,
     },
     {
-        displayName: 'OTHER4',
+        displayName: 'HYPER-CLOVA-X',
         modelId: 'HyperClovaX',
         provider: 'Naver',
         iconUrl: 'naver.png',
@@ -88,7 +88,7 @@ export const OTHER_MODELS: SutraModel[] = [
 
     },
     {
-        displayName: 'OTHER5',
+        displayName: 'PERPLEXITY-ONLINE',
         modelId: 'Perplexity',
         provider: 'Perplexity',
         iconUrl: 'perplexity.png',
