@@ -5,23 +5,25 @@ import { useAtom, PrimitiveAtom } from "jotai";
 import { LLMChunk, LLMReply, MultilingualUserInput } from "@two-platforms/ion-multilingual-types";
 
 import { AnswerMain } from "./AnswerMain";
-import { userInputAtom } from "../state/atoms";
 import { Sutra, SutraCallbacks } from "../service/SutraClient";
 import { SutraModel } from "../service/SutraModels";
 import { log } from "../utils/log";
 
-export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel> }) {
+export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>, userInput: string }) {
   const answer = useHookstate("");
   const [, setLoading] = React.useState(false);
   const [, setAnswer] = React.useState("");
 
   // from jotaiState
-  const [userInput, setUserInput] = useAtom(userInputAtom);
   const [model] = useAtom(props.modelAtom);
 
+  console.log('OutputView', props.userInput)
+
   React.useEffect(() => {
-    sendToSutra(userInput);
-  }, [userInput]);
+    console.log('useEffect', props.userInput)
+    if(props.userInput.length === 0) return;
+    sendToSutra(props.userInput);
+  }, [props.userInput]);
 
   // callbacks for streaming mode
   const sutraCallbacks: SutraCallbacks = {
@@ -45,8 +47,6 @@ export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel> }) {
   };
 
   const sendToSutra = async (newText: string) => {
-    setUserInput("");
-
     const request: MultilingualUserInput = {
       ...model,
       prompt: newText,

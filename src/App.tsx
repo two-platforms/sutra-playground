@@ -13,14 +13,14 @@ import { IPv4, Location } from "./components/GeoInfo";
 // const darkMode = useDarkMode(true);
 
 import { SutraModel, SUTRA_MODELS, OTHER_MODELS } from "./service/SutraModels";
-import { agentInfoAtom, sutraModelAtom, otherModelAtom, userInputAtom } from "./state/atoms";
+import { agentInfoAtom, sutraModelAtom, otherModelAtom } from "./state/atoms";
 
 const App = () => {
   const [sutraModel, setSutraModel] = useAtom(sutraModelAtom);
   const [otherModel, setOtherModel] = useAtom(otherModelAtom);
-  const [userInput, setUserInput] = useAtom(userInputAtom);
 
   const [text, setText] = React.useState("");
+  const [userInput, setUserInput] = React.useState("");
   const [error] = React.useState<string | undefined>(undefined);
   const [compareDUO, setCompareDUO] = React.useState(true);
 
@@ -65,6 +65,7 @@ const App = () => {
   const issueNewText = (ev: any) => {
     if (ev && ev.code !== "Enter") return;
     if (text.length === 0) return;
+    console.log('setting userInput', text)
 
     setUserInput(text);
   };
@@ -88,8 +89,8 @@ const App = () => {
                      <img src="genie_logo.svg" className=" h-10" />
                   </ConversationHeader.Actions>
                 </ConversationHeader>
-                <OutputView modelAtom={sutraModelAtom} />
               </ChatContainer>
+              <OutputView modelAtom={sutraModelAtom} userInput={userInput} />
             </MainContainer>
 
             {compareDUO && (
@@ -101,9 +102,10 @@ const App = () => {
                       <img src="genie_logo.svg" className=" h-10" />
                     </ConversationHeader.Actions>
                   </ConversationHeader>
-                  <OutputView modelAtom={otherModelAtom} />
                 </ChatContainer>
+                <OutputView modelAtom={otherModelAtom} userInput={userInput} />
               </MainContainer>
+
             )}
           </div>
 
@@ -130,7 +132,7 @@ const App = () => {
             }}
             onChange={handleNewText}
             onKeyUp={issueNewText}
-            value={userInput}
+            value={text}
             autoFocus={true}
           />
         </div>

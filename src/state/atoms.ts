@@ -8,6 +8,5 @@ const agentInfoAtom = atom(getAgent()).init;
 const darkModeAtom = atomWithStorage("darkMode", false);
 const sutraModelAtom = atom<SutraModel>(SUTRA_MODELS[0]);
 const otherModelAtom = atom<SutraModel>(OTHER_MODELS[0]);
-const userInputAtom = atom("");
 
-export { agentInfoAtom, darkModeAtom, sutraModelAtom, otherModelAtom, userInputAtom };
+export { agentInfoAtom, darkModeAtom, sutraModelAtom, otherModelAtom };
