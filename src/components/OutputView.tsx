@@ -4,19 +4,22 @@ import { useAtom, PrimitiveAtom } from 'jotai';
 
 import { LLMChunk, LLMReply } from '@two-platforms/ion-multilingual-types';
 
-import { AnswerMain } from './AnswerMain';
+import { AnswerView } from './AnswerView';
 import { Sutra, SutraCallbacks } from '../service/SutraClient';
-import { SutraModel, buildCompletionRequest } from '../service/SutraModels';
+import { SutraModel, SutraStats, buildCompletionRequest } from '../service/SutraModels';
 import { log } from '../utils/log';
 
-export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; llmMsecAtom: PrimitiveAtom<number>, userInput: string }) {
+export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; statsAtom: PrimitiveAtom<SutraStats>, userInput: string }) {
   const answer = useHookstate('');
   const [loading, setLoading] = React.useState(false);
   const [, setAnswer] = React.useState('');
 
   // from jotaiState
   const [model] = useAtom(props.modelAtom);
-  const [, setllmMsec] = useAtom(props.llmMsecAtom);
+  const [stats, setStats] = useAtom(props.statsAtom);
+
+  let timerStart = 0;
+  let haveFirstToken = false;
 
   // console.log('OutputView', props.userInput);
   React.useEffect(() => {
@@ -28,13 +31,23 @@ export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; llmMse
   // callbacks for streaming mode
   const sutraCallbacks: SutraCallbacks = {
     onLLMChunk: (v: LLMChunk) => {
+      if(!haveFirstToken) {
+        haveFirstToken = true;
+        const ttft = Date.now() - timerStart;
+        const newStats = {...stats, ttftClient: ttft};
+        setStats(newStats);
+      }
       answer.set((current) => current + v.content);
       log.info(`${model.provider}: onLLMChunk:`, v.content);
       if (v.isFinal) setLoading(false);
     },
     onLLMReply: (v: LLMReply) => {
-      setllmMsec(v.llmMsec);
+      const ttlt = Date.now() - timerStart;
+      const tps = 1000 * v.tokenCount / (ttlt - stats.ttftClient);
+      const newStats = {...stats, tokenCount: v.tokenCount, wordCount: v.wordCount, ttltClient: ttlt, tps};
+      setStats(newStats);
       log.info(`${model.provider}: onLLMReply:`, v);
+      log.info(`${model.provider}: onLLMReply:`, newStats);
       if (v.isFinal) {
         setAnswer(answer.get());
         setLoading(false);
@@ -47,6 +60,8 @@ export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; llmMse
   };
 
   const sendToSutra = async (newText: string) => {
+    timerStart = Date.now();
+    haveFirstToken = false;
     const request = buildCompletionRequest(newText, model);
     setLoading(true);
     await Sutra.postComplete(request, sutraCallbacks);
@@ -54,9 +69,7 @@ export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; llmMse
 
   return (
     <React.Fragment>
-      <>
-        <AnswerMain answer={answer} loading={loading} />
-      </>
+      <AnswerView answer={answer} loading={loading} />
     </React.Fragment>
   );
 }
