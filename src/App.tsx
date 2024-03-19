@@ -1,61 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import packageJson from "../package.json";
 import { useAtom } from "jotai";
 
-import {
-  Switch,
-  Select,
-  SelectItem,
-  Input,
-  Divider,
-  Card,
-  CardBody,
-} from "@nextui-org/react";
+import { Switch, Select, SelectItem, Input, Divider, Card, CardBody } from "@nextui-org/react";
+import { MainContainer, ChatContainer, ConversationHeader } from "@chatscope/chat-ui-kit-react";
 
-import { 
-  LLMChunk,
-  LLMReply,
-  MultilingualUserInput,
-} from '@two-platforms/ion-multilingual-types';
-
-// import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import "./styles/chatui.css";
-
-import {
-  MainContainer,
-  ChatContainer,
-  ConversationHeader,
-} from "@chatscope/chat-ui-kit-react";
+import { OutputView } from "./components/OutputView";
 import { IPv4, Location } from "./components/GeoInfo";
 // import Ping from "./components/Ping";
 
 // const darkMode = useDarkMode(true);
 
-import { Sutra, SutraCallbacks } from './service/SutraClient';
 import { SutraModel, SUTRA_MODELS, OTHER_MODELS } from "./service/SutraModels";
-
-import {
-  agentInfoAtom,
-  sutraModelAtom,
-  otherModelAtom,
-} from "./state/atoms";
-
-import { log } from './utils/log';
-
-console.log(window.location.href);
+import { agentInfoAtom, sutraModelAtom, otherModelAtom, userInputAtom } from "./state/atoms";
 
 const App = () => {
   const [sutraModel, setSutraModel] = useAtom(sutraModelAtom);
   const [otherModel, setOtherModel] = useAtom(otherModelAtom);
+  const [userInput, setUserInput] = useAtom(userInputAtom);
 
-  const [userInput, setUserInput] = useState("");
-  const [, setSutraInFlight] = useState(false);
-  const [, setOtherInFlight] = useState(false);
- 
-  const [error, setError] = useState<string | undefined>(undefined);
-  const [compareDUO, setCompareDUO] = useState(true);
+  const [text, setText] = React.useState("");
+  const [error] = React.useState<string | undefined>(undefined);
+  const [compareDUO, setCompareDUO] = React.useState(true);
 
-  const errorRef = React.useRef<string | undefined>(undefined);
+  //const errorRef = React.useRef<string | undefined>(undefined);
 
   const [time, setTime] = React.useState<Date>(new Date());
 
@@ -73,132 +42,53 @@ const App = () => {
   //   setError(errorRef.current);
   // };
 
-  const reset = (): void => {
-    // override these (handy in case we're locked)
-    setSutraInFlight(false);
-    setOtherInFlight(false);
-  };
+  // const reset = (): void => {
+  //   // override these (handy in case we're locked)
+  //   setSutraInFlight(false);
+  //   setOtherInFlight(false);
+  // };
 
   const changeSutra = (newModel: SutraModel): void => {
-    reset();
+    // reset();
     setSutraModel(newModel);
   };
 
   const changeOther = (newModel: SutraModel): void => {
-    reset();
+    // reset();
     setOtherModel(newModel);
   };
 
   const handleNewText = (ev: any): void => {
-    setUserInput(ev.target.value);
+    setText(ev.target.value);
   };
 
   const issueNewText = (ev: any) => {
     if (ev && ev.code !== "Enter") return;
-    if (userInput.length === 0) return;
+    if (text.length === 0) return;
 
-    sendToSutra(userInput);
-    if (compareDUO) {
-      sendToOther(userInput);
-    }
-  };
-
-  // callbacks for streaming mode
-  const sutraCallbacks: SutraCallbacks = {
-    onLLMChunk: (v: LLMChunk) => {
-      //answer.set((current) => current + v.content);
-      log.info("Sutra: onLLMChunk:", v.content);
-      if (v.isFinal) setSutraInFlight(false);
-    },
-    onLLMReply: (v: LLMReply) => {
-      //setllmMsec(v.llmMsec);
-      //setQuerySuccess(v.success);
-      log.info("Sutra: onLLMReply:", v);
-      if (v.isFinal) {
-        //setAnswer(answer.get());
-        setSutraInFlight(false);
-      }
-    },
-    onError: (v: string) => {
-      log.error("Sutra: onError:", v);
-      setSutraInFlight(false);
-    },
-  };
-
-    // callbacks for streaming mode
-    const otherCallbacks: SutraCallbacks = {
-      onLLMChunk: (v: LLMChunk) => {
-        //answer.set((current) => current + v.content);
-        log.info("Other: onLLMChunk:", v.content);
-        if (v.isFinal) setOtherInFlight(false);
-      },
-      onLLMReply: (v: LLMReply) => {
-        //setllmMsec(v.llmMsec);
-        //setQuerySuccess(v.success);
-        log.info("Other: onLLMReply:", v);
-        if (v.isFinal) {
-          //setAnswer(answer.get());
-          setOtherInFlight(false);
-        }
-      },
-      onError: (v: string) => {
-        log.error("Other: onError:", v);
-        setOtherInFlight(false);
-      },
-    };
-
-  const sendToSutra = async (newText: string) => {
-    errorRef.current = undefined;
-    setError(undefined);
-    setUserInput("");
-
-    const request: MultilingualUserInput = {
-      ...sutraModel,
-      prompt: newText,
-    };
-
-    setSutraInFlight(true);
-    await Sutra.postComplete(request, sutraCallbacks);
-  };
-
-  const sendToOther = async (newText: string) => {
-    errorRef.current = undefined;
-    setError(undefined);
-    setUserInput("");
-
-    const request: MultilingualUserInput = {
-      ...otherModel,
-      prompt: newText,
-    };
-
-    setSutraInFlight(true);
-    await Sutra.postComplete(request, otherCallbacks);
+    setUserInput(text);
   };
 
   return (
     <React.Fragment>
       {/* <main className="dark"> */}
-      <div className="flex flex-row w-full bg-white">
+      <div className="flex w-full flex-row bg-white">
         {/* MAIN PANEL */}
         {/* <div className="flex flex-col"> */}
         <BG />
         {/* 100vh */}
-        <div className="flex flex-col h-screen w-full max-h-screen p-4 gap-3 z-10">
+        <div className="z-10 flex h-screen max-h-screen w-full flex-col gap-3 p-4">
           {/* CHAT */}
-          <div className="flex flex-row h-64 flex-1 justify-between gap-3">
+          <div className="flex h-64 flex-1 flex-row justify-between gap-3">
             <MainContainer className="w-full rounded-xl shadow-lg" responsive>
               <ChatContainer>
                 <ConversationHeader>
-                  <ConversationHeader.Content
-                    info={<div>Sutra {packageJson.version}</div>}
-                  />
-
+                  <ConversationHeader.Content info={<div>Sutra {packageJson.version}</div>} />
                   <ConversationHeader.Actions>
-                    <div className="flex-row flex gap-2">
-                      <img src="genie_logo.svg" className=" h-10" />
-                    </div>
+                     <img src="genie_logo.svg" className=" h-10" />
                   </ConversationHeader.Actions>
                 </ConversationHeader>
+                <OutputView modelAtom={sutraModelAtom} />
               </ChatContainer>
             </MainContainer>
 
@@ -206,20 +96,19 @@ const App = () => {
               <MainContainer className="w-full rounded-xl shadow-lg" responsive>
                 <ChatContainer>
                   <ConversationHeader>
-                    <ConversationHeader.Content
-                      info={<div>Other LLMs</div>}
-                    />
+                    <ConversationHeader.Content info={<div>Other LLMs</div>} />
                     <ConversationHeader.Actions>
                       <img src="genie_logo.svg" className=" h-10" />
                     </ConversationHeader.Actions>
                   </ConversationHeader>
+                  <OutputView modelAtom={otherModelAtom} />
                 </ChatContainer>
               </MainContainer>
             )}
           </div>
 
           {error !== undefined && (
-            <Card className="absolute top-0 self-center z-10 max-w-sm rounded-t-none">
+            <Card className="absolute top-0 z-10 max-w-sm self-center rounded-t-none">
               <CardBody>
                 <div>{error}</div>
               </CardBody>
@@ -237,7 +126,7 @@ const App = () => {
             defaultValue=""
             onClear={() => {
               console.log("input cleared");
-              setUserInput("");
+              setText("");
             }}
             onChange={handleNewText}
             onKeyUp={issueNewText}
@@ -248,7 +137,7 @@ const App = () => {
 
         {/* MENU  */}
 
-        <div className="flex flex-col w-72 gap-4 h-screen sticky p-4 top-0">
+        <div className="sticky top-0 flex h-screen w-72 flex-col gap-4 p-4">
           {/* SELECTS */}
           <>
             {/* Sutra model selection */}
@@ -263,7 +152,7 @@ const App = () => {
               }}
               renderValue={() => {
                 return (
-                  <div className="flex gap-2 items-center">
+                  <div className="flex items-center gap-2">
                     <div className="flex flex-col">
                       <span className="text-small">{sutraModel.modelId}</span>
                     </div>
@@ -272,12 +161,8 @@ const App = () => {
               }}
             >
               {SUTRA_MODELS.map((m) => (
-                <SelectItem
-                  key={m.modelId}
-                  textValue={m.modelId}
-                  onClick={() => changeSutra(m)}
-                >
-                  <div className="flex gap-2 items-center">
+                <SelectItem key={m.modelId} textValue={m.modelId} onClick={() => changeSutra(m)}>
+                  <div className="flex items-center gap-2">
                     <div className="flex flex-col">
                       <span className="text-small">{m.modelId}</span>
                     </div>
@@ -299,7 +184,7 @@ const App = () => {
                 }}
                 renderValue={() => {
                   return (
-                    <div className="flex gap-2 items-center">
+                    <div className="flex items-center gap-2">
                       <div className="flex flex-col">
                         <span className="text-small">{otherModel.modelId}</span>
                       </div>
@@ -308,12 +193,8 @@ const App = () => {
                 }}
               >
                 {OTHER_MODELS.map((m) => (
-                  <SelectItem
-                    key={m.modelId}
-                    textValue={m.modelId}
-                    onClick={() => changeOther(m)}
-                  >
-                    <div className="flex gap-2 items-center">
+                  <SelectItem key={m.modelId} textValue={m.modelId} onClick={() => changeOther(m)}>
+                    <div className="flex items-center gap-2">
                       <div className="flex flex-col">
                         <span className="text-small">{m.modelId}</span>
                       </div>
@@ -327,21 +208,16 @@ const App = () => {
           {/* SWITCHES */}
           <Divider />
           <>
-            <Switch
-              isSelected={compareDUO}
-              size="sm"
-              onChange={() => setCompareDUO(!compareDUO)}
-            >
+            <Switch isSelected={compareDUO} size="sm" onChange={() => setCompareDUO(!compareDUO)}>
               DUO Mode
             </Switch>
           </>
 
           <Divider />
-          <div className="items-end font-mono flex flex-col text-xs absolute bottom-4 right-4">
+          <div className="absolute bottom-4 right-4 flex flex-col items-end font-mono text-xs">
             <div>GENIE {packageJson.version}</div>
             <div>
-              {agentInfoAtom.os.name.toUpperCase()} |{" "}
-              {agentInfoAtom.browser.name.toUpperCase()}
+              {agentInfoAtom.os.name.toUpperCase()} | {agentInfoAtom.browser.name.toUpperCase()}
             </div>
             {/* <div>
               SERVER: <Ping />
@@ -372,13 +248,13 @@ const BG = () => {
   return (
     <>
       <div className="absolute inset-0 flex items-center justify-center overflow-hidden blur-[10vw] saturate-150">
-        <div className="animate-orbit2 absolute h-1/2 w-full">
+        <div className="absolute h-1/2 w-full animate-orbit2">
           <div className="absolute left-[25%] top-[20%] w-[40%] rounded-full bg-blue-200 pb-[40%]"></div>
         </div>
-        <div className="animate-orbit3 absolute h-full w-full">
+        <div className="absolute h-full w-full animate-orbit3">
           <div className="absolute left-[30%] top-[50%] w-[30%] rounded-full bg-gray-400 pb-[30%]"></div>
         </div>
-        <div className="animate-orbit4 absolute h-full w-1/2">
+        <div className="absolute h-full w-1/2 animate-orbit4">
           <div className="absolute left-[25%] top-[25%] w-[30%] rounded-full bg-white pb-[30%]"></div>
         </div>
       </div>

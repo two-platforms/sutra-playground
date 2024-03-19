@@ -7,12 +7,14 @@
     "lab2": "vite --host",
     "dev": "vite",
     "build": "tsc && vite build",
+    "format": "prettier . --write",
     "preview": "vite preview"
   },
   "dependencies": {
     "@chatscope/chat-ui-kit-react": "^2.0.3",
     "@chatscope/chat-ui-kit-styles": "^1.4.0",
     "@egjs/agent": "^2.4.3",
+    "@hookstate/core": "^4.0.1",
     "@nextui-org/react": "^2.2.10",
     "@two-platforms/ionchat": "8.1.15",
     "@two-platforms/orbyt": "6.2.0",
@@ -32,6 +34,8 @@
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.18",
     "postcss": "^8.4.36",
+    "prettier": "3.2.2",
+    "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.4.2",
     "vite": "^5.1.6"
