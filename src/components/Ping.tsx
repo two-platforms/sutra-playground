@@ -1,14 +1,14 @@
-import * as React from "react";
-import axios from "axios";
+import * as React from 'react';
+import axios from 'axios';
 
-import { K } from "../utils/K";
-import { log } from "../utils/log";
+import { K } from '../utils/K';
+import { log } from '../utils/log';
 
 export default function Ping() {
   const [ping, setPing] = React.useState(null);
 
   React.useEffect(() => {
-    axios.get(`${K.SUTRA_SERVICE.replace("sutra", "ping")}`).then((response) => {
+    axios.get(`${K.SUTRA_SERVICE.replace('sutra', 'ping')}`).then((response) => {
       setPing(response.data);
       log.debug({ ping });
     });
@@ -16,5 +16,5 @@ export default function Ping() {
 
   if (!ping) return null;
 
-  return <>{ping["httpCode"]}</>;
+  return <>{ping['httpCode']}</>;
 }

@@ -25,14 +25,30 @@ import { IPv4, Location } from './components/GeoInfo';
 // const darkMode = useDarkMode(true);
 
 import { SutraModel, SUTRA_MODELS, OTHER_MODELS } from './service/SutraModels';
-import { agentInfoAtom, sutraModelAtom, otherModelAtom, userInputAtom, sutraMsecAtom, otherMsecAtom } from './state/atoms';
+import {
+  agentInfoAtom,
+  userInputAtom,
+  sutraModelAtom,
+  sutraTemperatureAtom,
+  sutraMaxTokensAtom,
+  sutraLlmMsecAtom,
+  otherModelAtom,
+  otherTemperatureAtom,
+  otherMaxTokensAtom,
+  otherLlmMsecAtom,
+} from './state/atoms';
 
 const App = () => {
-  const [sutraModel, setSutraModel] = useAtom(sutraModelAtom);
-  const [otherModel, setOtherModel] = useAtom(otherModelAtom);
   const [userInput, setUserInput] = useAtom(userInputAtom);
-  const [sutraMsec] = useAtom(sutraMsecAtom);
-  const [otherMsec] = useAtom(otherMsecAtom);
+  const [sutraModel, setSutraModel] = useAtom(sutraModelAtom);
+  const [sutraTemperature, setSutraTemperature] = useAtom(sutraTemperatureAtom);
+  const [sutraMaxTokens, setSutraMaxTokens] = useAtom(sutraMaxTokensAtom);
+  const [sutraLlmMsec] = useAtom(sutraLlmMsecAtom);
+  const [otherModel, setOtherModel] = useAtom(otherModelAtom);
+  const [otherTemperature, setOtherTemperature] = useAtom(otherTemperatureAtom);
+  const [otherMaxTokens, setOtherMaxTokens] = useAtom(otherMaxTokensAtom);
+  const [otherLlmMsec] = useAtom(otherLlmMsecAtom);
+
   const [text, setText] = React.useState('');
   const [error] = React.useState<string | undefined>(undefined);
   const [compareDUO, setCompareDUO] = React.useState(true);
@@ -56,19 +72,27 @@ const App = () => {
   // };
 
   const changeSutra = (newModel: SutraModel): void => {
-    // reset();
+    sutraModel.temperature = sutraTemperature;
+    sutraModel.maxTokens = sutraMaxTokens;
+    setSutraTemperature(newModel.temperature);
+    setSutraMaxTokens(newModel.maxTokens);
     setSutraModel(newModel);
   };
 
   const changeOther = (newModel: SutraModel): void => {
-    // reset();
+    otherModel.temperature = otherTemperature;
+    otherModel.maxTokens = otherMaxTokens;
+    setOtherTemperature(newModel.temperature);
+    setOtherMaxTokens(newModel.maxTokens);
     setOtherModel(newModel);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleNewText = (ev: any): void => {
     setText(ev.target.value);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const issueNewText = (ev: any) => {
     if (ev && ev.code !== 'Enter') return;
     if (text.length === 0) return;
@@ -177,7 +201,9 @@ const App = () => {
               <IPv4 />
             </div>
             <Divider className="my-2" />
-            <Link isExternal showAnchorIcon size='sm' href="https://docs.two.ai">SUTRA API</Link>
+            <Link isExternal showAnchorIcon size="sm" href="https://docs.two.ai">
+              SUTRA API
+            </Link>
           </div>
         </div>
         {/* 100vh */}
@@ -195,12 +221,14 @@ const App = () => {
               <Divider />
               <CardBody>
                 <p className="py-5 text-xl font-semibold">{userInput}</p>
-                <OutputView modelAtom={sutraModelAtom} userInput={userInput} />
+                <OutputView modelAtom={sutraModelAtom} llmMsecAtom={sutraLlmMsecAtom} userInput={userInput} />
               </CardBody>
               <Divider />
               <CardFooter>
                 <div>
-                  TOKENS <Chip color='primary'>{sutraMsec}</Chip> | TEMPERATURE:<Chip>0.7</Chip> | MAX TOKENS:<Chip color='success'>22k</Chip>
+                  LLM MSEC: <Chip color="primary">{sutraLlmMsec}</Chip> |
+                  TEMPERATURE: <Chip>{sutraTemperature}</Chip> |
+                  MAX TOKENS: <Chip color="success">{sutraMaxTokens}</Chip>
                 </div>
               </CardFooter>
             </Card>
@@ -217,13 +245,15 @@ const App = () => {
                 <Divider />
                 <CardBody>
                   <p className="py-5 text-xl font-semibold">{userInput}</p>
-                  <OutputView modelAtom={otherModelAtom} userInput={userInput} />
+                  <OutputView modelAtom={otherModelAtom} llmMsecAtom={otherLlmMsecAtom} userInput={userInput} />
                 </CardBody>
                 <Divider />
                 <CardFooter>
-                <div>
-                  TOKENS <Chip color='primary'>{otherMsec}</Chip> | TEMPERATURE:<Chip>0.7</Chip> | MAX TOKENS:<Chip color='success'>22k</Chip>
-                </div>
+                  <div>
+                    LLM MSEC: <Chip color="primary">{otherLlmMsec}</Chip> |
+                    TEMPERATURE: <Chip>{otherTemperature}</Chip> |
+                    MAX TOKENS: <Chip color="success">{otherMaxTokens}</Chip>
+                  </div>
                 </CardFooter>
               </Card>
             )}

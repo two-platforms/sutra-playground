@@ -1,28 +1,24 @@
 import React from 'react';
 import { useHookstate } from '@hookstate/core';
 import { useAtom, PrimitiveAtom } from 'jotai';
-import { sutraMsecAtom,otherMsecAtom } from '../state/atoms';
 
-import { LLMChunk, LLMReply, MultilingualUserInput } from '@two-platforms/ion-multilingual-types';
+import { LLMChunk, LLMReply } from '@two-platforms/ion-multilingual-types';
 
 import { AnswerMain } from './AnswerMain';
 import { Sutra, SutraCallbacks } from '../service/SutraClient';
-import { SutraModel } from '../service/SutraModels';
+import { SutraModel, buildCompletionRequest } from '../service/SutraModels';
 import { log } from '../utils/log';
 
-
-
-export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; userInput: string }) {
+export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; llmMsecAtom: PrimitiveAtom<number>, userInput: string }) {
   const answer = useHookstate('');
   const [, setLoading] = React.useState(false);
   const [, setAnswer] = React.useState('');
-  const [, setSutraMsec] = useAtom(sutraMsecAtom);
-  const [, setOtherMsec] = useAtom(otherMsecAtom);
 
   // from jotaiState
   const [model] = useAtom(props.modelAtom);
+  const [, setllmMsec] = useAtom(props.llmMsecAtom);
 
-  console.log('OutputView', props.userInput);
+  // console.log('OutputView', props.userInput);
   React.useEffect(() => {
     console.log('useEffect', props.userInput);
     if (props.userInput.length === 0) return;
@@ -37,14 +33,11 @@ export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; userIn
       if (v.isFinal) setLoading(false);
     },
     onLLMReply: (v: LLMReply) => {
-      //setllmMsec(v.llmMsec);
+      setllmMsec(v.llmMsec);
       log.info(`${model.provider}: onLLMReply:`, v);
       if (v.isFinal) {
         setAnswer(answer.get());
-        if (model.provider === 'TWO.AI') setSutraMsec(v.llmMsec);
-        else setOtherMsec(v.llmMsec);
         setLoading(false);
-        
       }
     },
     onError: (v: string) => {
@@ -54,11 +47,7 @@ export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; userIn
   };
 
   const sendToSutra = async (newText: string) => {
-    const request: MultilingualUserInput = {
-      ...model,
-      prompt: newText,
-    };
-
+    const request = buildCompletionRequest(newText, model);
     setLoading(true);
     await Sutra.postComplete(request, sutraCallbacks);
   };
