@@ -1,27 +1,28 @@
-import React from "react";
-import { useHookstate } from "@hookstate/core";
-import { useAtom, PrimitiveAtom } from "jotai";
+import React from 'react';
+import { useHookstate } from '@hookstate/core';
+import { useAtom, PrimitiveAtom } from 'jotai';
 
-import { LLMChunk, LLMReply, MultilingualUserInput } from "@two-platforms/ion-multilingual-types";
+import { LLMChunk, LLMReply, MultilingualUserInput } from '@two-platforms/ion-multilingual-types';
 
-import { AnswerMain } from "./AnswerMain";
-import { Sutra, SutraCallbacks } from "../service/SutraClient";
-import { SutraModel } from "../service/SutraModels";
-import { log } from "../utils/log";
+import { AnswerMain } from './AnswerMain';
+import { Sutra, SutraCallbacks } from '../service/SutraClient';
+import { SutraModel } from '../service/SutraModels';
+import { log } from '../utils/log';
 
-export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>, userInput: string }) {
-  const answer = useHookstate("");
+
+
+export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; userInput: string }) {
+  const answer = useHookstate('');
   const [, setLoading] = React.useState(false);
-  const [, setAnswer] = React.useState("");
+  const [, setAnswer] = React.useState('');
 
   // from jotaiState
   const [model] = useAtom(props.modelAtom);
 
-  console.log('OutputView', props.userInput)
-
+  console.log('OutputView', props.userInput);
   React.useEffect(() => {
-    console.log('useEffect', props.userInput)
-    if(props.userInput.length === 0) return;
+    console.log('useEffect', props.userInput);
+    if (props.userInput.length === 0) return;
     sendToSutra(props.userInput);
   }, [props.userInput]);
 
@@ -59,11 +60,7 @@ export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>, userIn
   return (
     <React.Fragment>
       <>
-        <div className="flex w-full  max-w-screen-sm flex-col gap-2 py-16">
-          <div className="flex w-full flex-col gap-2 rounded-xl bg-white p-5">
-            <AnswerMain answer={answer} />
-          </div>
-        </div>
+        <AnswerMain answer={answer} />
       </>
     </React.Fragment>
   );

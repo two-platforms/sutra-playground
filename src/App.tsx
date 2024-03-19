@@ -1,26 +1,37 @@
-import React from "react";
-import packageJson from "../package.json";
-import { useAtom } from "jotai";
+import React from 'react';
+import packageJson from '../package.json';
+import { useAtom } from 'jotai';
 
-import { Switch, Select, SelectItem, Input, Divider, Card, CardBody } from "@nextui-org/react";
-import { MainContainer, ChatContainer, ConversationHeader } from "@chatscope/chat-ui-kit-react";
+import {
+  Switch,
+  Select,
+  SelectItem,
+  Image,
+  Input,
+  Divider,
+  Card,
+  CardBody,
+  CardFooter,
+  Link,
+  CardHeader,
+} from '@nextui-org/react';
 
-import "./styles/chatui.css";
-import { OutputView } from "./components/OutputView";
-import { IPv4, Location } from "./components/GeoInfo";
+import './styles/chatui.css';
+import { OutputView } from './components/OutputView';
+import { IPv4, Location } from './components/GeoInfo';
 // import Ping from "./components/Ping";
 
 // const darkMode = useDarkMode(true);
 
-import { SutraModel, SUTRA_MODELS, OTHER_MODELS } from "./service/SutraModels";
-import { agentInfoAtom, sutraModelAtom, otherModelAtom } from "./state/atoms";
+import { SutraModel, SUTRA_MODELS, OTHER_MODELS } from './service/SutraModels';
+import { agentInfoAtom, sutraModelAtom, otherModelAtom } from './state/atoms';
 
 const App = () => {
   const [sutraModel, setSutraModel] = useAtom(sutraModelAtom);
   const [otherModel, setOtherModel] = useAtom(otherModelAtom);
 
-  const [text, setText] = React.useState("");
-  const [userInput, setUserInput] = React.useState("");
+  const [text, setText] = React.useState('');
+  const [userInput, setUserInput] = React.useState('');
   const [error] = React.useState<string | undefined>(undefined);
   const [compareDUO, setCompareDUO] = React.useState(true);
 
@@ -63,9 +74,9 @@ const App = () => {
   };
 
   const issueNewText = (ev: any) => {
-    if (ev && ev.code !== "Enter") return;
+    if (ev && ev.code !== 'Enter') return;
     if (text.length === 0) return;
-    console.log('setting userInput', text)
+    console.log('setting userInput', text);
 
     setUserInput(text);
   };
@@ -81,31 +92,58 @@ const App = () => {
         <div className="z-10 flex h-screen max-h-screen w-full flex-col gap-3 p-4">
           {/* CHAT */}
           <div className="flex h-64 flex-1 flex-row justify-between gap-3">
-            <MainContainer className="w-full rounded-xl shadow-lg" responsive>
-              <ChatContainer>
-                <ConversationHeader>
-                  <ConversationHeader.Content info={<div>Sutra {packageJson.version}</div>} />
-                  <ConversationHeader.Actions>
-                     <img src="genie_logo.svg" className=" h-10" />
-                  </ConversationHeader.Actions>
-                </ConversationHeader>
-              </ChatContainer>
-              <OutputView modelAtom={sutraModelAtom} userInput={userInput} />
-            </MainContainer>
+            <Card className="w-full">
+              <CardHeader className="flex gap-3">
+                <Image
+                  alt="nextui logo"
+                  height={40}
+                  radius="sm"
+                  src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
+                  width={40}
+                />
+                <div className="flex flex-col">
+                  <p className="text-md">SUTRA</p>
+                  <p className="text-small text-default-500">{packageJson.version}</p>
+                </div>
+              </CardHeader>
+              <Divider />
+              <CardBody>
+                <OutputView modelAtom={sutraModelAtom} userInput={userInput} />
+              </CardBody>
+              <Divider />
+              <CardFooter>
+                <Link isExternal showAnchorIcon href="https://github.com/nextui-org/nextui">
+                  TOKENS:343
+                </Link>
+              </CardFooter>
+            </Card>
 
             {compareDUO && (
-              <MainContainer className="w-full rounded-xl shadow-lg" responsive>
-                <ChatContainer>
-                  <ConversationHeader>
-                    <ConversationHeader.Content info={<div>Other LLMs</div>} />
-                    <ConversationHeader.Actions>
-                      <img src="genie_logo.svg" className=" h-10" />
-                    </ConversationHeader.Actions>
-                  </ConversationHeader>
-                </ChatContainer>
-                <OutputView modelAtom={otherModelAtom} userInput={userInput} />
-              </MainContainer>
-
+              <Card className="w-full">
+                <CardHeader className="flex gap-3">
+                  <Image
+                    alt="nextui logo"
+                    height={40}
+                    radius="sm"
+                    src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
+                    width={40}
+                  />
+                  <div className="flex flex-col">
+                    <p className="text-md">SUTRA</p>
+                    <p className="text-small text-default-500">{packageJson.version}</p>
+                  </div>
+                </CardHeader>
+                <Divider />
+                <CardBody>
+                  <OutputView modelAtom={otherModelAtom} userInput={userInput} />
+                </CardBody>
+                <Divider />
+                <CardFooter>
+                  <Link isExternal showAnchorIcon href="https://github.com/nextui-org/nextui">
+                    Visit source code on GitHub.
+                  </Link>
+                </CardFooter>
+              </Card>
             )}
           </div>
 
@@ -127,8 +165,8 @@ const App = () => {
             className="flex"
             defaultValue=""
             onClear={() => {
-              console.log("input cleared");
-              setText("");
+              console.log('input cleared');
+              setText('');
             }}
             onChange={handleNewText}
             onKeyUp={issueNewText}
@@ -149,8 +187,8 @@ const App = () => {
               labelPlacement="outside"
               selectedKeys={[sutraModel.modelId]}
               classNames={{
-                base: "max-w-xs",
-                trigger: "h-12",
+                base: 'max-w-xs',
+                trigger: 'h-12',
               }}
               renderValue={() => {
                 return (
@@ -181,8 +219,8 @@ const App = () => {
                 // labelPlacement="outside"
                 selectedKeys={[otherModel.modelId]}
                 classNames={{
-                  base: "max-w-xs",
-                  trigger: "h-12",
+                  base: 'max-w-xs',
+                  trigger: 'h-12',
                 }}
                 renderValue={() => {
                   return (
@@ -228,12 +266,12 @@ const App = () => {
               <Location /> | <IPv4 />
             </div>
             <div>
-              {time.toLocaleString("en-US", {
-                hour: "numeric",
-                minute: "numeric",
-                second: "numeric",
-                day: "numeric",
-                month: "short",
+              {time.toLocaleString('en-US', {
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                day: 'numeric',
+                month: 'short',
               })}
             </div>
           </div>
