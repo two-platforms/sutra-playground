@@ -149,6 +149,12 @@ const App = () => {
         <div className="sticky top-0 flex h-screen w-72 flex-col gap-4 p-4">
           {/* SELECTS */}
           <>
+            <div className="flex flex-col items-start gap-0 font-mono text-sm">
+              <Image className="h-8" src="sutra.svg" />
+              <div className="pl-1 font-bold">PLAYGROUND {packageJson.version}</div>
+            </div>
+            <Divider />
+
             {/* Sutra model selection */}
             <Select
               aria-label="Select Sutra Model"
@@ -236,8 +242,8 @@ const App = () => {
 
           <Divider />
           <div className="absolute bottom-4 left-4 flex flex-col items-start gap-0 font-mono text-sm">
-            <Image className="h-8" src="sutra.svg" />
-            <div className="font-bold">PLAYGROUND {packageJson.version}</div>
+            {/* <Image className="h-8" src="sutra.svg" />
+            <div className="font-bold">PLAYGROUND {packageJson.version}</div> */}
             <Divider className="my-2" />
             <div>
               {agentInfoAtom.os.name.toUpperCase()} | {agentInfoAtom.browser.name.toUpperCase()}
