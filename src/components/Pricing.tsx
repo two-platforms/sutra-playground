@@ -46,9 +46,9 @@ export default function Pricing() {
                       </TableRow>
                     </TableBody>
                   </Table>
-                  <div>
-                    <div className="text-md font-medium">Search Add-on</div>
-                    <div>$3 per 1,000 requests</div>
+                  <div className="pl-3 text-sm text-gray-500">
+                    <div>Search Add-on</div>
+                    <div className="pl-3">$3 per 1,000 requests</div>
                   </div>
                   <Divider className="mb-3" />
                   <div className=" text-lg font-bold">SUTRA-Multilingual Series</div>
@@ -66,10 +66,12 @@ export default function Pricing() {
                       </TableRow>
                     </TableBody>
                   </Table>
-                  <div className="text-md font-medium">Language Add-on</div>
-                  <div>$1.00-$2.20 per 1,000 requests</div>
-                  <div className="text-md font-medium">Long-Term Memory Add-on</div>
-                  <div>$5 per 1,000 requests</div>
+                  <div className="pl-3 text-sm text-gray-500">
+                    <div>Language Add-on</div>
+                    <div className="pl-3">$1.00-$2.20 per 1,000 requests</div>
+                    <div>Long-Term Memory Add-on</div>
+                    <div className="pl-3">$5 per 1,000 requests</div>
+                  </div>
                   <Divider className="mb-3" />
                   <div className=" text-lg font-bold">SUTRA-Avatar Series</div>
                   <Table removeWrapper aria-label="Example static collection table">
@@ -91,7 +93,7 @@ export default function Pricing() {
                       </TableRow>
                     </TableBody>
                   </Table>
-                  <div>*Subject to customization options.</div>
+                  <div className="pl-3 text-sm text-gray-500">*Subject to customization options.</div>
                   <Divider />
                 </div>
                 <Link isExternal href="https://www.two.ai/contact">
