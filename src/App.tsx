@@ -61,7 +61,7 @@ const App = () => {
 
   const [text, setText] = React.useState('');
   const [error] = React.useState<string | undefined>(undefined);
-  const [compareDUO, setCompareDUO] = React.useState(true);
+  const [compareDUO, setCompareDUO] = React.useState(false);
 
   //const errorRef = React.useRef<string | undefined>(undefined);
 
