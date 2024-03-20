@@ -82,12 +82,11 @@ const App = () => {
   // };
 
   const questions = [
-    '다른 EV 자동차와 비교하여 Tesla의 장점은 무엇입니까?',
     'What are some of the main tourist attractions in San Francisco?',
     'What are the benefits of Yoga?',
     'How to cut a mango?',
     'What is the best time to visit Ladakh?',
-    '강남역에서 가장 혼잡한 시간은 언제인가요?',
+
     'Where can I see the most fantastic night view in Seoul?',
     'अदरक के स्वास्थ्य लाभ क्या हैं?',
     'Dhokla kaise banate hai?',
@@ -95,11 +94,18 @@ const App = () => {
     'ગોવામાં કયા દરિયાકિનારાઓ પર ઓછી ભીડ હોય છે?',
     'லடாக்குக்கு செல்ல சிறந்த நேரம் எது?',
     'কলকাতায় দুর্গাপূজা কীভাবে উদযাপিত হয়?',
-    '서울에서 가장 환상적인 야경을 볼 수 있는 곳은 어디인가요?',
     'What is the tallest building in the world?',
     'What are the health benefits of ginger?',
     'चाय कैसे बनाते है?',
+    '강남역에서 가장 혼잡한 시간은 언제인가요?',
+    '서울에서 가장 환상적인 야경을 볼 수 있는 곳은 어디인가요?',
+    '다른 EV 자동차와 비교하여 Tesla의 장점은 무엇입니까?',
     '로마는 언제 건설되었나요?',
+    '미국의 부활절 문화를 구체적으로 설명해주세요',
+    '인도에서 가장 흔한 성씨는 무엇인가요?',
+    '앨런 튜링의 과학적인 업적 및 역사적 역할에 대해 전문 과학 기자처럼 알려줘',
+    '지구를 처음 본 외계인이 감격해서 부르는 노래를 창의적으로 작사해줘',
+    '노래할 수 있어?',
   ];
 
   const changeSutra = (newModel: SutraModel): void => {
@@ -263,7 +269,7 @@ const App = () => {
               </CardHeader>
               <Divider />
               {sutraLoading && <Progress size="sm" isIndeterminate aria-label="Loading..." className="w-full" />}
-              <CardBody>                
+              <CardBody>
                 <p className="py-5 text-xl font-semibold">{userInput}</p>
                 <OutputViewSutra />
               </CardBody>
