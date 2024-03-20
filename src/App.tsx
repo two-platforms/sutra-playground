@@ -40,6 +40,7 @@ import {
 } from './state/atoms';
 import { OutputViewSutra } from './components/OutputViewSutra';
 import { OutputViewOther } from './components/OutputViewOther';
+import { BubbleStar } from 'iconoir-react';
 
 const App = () => {
   const [userInput, setUserInput] = useAtom(userInputAtom);
@@ -205,7 +206,7 @@ const App = () => {
               Compare Mode
             </Switch>
           </>
-          <Button
+          {/* <Button
             variant="bordered"
             color="primary"
             className="shadow-geniyablue/50 h-9 px-4 text-xl font-medium  shadow-lg hover:shadow-md"
@@ -215,7 +216,7 @@ const App = () => {
             }}
           >
             random
-          </Button>
+          </Button> */}
 
           <Divider />
           <div className="absolute bottom-4 left-4 flex flex-col items-start gap-0 font-mono text-sm">
@@ -307,6 +308,19 @@ const App = () => {
             onKeyUp={issueNewText}
             value={text}
             autoFocus={true}
+            startContent={
+              <Button
+                variant="light"
+                isIconOnly
+                onClick={() => {
+                  const question = questions[Math.floor(Math.random() * questions.length)];
+                  setText(question);
+                }}
+              >
+                <BubbleStar />
+                
+              </Button>
+            } // endContent
           />
         </div>
       </div>
