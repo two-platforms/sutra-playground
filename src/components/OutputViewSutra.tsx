@@ -8,10 +8,11 @@ import { AnswerView } from './AnswerView';
 import { Sutra, SutraCallbacks } from '../service/SutraClient';
 import { SutraModel, SutraStats, buildCompletionRequest } from '../service/SutraModels';
 import { log } from '../utils/log';
+import { sutraLoadingAtom } from '../state/atoms';
 
-export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; statsAtom: PrimitiveAtom<SutraStats>, userInput: string }) {
+export function OutputViewSutra(props: { modelAtom: PrimitiveAtom<SutraModel>; statsAtom: PrimitiveAtom<SutraStats>, userInput: string }) {
   const answer = useHookstate('');
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useAtom(sutraLoadingAtom);  
   const [, setAnswer] = React.useState('');
 
   // from jotaiState
@@ -44,7 +45,12 @@ export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; statsA
     onLLMReply: (v: LLMReply) => {
       const ttlt = Date.now() - timerStart;
       const tps = 1000 * v.tokenCount / (ttlt - stats.ttftClient);
-      const newStats = {...stats, tokenCount: v.tokenCount, wordCount: v.wordCount, ttltClient: ttlt, tps};
+      const newStats = {...stats, ttltClient: ttlt, tps,
+        tokenCount: v.tokenCount,
+        wordCount: v.wordCount,
+        ttftService: v.ttftMsec,
+        ttltService: v.ttltMsec,
+      };
       setStats(newStats);
       log.info(`${model.provider}: onLLMReply:`, v);
       log.info(`${model.provider}: onLLMReply:`, newStats);
@@ -61,6 +67,7 @@ export function OutputView(props: { modelAtom: PrimitiveAtom<SutraModel>; statsA
 
   const sendToSutra = async (newText: string) => {
     timerStart = Date.now();
+    answer.set('');
     haveFirstToken = false;
     const request = buildCompletionRequest(newText, model);
     setLoading(true);

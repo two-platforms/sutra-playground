@@ -1,6 +1,6 @@
 import { MultilingualUserInput } from '@two-platforms/ion-multilingual-types';
 
-export const DEFAULT_TEMPERATURE = 0.3;
+export const DEFAULT_TEMPERATURE = 0.6;
 export const DEFAULT_MAXTOKENS = 1024;
 
 export interface SutraModel {
@@ -47,7 +47,15 @@ export const SUTRA_MODELS: SutraModel[] = [
         displayName: 'SUTRA-9B-MULTILINGUAL',
         modelId: 'sutra-9B-multilingual',
         provider: 'TWO.AI',
-        iconUrl: 'genie.png',
+        iconUrl: 'two.png',
+        temperature: DEFAULT_TEMPERATURE,
+        maxTokens: DEFAULT_MAXTOKENS,
+    },
+    {
+        displayName: 'SUTRA-MULTILINGUAL-TURBO',
+        modelId: 'sutra-multilingual-turbo',
+        provider: 'TWO.AI',
+        iconUrl: 'two.png',
         temperature: DEFAULT_TEMPERATURE,
         maxTokens: DEFAULT_MAXTOKENS,
     },
