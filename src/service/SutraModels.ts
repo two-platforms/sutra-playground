@@ -13,13 +13,13 @@ export interface SutraModel {
 }
 
 export interface SutraStats {
-    ttftService: number;        // time to first token, measured on sutra-server
-    ttltService: number;        // time to last token, measured on sutra-server
-    ttftClient: number;         // time to first token, measured on client
-    ttltClient: number;         // time to last token, measured on client
-    tps: number;                // tokens per second, measured on client
-    tokenCount: number;         // number of tokens in the generated content
-    wordCount: number;          // number of words in the generated content
+    ttftService: number; // time to first token, measured on sutra-server
+    ttltService: number; // time to last token, measured on sutra-server
+    ttftClient: number; // time to first token, measured on client
+    ttltClient: number; // time to last token, measured on client
+    tps: number; // tokens per second, measured on client
+    tokenCount: number; // number of tokens in the generated content
+    wordCount: number; // number of words in the generated content
 }
 
 export function initStats(): SutraStats {
@@ -93,7 +93,6 @@ export const OTHER_MODELS: SutraModel[] = [
         iconUrl: 'naver.png',
         temperature: DEFAULT_TEMPERATURE,
         maxTokens: DEFAULT_MAXTOKENS,
-
     },
     {
         displayName: 'PERPLEXITY-ONLINE',

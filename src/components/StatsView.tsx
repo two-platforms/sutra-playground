@@ -11,12 +11,10 @@ export const StatsView = ({ statsAtom, temperature, maxTokens }: Props) => {
   const [stats] = useAtom(statsAtom);
   return (
     <div>
-      LLM MSEC: <Chip color="primary">{stats.ttltService - stats.ttftService}</Chip> |
-      E2E MSEC: <Chip color="primary">{stats.ttltClient - stats.ttftClient}</Chip> |
-      TEMPERATURE: <Chip>{temperature}</Chip> |
-      MAX TOKENS: <Chip>{maxTokens}</Chip> |
-      OUTPUT TOKENS: <Chip color="success">{stats.tokenCount}</Chip> |
-      TOKENS/SEC: <Chip color="success">{stats.tps.toFixed(2)}</Chip>
+      LLM MSEC: <Chip color="primary">{stats.ttltService - stats.ttftService}</Chip> | E2E MSEC:{' '}
+      <Chip color="primary">{stats.ttltClient - stats.ttftClient}</Chip> | TEMPERATURE: <Chip>{temperature}</Chip> | MAX
+      TOKENS: <Chip>{maxTokens}</Chip> | OUTPUT TOKENS: <Chip color="success">{stats.tokenCount}</Chip> | TOKENS/SEC:{' '}
+      <Chip color="success">{stats.tps.toFixed(2)}</Chip>
     </div>
   );
 };

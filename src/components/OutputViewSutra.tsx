@@ -8,12 +8,7 @@ import { AnswerView } from './AnswerView';
 import { Sutra, SutraCallbacks } from '../service/SutraClient';
 import { buildCompletionRequest } from '../service/SutraModels';
 import { log } from '../utils/log';
-import { 
-  sutraLoadingAtom,
-  sutraModelAtom,
-  sutraStatsAtom,
-  userInputAtom,
- } from '../state/atoms';
+import { sutraLoadingAtom, sutraModelAtom, sutraStatsAtom, userInputAtom } from '../state/atoms';
 
 export function OutputViewSutra() {
   const answer = useHookstate('');
@@ -38,10 +33,10 @@ export function OutputViewSutra() {
   // callbacks for streaming mode
   const sutraCallbacks: SutraCallbacks = {
     onLLMChunk: (v: LLMChunk) => {
-      if(!haveFirstToken) {
+      if (!haveFirstToken) {
         haveFirstToken = true;
         const ttft = Date.now() - timerStart;
-        const newStats = {...stats, ttftClient: ttft};
+        const newStats = { ...stats, ttftClient: ttft };
         setStats(newStats);
       }
       answer.set((current) => current + v.content);
@@ -50,8 +45,11 @@ export function OutputViewSutra() {
     },
     onLLMReply: (v: LLMReply) => {
       const ttlt = Date.now() - timerStart;
-      const tps = 1000 * v.tokenCount / (ttlt - stats.ttftClient);
-      const newStats = {...stats, ttltClient: ttlt, tps,
+      const tps = (1000 * v.tokenCount) / (ttlt - stats.ttftClient);
+      const newStats = {
+        ...stats,
+        ttltClient: ttlt,
+        tps,
         tokenCount: v.tokenCount,
         wordCount: v.wordCount,
         ttftService: v.ttftMsec,

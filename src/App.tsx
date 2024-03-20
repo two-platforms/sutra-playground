@@ -14,6 +14,7 @@ import {
   CardFooter,
   Link,
   CardHeader,
+  Button,
 } from '@nextui-org/react';
 
 import './styles/chatui.css';
@@ -70,6 +71,25 @@ const App = () => {
   //   setSutraInFlight(false);
   //   setOtherInFlight(false);
   // };
+
+  const questions = [
+    'What are some of the main tourist attractions in San Francisco?',
+    'What are the benefits of Yoga?',
+    'How to cut a mango?',
+    'What is the best time to visit Ladakh?',
+    '강남역에서 가장 혼잡한 시간은 언제인가요?',
+    'Where can I see the most fantastic night view in Seoul?',
+    'अदरक के स्वास्थ्य लाभ क्या हैं?',
+    'Dhokla kaise banate hai?',
+    'एफिल टावर कितना पुराना है?',
+    'ગોવામાં કયા દરિયાકિનારાઓ પર ઓછી ભીડ હોય છે?',
+    'லடாக்குக்கு செல்ல சிறந்த நேரம் எது?',
+    'কলকাতায় দুর্গাপূজা কীভাবে উদযাপিত হয়?',
+    '서울에서 가장 환상적인 야경을 볼 수 있는 곳은 어디인가요?',
+    'What is the tallest building in the world?',
+    'चाय कैसे बनाते है?',
+    '로마는 언제 건설되었나요?',
+  ];
 
   const changeSutra = (newModel: SutraModel): void => {
     sutraModel.temperature = sutraTemperature;
@@ -185,6 +205,17 @@ const App = () => {
               Compare Mode
             </Switch>
           </>
+          <Button
+            variant="bordered"
+            color="primary"
+            className="shadow-geniyablue/50 h-9 px-4 text-xl font-medium  shadow-lg hover:shadow-md"
+            onClick={() => {
+              const question = questions[Math.floor(Math.random() * questions.length)];
+              setText(question);
+            }}
+          >
+            random
+          </Button>
 
           <Divider />
           <div className="absolute bottom-4 left-4 flex flex-col items-start gap-0 font-mono text-sm">
@@ -221,7 +252,7 @@ const App = () => {
               <Divider />
               <CardBody>
                 <p className="py-5 text-xl font-semibold">{userInput}</p>
-                <OutputViewSutra/>
+                <OutputViewSutra />
               </CardBody>
               <Divider />
               <CardFooter>
