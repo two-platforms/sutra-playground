@@ -13,15 +13,14 @@ import { sutraLoadingAtom, sutraModelAtom, sutraStatsAtom, userInputAtom } from 
 export function OutputViewSutra() {
   const answer = useHookstate('');
   const [, setAnswer] = React.useState('');
+  const timerStart = React.useRef(0);
+  const ttftClient = React.useRef(0);
 
   // from jotaiState
   const [loading, setLoading] = useAtom(sutraLoadingAtom);
   const [model] = useAtom(sutraModelAtom);
   const [stats, setStats] = useAtom(sutraStatsAtom);
   const [userInput] = useAtom(userInputAtom);
-
-  let timerStart = 0;
-  let haveFirstToken = false;
 
   // console.log('OutputView', props.userInput);
   React.useEffect(() => {
@@ -32,22 +31,24 @@ export function OutputViewSutra() {
 
   // callbacks for streaming mode
   const sutraCallbacks: SutraCallbacks = {
-    onLLMChunk: (v: LLMChunk) => {
-      if (!haveFirstToken) {
-        haveFirstToken = true;
-        const ttft = Date.now() - timerStart;
-        const newStats = { ...stats, ttftClient: ttft };
-        setStats(newStats);
+    onLLMChunk: async (v: LLMChunk) => {
+      if (!ttftClient.current) {
+        ttftClient.current = Date.now() - timerStart.current;;
+        // const ttft = Date.now() - timerStart.current;
+        // const newStats = { ...stats, ttftClient: 900 }; //ttft };
+        // setStats(newStats);
       }
       answer.set((current) => current + v.content);
       // log.info(`${model.provider}: onLLMChunk:`, v.content);
       if (v.isFinal) setLoading(false);
+      // await sleep(10);
     },
     onLLMReply: (v: LLMReply) => {
-      const ttlt = Date.now() - timerStart;
+      const ttlt = Date.now() - timerStart.current;
       const tps = (1000 * v.tokenCount) / (v.ttltMsec - v.ttftMsec);
       const newStats = {
         ...stats,
+        ttftClient: ttftClient.current,
         ttltClient: ttlt,
         tps,
         tokenCount: v.tokenCount,
@@ -71,12 +72,12 @@ export function OutputViewSutra() {
   };
 
   const sendToSutra = async (newText: string) => {
-    timerStart = Date.now();
+    timerStart.current = Date.now();
+    ttftClient.current = 0;
     answer.set('');
-    haveFirstToken = false;
     const request = buildCompletionRequest(newText, model);
     setLoading(true);
-    await Sutra.postComplete(request, sutraCallbacks);
+    Sutra.postComplete(request, sutraCallbacks);
   };
 
   return (
@@ -85,3 +86,9 @@ export function OutputViewSutra() {
     </React.Fragment>
   );
 }
+
+// function sleep(ms: number): Promise<void> {
+//     return new Promise((resolve) => {
+//         setTimeout(resolve, ms);
+//     });
+// }
