@@ -20,6 +20,7 @@ export interface SutraStats {
     tps: number; // tokens per second, measured on client
     tokenCount: number; // number of tokens in the generated content
     wordCount: number; // number of words in the generated content
+    enTranslation?: string; // English translation of the generated content
 }
 
 export function initStats(): SutraStats {
