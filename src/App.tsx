@@ -15,6 +15,7 @@ import {
   Link,
   CardHeader,
   Button,
+  Progress,
 } from '@nextui-org/react';
 
 import './styles/chatui.css';
@@ -33,10 +34,12 @@ import {
   sutraTemperatureAtom,
   sutraMaxTokensAtom,
   sutraStatsAtom,
+  sutraLoadingAtom,
   otherModelAtom,
   otherTemperatureAtom,
   otherMaxTokensAtom,
   otherStatsAtom,
+  otherLoadingAtom,
 } from './state/atoms';
 import { OutputViewSutra } from './components/OutputViewSutra';
 import { OutputViewOther } from './components/OutputViewOther';
@@ -44,12 +47,16 @@ import { BubbleStar } from 'iconoir-react';
 
 const App = () => {
   const [userInput, setUserInput] = useAtom(userInputAtom);
+
   const [sutraModel, setSutraModel] = useAtom(sutraModelAtom);
   const [sutraTemperature, setSutraTemperature] = useAtom(sutraTemperatureAtom);
   const [sutraMaxTokens, setSutraMaxTokens] = useAtom(sutraMaxTokensAtom);
+  const [sutraLoading] = useAtom(sutraLoadingAtom);
+
   const [otherModel, setOtherModel] = useAtom(otherModelAtom);
   const [otherTemperature, setOtherTemperature] = useAtom(otherTemperatureAtom);
   const [otherMaxTokens, setOtherMaxTokens] = useAtom(otherMaxTokensAtom);
+  const [otherLoading] = useAtom(otherLoadingAtom);
 
   const [text, setText] = React.useState('');
   const [error] = React.useState<string | undefined>(undefined);
@@ -253,7 +260,8 @@ const App = () => {
                 </div>
               </CardHeader>
               <Divider />
-              <CardBody>
+              {sutraLoading && <Progress size="sm" isIndeterminate aria-label="Loading..." className="w-full" />}
+              <CardBody>                
                 <p className="py-5 text-xl font-semibold">{userInput}</p>
                 <OutputViewSutra />
               </CardBody>
@@ -273,6 +281,7 @@ const App = () => {
                   </div>
                 </CardHeader>
                 <Divider />
+                {otherLoading && <Progress size="sm" isIndeterminate aria-label="Loading..." className="w-full" />}
                 <CardBody>
                   <p className="py-5 text-xl font-semibold">{userInput}</p>
                   <OutputViewOther />
