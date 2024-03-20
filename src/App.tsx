@@ -181,6 +181,13 @@ const App = () => {
               ))}
             </Select>
 
+            {/* SWITCHES */}
+            <>
+              <Switch isSelected={compareDUO} size="sm" onChange={() => setCompareDUO(!compareDUO)}>
+                Compare Mode
+              </Switch>
+            </>
+
             {/* Sutra model selection  */}
             {compareDUO && (
               <Select
@@ -214,13 +221,6 @@ const App = () => {
                 ))}
               </Select>
             )}
-          </>
-
-          {/* SWITCHES */}
-          <>
-            <Switch isSelected={compareDUO} size="sm" onChange={() => setCompareDUO(!compareDUO)}>
-              Compare Mode
-            </Switch>
           </>
           {/* <Button
             variant="bordered"
