@@ -36,7 +36,15 @@ export function initStats(): SutraStats {
 
 export const SUTRA_MODELS: SutraModel[] = [
     {
-        displayName: 'SUTRA-50B-MULTILINGUAL',
+        displayName: 'SUTRA-TURBO',
+        modelId: 'sutra-multilingual-turbo',
+        provider: 'TWO.AI',
+        iconUrl: 'two.png',
+        temperature: DEFAULT_TEMPERATURE,
+        maxTokens: DEFAULT_MAXTOKENS,
+    },
+    {
+        displayName: 'SUTRA-50B',
         modelId: 'sutra-50B-multilingual',
         provider: 'TWO.AI',
         iconUrl: 'two.png',
@@ -44,16 +52,8 @@ export const SUTRA_MODELS: SutraModel[] = [
         maxTokens: DEFAULT_MAXTOKENS,
     },
     {
-        displayName: 'SUTRA-9B-MULTILINGUAL',
+        displayName: 'SUTRA-9B',
         modelId: 'sutra-9B-multilingual',
-        provider: 'TWO.AI',
-        iconUrl: 'two.png',
-        temperature: DEFAULT_TEMPERATURE,
-        maxTokens: DEFAULT_MAXTOKENS,
-    },
-    {
-        displayName: 'SUTRA-MULTILINGUAL-TURBO',
-        modelId: 'sutra-multilingual-turbo',
         provider: 'TWO.AI',
         iconUrl: 'two.png',
         temperature: DEFAULT_TEMPERATURE,
