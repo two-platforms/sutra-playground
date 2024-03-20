@@ -32,7 +32,7 @@ export function OutputViewOther() {
 
   // callbacks for streaming mode
   const sutraCallbacks: SutraCallbacks = {
-    onLLMChunk: async (v: LLMChunk) => {
+    onLLMChunk: (v: LLMChunk) => {
       if (!haveFirstToken) {
         haveFirstToken = true;
         const ttft = Date.now() - timerStart;
@@ -42,11 +42,10 @@ export function OutputViewOther() {
       answer.set((current) => current + v.content);
       // log.info(`${model.provider}: onLLMChunk:`, v.content);
       if (v.isFinal) setLoading(false);
-      // await sleep(10);
     },
     onLLMReply: (v: LLMReply) => {
       const ttlt = Date.now() - timerStart;
-      const tps = (1000 * v.tokenCount) / (v.ttltMsec - v.ttftMsec);
+      const tps = (1000 * v.tokenCount) / (ttlt - stats.ttftClient);
       const newStats = {
         ...stats,
         ttltClient: ttlt,
@@ -80,7 +79,7 @@ export function OutputViewOther() {
     haveFirstToken = false;
     const request = buildCompletionRequest(newText, model);
     setLoading(true);
-    Sutra.postComplete(request, sutraCallbacks);
+    await Sutra.postComplete(request, sutraCallbacks);
   };
 
   return (
@@ -89,9 +88,3 @@ export function OutputViewOther() {
     </React.Fragment>
   );
 }
-
-// function sleep(ms: number): Promise<void> {
-//   return new Promise((resolve) => {
-//       setTimeout(resolve, ms);
-//   });
-// }
