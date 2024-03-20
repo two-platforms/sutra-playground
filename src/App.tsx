@@ -274,8 +274,8 @@ const App = () => {
                 <OutputViewSutra />
               </CardBody>
               <Divider />
-              <CardFooter className='h-12'>
-                  <StatsView statsAtom={sutraStatsAtom} temperature={sutraTemperature} maxTokens={sutraMaxTokens} />
+              <CardFooter className="h-12">
+                <StatsView statsAtom={sutraStatsAtom} temperature={sutraTemperature} maxTokens={sutraMaxTokens} />
               </CardFooter>
             </Card>
 
@@ -295,8 +295,8 @@ const App = () => {
                   <OutputViewOther />
                 </CardBody>
                 <Divider />
-                <CardFooter className='h-12'>
-                    <StatsView statsAtom={otherStatsAtom} temperature={otherTemperature} maxTokens={otherMaxTokens} />
+                <CardFooter className="h-12">
+                  <StatsView statsAtom={otherStatsAtom} temperature={otherTemperature} maxTokens={otherMaxTokens} />
                 </CardFooter>
               </Card>
             )}
