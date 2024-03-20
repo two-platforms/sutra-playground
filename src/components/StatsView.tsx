@@ -1,4 +1,4 @@
-import { Chip, Tooltip } from '@nextui-org/react';
+import { Tooltip } from '@nextui-org/react';
 import { useAtom, PrimitiveAtom } from 'jotai';
 import { SutraStats } from '../service/SutraModels';
 import { DashboardDots } from 'iconoir-react';
