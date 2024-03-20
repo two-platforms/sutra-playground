@@ -7,7 +7,7 @@ interface Props {
   temperature: number;
   maxTokens: number;
 }
-export const StatsView = ({ statsAtom, temperature, maxTokens }: Props) => {
+export const StatsView = ({ statsAtom }: Props) => {
   const [stats] = useAtom(statsAtom);
   return (
     <div className='text-sm font-mono'>

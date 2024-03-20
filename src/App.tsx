@@ -25,7 +25,7 @@ import { IPv4, Location } from './components/GeoInfo';
 
 // const darkMode = useDarkMode(true);
 
-import { SutraModel, SUTRA_MODELS, OTHER_MODELS, initStats } from './service/SutraModels';
+import { SutraModel, SUTRA_MODELS, OTHER_MODELS } from './service/SutraModels';
 import {
   agentInfoAtom,
   userInputAtom,
