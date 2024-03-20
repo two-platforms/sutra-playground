@@ -1,6 +1,6 @@
 import { MultilingualUserInput } from '@two-platforms/ion-multilingual-types';
 
-export const DEFAULT_TEMPERATURE = 0.3;
+export const DEFAULT_TEMPERATURE = 0.6;
 export const DEFAULT_MAXTOKENS = 1024;
 
 export interface SutraModel {
