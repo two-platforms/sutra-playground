@@ -62,6 +62,9 @@ export function OutputViewOther() {
         setAnswer(answer.get());
         setLoading(false);
       }
+      if (v.wordCount > 10) {
+        setLoading(false);
+      }
     },
     onError: (v: string) => {
       log.error(`${model.provider}: onError:`, v);
