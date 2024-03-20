@@ -74,6 +74,7 @@ const App = () => {
   // };
 
   const questions = [
+    '다른 EV 자동차와 비교하여 Tesla의 장점은 무엇입니까?',
     'What are some of the main tourist attractions in San Francisco?',
     'What are the benefits of Yoga?',
     'How to cut a mango?',
