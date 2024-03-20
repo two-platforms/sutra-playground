@@ -54,6 +54,7 @@ export function OutputViewSutra() {
         wordCount: v.wordCount,
         ttftService: v.ttftMsec,
         ttltService: v.ttltMsec,
+        enTranslation: v.enOutput,
       };
       setStats(newStats);
       // log.info(`${model.provider}: onLLMReply:`, v);
