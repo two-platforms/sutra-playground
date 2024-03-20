@@ -63,16 +63,16 @@ export const SUTRA_MODELS: SutraModel[] = [
 
 export const OTHER_MODELS: SutraModel[] = [
     {
-        displayName: 'GPT-4',
-        modelId: 'GPT4',
+        displayName: 'GPT-3.5',
+        modelId: 'GPT3.5',
         provider: 'OpenAI',
         iconUrl: 'openai.png',
         temperature: DEFAULT_TEMPERATURE,
         maxTokens: DEFAULT_MAXTOKENS,
     },
     {
-        displayName: 'GPT-3.5',
-        modelId: 'GPT3.5',
+        displayName: 'GPT-4',
+        modelId: 'GPT4',
         provider: 'OpenAI',
         iconUrl: 'openai.png',
         temperature: DEFAULT_TEMPERATURE,
