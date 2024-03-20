@@ -10,13 +10,13 @@ interface Props {
 export const StatsView = ({ statsAtom, temperature, maxTokens }: Props) => {
   const [stats] = useAtom(statsAtom);
   return (
-    <div>
-      LLM MSEC: <Chip color="primary">{stats.ttltService}</Chip> |
-      E2E MSEC:{' '} <Chip color="primary">{stats.ttltClient}</Chip> |
-      TEMPERATURE: <Chip>{temperature}</Chip> |
-      MAX TOKENS: <Chip>{maxTokens}</Chip> |
-      OUTPUT TOKENS: <Chip color="success">{stats.tokenCount}</Chip>|
-      TOKENS/SEC:{' '} <Chip color="success">{stats.tps.toFixed(2)}</Chip>
+    <div className='text-sm font-mono'>
+      <Chip size='md' color="primary">{stats.tps.toFixed(2)} Tokens/Sec</Chip>-
+      <Chip size='md'>{stats.tokenCount} Tokens</Chip>-
+      <Chip size='md'>{stats.ttftService}ms TTFB</Chip>-
+      <Chip size='md' color="secondary">{stats.ttltService}ms TTLB</Chip>
+      {/* TEMPERATURE: <Chip size='sm'>{temperature}</Chip>
+      MAX TOKENS: <Chip size='sm'>{maxTokens}</Chip> */}
     </div>
   );
 };
