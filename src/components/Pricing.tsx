@@ -1,4 +1,19 @@
-import { Modal, ModalContent, ModalBody, ModalFooter, Button, useDisclosure, Link, Image } from '@nextui-org/react';
+import {
+  Modal,
+  ModalContent,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+  Link,
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+  Divider,
+} from '@nextui-org/react';
 
 export default function Pricing() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -8,15 +23,77 @@ export default function Pricing() {
       <Link size="sm" className=" hover:cursor-pointer" onPress={onOpen}>
         SUTRA PRICING
       </Link>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="2xl" className="bg-[rgb(34,34,34)] pt-5">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="2xl">
         <ModalContent>
           {(onClose) => (
             <>
               <ModalBody>
-                <div className="flex items-center justify-center">
-                  <Image src="/public/pricing.png" alt="Pricing" width={600} height={700} draggable={false} />
+                <div className=" mt-5 text-2xl font-bold">SUTRA PRICING</div>
+                <div className="flex flex-col gap-1">
+                  <div className=" text-lg font-bold">SUTRA-Online Series</div>
+                  <Table removeWrapper aria-label="Example static collection table">
+                    <TableHeader>
+                      <TableColumn> </TableColumn>
+                      <TableColumn>Input (per Million Tokens)</TableColumn>
+                      <TableColumn>Output (per Million Tokens)</TableColumn>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow key="1">
+                        <TableCell>SUTRA-50B-Online</TableCell>
+                        <TableCell>$1.00</TableCell>
+                        <TableCell>$1.00</TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                  <div>
+                    <div className="text-md font-medium">Search Add-on</div>
+                    <div>$3 per 1,000 requests</div>
+                  </div>
+                  <Divider className="mb-3" />
+                  <div className=" text-lg font-bold">SUTRA-Multilingual Series</div>
+                  <Table removeWrapper aria-label="Example static collection table">
+                    <TableHeader>
+                      <TableColumn> </TableColumn>
+                      <TableColumn>Input (per Million Tokens)</TableColumn>
+                      <TableColumn>Output (per Million Tokens)</TableColumn>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow key="1">
+                        <TableCell>SUTRA-50B-ML</TableCell>
+                        <TableCell>$1.00</TableCell>
+                        <TableCell>$1.00</TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                  <div className="text-md font-medium">Language Add-on</div>
+                  <div>$1.00-$2.20 per 1,000 requests</div>
+                  <div className="text-md font-medium">Long-Term Memory Add-on</div>
+                  <div>$5 per 1,000 requests</div>
+                  <Divider className="mb-3" />
+                  <div className=" text-lg font-bold">SUTRA-Avatar Series</div>
+                  <Table removeWrapper aria-label="Example static collection table">
+                    <TableHeader>
+                      <TableColumn> </TableColumn>
+                      <TableColumn>Custom Avatar Creation</TableColumn>
+                      <TableColumn>Per Video/Stream Request</TableColumn>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow key="1">
+                        <TableCell>SUTRA-Avatar</TableCell>
+                        <TableCell>Contact us</TableCell>
+                        <TableCell>$0.30*</TableCell>
+                      </TableRow>
+                      <TableRow key="2">
+                        <TableCell>SUTRA-Avatar-Realtime</TableCell>
+                        <TableCell>Contact us</TableCell>
+                        <TableCell>$0.50</TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                  <div>*Subject to customization options.</div>
+                  <Divider />
                 </div>
-                <Link isExternal className="block pl-8 text-white hover:text-gray-50" href="https://www.two.ai/contact">
+                <Link isExternal href="https://www.two.ai/contact">
                   Contact US
                 </Link>
               </ModalBody>
