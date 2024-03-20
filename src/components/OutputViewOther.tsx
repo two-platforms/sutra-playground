@@ -64,7 +64,7 @@ export function OutputViewOther() {
         setAnswer(answer.get());
         setLoading(false);
       }
-      if (v.wordCount > 10) {
+      if (v.wordCount > 6) {
         setLoading(false);
       }
     },
