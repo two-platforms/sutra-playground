@@ -26,14 +26,12 @@ export {
     agentInfoAtom,
     darkModeAtom,
     userInputAtom,
-
     sutraModelAtom,
     sutraTemperatureAtom,
     sutraMaxTokensAtom,
     sutraStatsAtom,
     sutraLoadingAtom,
     sutraAnswerAtom,
-
     otherModelAtom,
     otherTemperatureAtom,
     otherMaxTokensAtom,
