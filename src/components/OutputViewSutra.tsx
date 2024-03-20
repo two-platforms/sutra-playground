@@ -45,7 +45,7 @@ export function OutputViewSutra() {
     },
     onLLMReply: (v: LLMReply) => {
       const ttlt = Date.now() - timerStart;
-      const tps = (1000 * v.tokenCount) / (ttlt - stats.ttftClient);
+      const tps = (1000 * v.tokenCount) / (v.ttltMsec - v.ttftMsec);
       const newStats = {
         ...stats,
         ttltClient: ttlt,
