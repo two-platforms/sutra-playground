@@ -11,7 +11,6 @@ export const StatsView = ({ statsAtom }: Props) => {
   const [stats] = useAtom(statsAtom);
   return (
     <div className="font-mono text-sm">
-
       <Chip size="md" color="primary">
         {stats.tps.toFixed(2)} Tokens/Sec
       </Chip>
@@ -20,7 +19,7 @@ export const StatsView = ({ statsAtom }: Props) => {
         {stats.ttltService}ms TTLB
       </Chip>
       <Tooltip content={stats.enTranslation} placement="top" className=' max-w-96'>
-      <Chip size="md">En</Chip>
+      <Chip size="md">E</Chip>
       </Tooltip>
       {/* TEMPERATURE: <Chip size='sm'>{temperature}</Chip>
       MAX TOKENS: <Chip size='sm'>{maxTokens}</Chip> */}
