@@ -1,33 +1,39 @@
 import React from 'react';
 import { useHookstate } from '@hookstate/core';
-import { useAtom, PrimitiveAtom } from 'jotai';
+import { useAtom } from 'jotai';
 
 import { LLMChunk, LLMReply } from '@two-platforms/ion-multilingual-types';
 
 import { AnswerView } from './AnswerView';
 import { Sutra, SutraCallbacks } from '../service/SutraClient';
-import { SutraModel, SutraStats, buildCompletionRequest } from '../service/SutraModels';
+import { buildCompletionRequest } from '../service/SutraModels';
 import { log } from '../utils/log';
-import { sutraLoadingAtom } from '../state/atoms';
+import { 
+  sutraLoadingAtom,
+  sutraModelAtom,
+  sutraStatsAtom,
+  userInputAtom,
+ } from '../state/atoms';
 
-export function OutputViewSutra(props: { modelAtom: PrimitiveAtom<SutraModel>; statsAtom: PrimitiveAtom<SutraStats>, userInput: string }) {
+export function OutputViewSutra() {
   const answer = useHookstate('');
-  const [loading, setLoading] = useAtom(sutraLoadingAtom);  
   const [, setAnswer] = React.useState('');
 
   // from jotaiState
-  const [model] = useAtom(props.modelAtom);
-  const [stats, setStats] = useAtom(props.statsAtom);
+  const [loading, setLoading] = useAtom(sutraLoadingAtom);
+  const [model] = useAtom(sutraModelAtom);
+  const [stats, setStats] = useAtom(sutraStatsAtom);
+  const [userInput] = useAtom(userInputAtom);
 
   let timerStart = 0;
   let haveFirstToken = false;
 
   // console.log('OutputView', props.userInput);
   React.useEffect(() => {
-    console.log('useEffect', props.userInput);
-    if (props.userInput.length === 0) return;
-    sendToSutra(props.userInput);
-  }, [props.userInput]);
+    console.log('useEffect', userInput);
+    if (userInput.length === 0) return;
+    sendToSutra(userInput);
+  }, [userInput]);
 
   // callbacks for streaming mode
   const sutraCallbacks: SutraCallbacks = {
@@ -39,7 +45,7 @@ export function OutputViewSutra(props: { modelAtom: PrimitiveAtom<SutraModel>; s
         setStats(newStats);
       }
       answer.set((current) => current + v.content);
-      log.info(`${model.provider}: onLLMChunk:`, v.content);
+      // log.info(`${model.provider}: onLLMChunk:`, v.content);
       if (v.isFinal) setLoading(false);
     },
     onLLMReply: (v: LLMReply) => {
@@ -52,7 +58,7 @@ export function OutputViewSutra(props: { modelAtom: PrimitiveAtom<SutraModel>; s
         ttltService: v.ttltMsec,
       };
       setStats(newStats);
-      log.info(`${model.provider}: onLLMReply:`, v);
+      // log.info(`${model.provider}: onLLMReply:`, v);
       log.info(`${model.provider}: onLLMReply:`, newStats);
       if (v.isFinal) {
         setAnswer(answer.get());

@@ -221,7 +221,7 @@ const App = () => {
               <Divider />
               <CardBody>
                 <p className="py-5 text-xl font-semibold">{userInput}</p>
-                <OutputViewSutra modelAtom={sutraModelAtom} statsAtom={sutraStatsAtom} userInput={userInput} />
+                <OutputViewSutra/>
               </CardBody>
               <Divider />
               <CardFooter>
@@ -241,7 +241,7 @@ const App = () => {
                 <Divider />
                 <CardBody>
                   <p className="py-5 text-xl font-semibold">{userInput}</p>
-                  <OutputViewOther modelAtom={otherModelAtom} statsAtom={otherStatsAtom} userInput={userInput} />
+                  <OutputViewOther />
                 </CardBody>
                 <Divider />
                 <CardFooter>
