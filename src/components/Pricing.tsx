@@ -13,6 +13,7 @@ import {
   TableRow,
   TableCell,
   Divider,
+  ModalHeader,
 } from '@nextui-org/react';
 
 export default function Pricing() {
@@ -23,12 +24,12 @@ export default function Pricing() {
       <Link size="sm" className=" hover:cursor-pointer" onPress={onOpen}>
         SUTRA PRICING
       </Link>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="2xl">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="2xl" scrollBehavior="inside">
         <ModalContent>
           {(onClose) => (
             <>
+              <ModalHeader className="text-2xl">SUTRA PRICING</ModalHeader>
               <ModalBody>
-                <div className=" mt-5 text-2xl font-bold">SUTRA PRICING</div>
                 <div className="flex flex-col gap-1">
                   <div className=" text-lg font-bold">SUTRA-Online Series</div>
                   <Table removeWrapper aria-label="Example static collection table">
