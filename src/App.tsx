@@ -41,6 +41,7 @@ import {
 import { OutputViewSutra } from './components/OutputViewSutra';
 import { OutputViewOther } from './components/OutputViewOther';
 import { BubbleStar } from 'iconoir-react';
+import Pricing from './components/Pricing';
 
 const App = () => {
   const [userInput, setUserInput] = useAtom(userInputAtom);
@@ -117,11 +118,11 @@ const App = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const issueNewText = (ev: any) => {
-    if (ev && ev.code !== "Enter" && ev.code !== "NumpadEnter" && ev.keyCode !== 13) return;
+    if (ev && ev.code !== 'Enter' && ev.code !== 'NumpadEnter' && ev.keyCode !== 13) return;
     if (text.length === 0) return;
     console.log('setting userInput', text);
     setUserInput(text);
-    setText(''); 
+    setText('');
   };
 
   return (
@@ -238,6 +239,7 @@ const App = () => {
             <Link isExternal showAnchorIcon size="sm" href="https://docs.two.ai">
               SUTRA API
             </Link>
+            <Pricing />
           </div>
         </div>
         {/* 100vh */}
@@ -320,7 +322,6 @@ const App = () => {
                 }}
               >
                 <BubbleStar />
-                
               </Button>
             } // endContent
           />
