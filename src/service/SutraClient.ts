@@ -105,7 +105,8 @@ export class Sutra {
                 const streamObj = JSON.parse(value) as IonStreamObject;
 
                 if (streamObj.typeName === 'LLMChunk') {
-                    await sleep(10);
+                    // using this causes RHS panel to wait for LHS
+                    // await sleep(5);
                     onLLMChunk(streamObj as LLMChunk);
                     /**/
                 } else if (streamObj.typeName === 'LLMReply') {
@@ -120,8 +121,8 @@ export class Sutra {
     }
 }
 
-function sleep(ms: number): Promise<void> {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
-}
+// function sleep(ms: number): Promise<void> {
+//     return new Promise((resolve) => {
+//         setTimeout(resolve, ms);
+//     });
+// }

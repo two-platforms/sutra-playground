@@ -29,7 +29,7 @@ export const StatsView = ({ statsAtom }: Props) => {
       </div>
       |
       <div>
-        <b>{stats.ttltService}</b>ms
+        <b>{((stats.ttltService - stats.ttftService)/1000).toFixed(2)}</b> SEC
       </div>
       {/* <Chip size="md" color="primary">
         {stats.tps.toFixed(2)} Tokens/Sec
