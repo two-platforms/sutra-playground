@@ -105,6 +105,7 @@ export class Sutra {
                 const streamObj = JSON.parse(value) as IonStreamObject;
 
                 if (streamObj.typeName === 'LLMChunk') {
+                    // using this causes RHS panel to wait for LHS
                     await sleep(10);
                     onLLMChunk(streamObj as LLMChunk);
                     /**/

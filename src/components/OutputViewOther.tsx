@@ -45,7 +45,7 @@ export function OutputViewOther() {
     },
     onLLMReply: (v: LLMReply) => {
       const ttlt = Date.now() - timerStart;
-      const tps = (1000 * v.tokenCount) / (v.ttltMsec - v.ttftMsec);
+      const tps = (1000 * v.tokenCount) / (ttlt - stats.ttftClient);
       const newStats = {
         ...stats,
         ttltClient: ttlt,
@@ -63,7 +63,7 @@ export function OutputViewOther() {
         setAnswer(answer.get());
         setLoading(false);
       }
-      if (v.wordCount > 10) {
+      if (v.wordCount > 6) {
         setLoading(false);
       }
     },
