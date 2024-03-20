@@ -25,7 +25,7 @@ import { IPv4, Location } from './components/GeoInfo';
 
 // const darkMode = useDarkMode(true);
 
-import { SutraModel, SUTRA_MODELS, OTHER_MODELS } from './service/SutraModels';
+import { SutraModel, SUTRA_MODELS, OTHER_MODELS, initStats } from './service/SutraModels';
 import {
   agentInfoAtom,
   userInputAtom,
@@ -89,6 +89,7 @@ const App = () => {
     'কলকাতায় দুর্গাপূজা কীভাবে উদযাপিত হয়?',
     '서울에서 가장 환상적인 야경을 볼 수 있는 곳은 어디인가요?',
     'What is the tallest building in the world?',
+    'What are the health benefits of ginger?',
     'चाय कैसे बनाते है?',
     '로마는 언제 건설되었나요?',
   ];
@@ -116,11 +117,11 @@ const App = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const issueNewText = (ev: any) => {
-    if (ev && ev.code !== 'Enter') return;
+    if (ev && ev.code !== "Enter" && ev.code !== "NumpadEnter" && ev.keyCode !== 13) return;
     if (text.length === 0) return;
     console.log('setting userInput', text);
     setUserInput(text);
-    setText('');
+    setText(''); 
   };
 
   return (
