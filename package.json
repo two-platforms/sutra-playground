@@ -22,6 +22,7 @@
     "@vercel/analytics": "^1.2.2",
     "axios": "^1.6.8",
     "framer-motion": "^11.0.14",
+    "iconoir-react": "^7.5.0",
     "jose": "^5.2.3",
     "jotai": "^2.7.1",
     "react": "^18.2.0",
