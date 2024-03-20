@@ -43,7 +43,7 @@ import {
 } from './state/atoms';
 import { OutputViewSutra } from './components/OutputViewSutra';
 import { OutputViewOther } from './components/OutputViewOther';
-import { BubbleStar } from 'iconoir-react';
+import { SystemRestart } from 'iconoir-react';
 import Pricing from './components/Pricing';
 
 const App = () => {
@@ -336,7 +336,7 @@ const App = () => {
                   setText(question);
                 }}
               >
-                <BubbleStar />
+                <SystemRestart />
               </Button>
             } // endContent
           />
