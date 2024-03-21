@@ -60,6 +60,14 @@ export const SUTRA_MODELS: SutraModel[] = [
         temperature: DEFAULT_TEMPERATURE,
         maxTokens: DEFAULT_MAXTOKENS,
     },
+    {
+        displayName: 'SUTRA-ONLINE',
+        modelId: 'sutra-online',
+        provider: 'TWO.AI',
+        iconUrl: 'two.png',
+        temperature: DEFAULT_TEMPERATURE,
+        maxTokens: DEFAULT_MAXTOKENS,
+    },
 ];
 
 export const OTHER_MODELS: SutraModel[] = [

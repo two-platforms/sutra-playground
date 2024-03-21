@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 import { IonStreamObject, LLMChunk, LLMReply, MultilingualUserInput } from '@two-platforms/ion-multilingual-types';
+import { MyLLMChunk, MyLLMReply } from '@two-platforms/ion-online-types';
 
 import { log } from '../utils/log';
 import { K } from '../utils/K';
@@ -58,16 +59,38 @@ export class Sutra {
     }
 
     public static async postComplete(body: MultilingualUserInput, cbs: SutraCallbacks): Promise<void> {
+        // special handling for sutra online model
+        if(body.modelId === 'sutra-online') {
+            Sutra.postSchat(body, cbs);
+            return;
+        }
+
         const service = Sutra.selectService('multilingual');
         const url = `${service}/completion`;
         const cfg = Sutra.makeStreamingConfig();
 
         log.info(url);
-        log.info(cfg);
-        log.info(body);
 
         try {
             const reply = await axios.post(url, body, cfg);
+            const stream = reply.data as NodeJS.ReadableStream;
+            await Sutra.consumeStream(stream, cbs);
+        } catch (err: unknown) {
+            log.error(err);
+            cbs.onError(JSON.stringify(err));
+        }
+    }
+
+    private static async postSchat(body: MultilingualUserInput, cbs: SutraCallbacks): Promise<void> {
+        const service = Sutra.selectService('online');
+        const url = `${service}/schat`;
+        const cfg = Sutra.makeStreamingConfig();
+
+        log.info(url);
+        const iolBody = { userInput: body.prompt };
+
+        try {
+            const reply = await axios.post(url, iolBody, cfg);
             const stream = reply.data as NodeJS.ReadableStream;
             await Sutra.consumeStream(stream, cbs);
         } catch (err: unknown) {
@@ -112,6 +135,32 @@ export class Sutra {
                 } else if (streamObj.typeName === 'LLMReply') {
                     onLLMReply(streamObj as LLMReply);
                     /**/
+
+                // special handling for sutra online model
+                } else if (streamObj.typeName === "MyLLMChunk") {
+                    await sleep(10);
+                    const llmChunk = streamObj as MyLLMChunk;
+                    // V1 ion-online MyLLMChunk is same as ion-multilingual LLMChunk
+                    onLLMChunk(llmChunk as LLMChunk);
+                    /**/
+                } else if (streamObj.typeName === "MyLLMReply") {
+                    const myLLMreply = streamObj as MyLLMReply;
+                    const llmReply: LLMReply = {
+                        typeName: 'LLMReply',
+                        isFinal: true,
+                        requestId: 'requestId',
+                        userInput: {
+                            modelId: 'sutra-online',
+                            prompt: myLLMreply.userInput,
+                        },
+                        success: true,
+                        ttftMsec: 100,
+                        ttltMsec: myLLMreply.llmMsec,
+                        errMsg: myLLMreply.errMsg,
+                        tokenCount: 0,
+                        wordCount: 0
+                    }
+                    onLLMReply(llmReply);
                 } else {
                     onError(`unknown stream object ${streamObj.typeName}`);
                 }
