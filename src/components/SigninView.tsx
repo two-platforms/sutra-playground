@@ -1,15 +1,31 @@
 import { SignIn } from '@clerk/clerk-react';
 import { Image } from '@nextui-org/react';
+import { useAtom } from 'jotai';
+import { isMobileAtom } from '../state/atoms';
 
 export const SigninView = () => {
+  const [isMobile] = useAtom(isMobileAtom);
+
+  console.log(isMobile);
+
   return (
     <>
       <div className="flex h-dvh items-center justify-center ">
-        <div className="flex h-full w-full basis-3/5 items-center justify-center gap-5 bg-gray-400">
-          <Image className="h-8" src="sutra.svg" />
-          <div className="overflow-hidden text-4xl text-black/60">PLAYGROUND</div>
-        </div>
-        <div className="flex h-full basis-2/5 items-center justify-center">
+        {!isMobile && (
+          <div className="flex h-full w-full basis-3/5 flex-col flex-wrap items-center justify-center gap-5 bg-gray-400">
+            <div>
+              <Image className="mb-3 h-8" src="sutra.svg" />
+              <div className="overflow-hidden font-mono text-4xl text-black/60">PLAYGROUND</div>
+            </div>
+          </div>
+        )}
+        <div className="flex h-full basis-2/5 flex-col items-center justify-center gap-5">
+          {isMobile && (
+            <div className="flex flex-wrap items-end gap-3">
+              <Image className="h-8" src="sutra.svg" />
+              <div className="font-mono text-2xl">PLAYGROUND</div>
+            </div>
+          )}
           <SignIn />
         </div>
       </div>

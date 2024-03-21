@@ -7,6 +7,7 @@ import { NextUIProvider } from '@nextui-org/react';
 import { Analytics } from '@vercel/analytics/react';
 import { ClerkProvider, SignedIn, SignedOut } from '@clerk/clerk-react';
 import { SigninView } from './components/SigninView';
+import { MediaQueryView } from './components/MediaQueryView';
 
 // import { SpeedInsights } from '@vercel/speed-insights/next';
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -35,6 +36,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <SigninView />
         </SignedOut>
         <Analytics />
+        <MediaQueryView />
         {/* <SpeedInsights /> */}
       </ClerkProvider>
     </NextUIProvider>

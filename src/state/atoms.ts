@@ -7,6 +7,7 @@ import { SutraModel, SutraStats, initStats, SUTRA_MODELS, OTHER_MODELS } from '.
 const agentInfoAtom = atom(getAgent()).init;
 const darkModeAtom = atomWithStorage('darkMode', false);
 const userInputAtom = atom('');
+export const isMobileAtom = atom<boolean>(false);
 
 const sutraModelAtom = atom<SutraModel>(SUTRA_MODELS[0]);
 const sutraTemperatureAtom = atom(SUTRA_MODELS[0].temperature);

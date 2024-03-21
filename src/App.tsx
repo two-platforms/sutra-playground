@@ -152,7 +152,7 @@ const App = () => {
           <>
             <div className="flex flex-col items-start gap-0 font-mono text-sm">
               <Image className="h-8" src="sutra.svg" />
-              <div className="pl-1 font-bold">PLAYGROUND {packageJson.version}</div>
+              <div className="pl-1 text-xs font-bold">PLAYGROUND {packageJson.version}</div>
             </div>
 
             <Divider />
@@ -260,6 +260,7 @@ const App = () => {
               SUTRA API
             </Link>
             <Pricing />
+            <div>© 2024 TWO.</div>
           </div>
           <SignOutButton>
             <Button>Sign Out</Button>
