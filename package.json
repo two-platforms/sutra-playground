@@ -1,7 +1,7 @@
 {
   "name": "sutra-playground",
   "private": true,
-  "version": "0.0.8",
+  "version": "0.0.9",
   "type": "module",
   "scripts": {
     "lab2": "vite --host",
@@ -20,6 +20,7 @@
     "@hookstate/core": "^4.0.1",
     "@nextui-org/react": "^2.2.10",
     "@two-platforms/ion-multilingual-types": "1.2.1",
+    "@two-platforms/ion-online-types": "^1.1.1",
     "@uidotdev/usehooks": "^2.4.1",
     "@vercel/analytics": "^1.2.2",
     "axios": "^1.6.8",

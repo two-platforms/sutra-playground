@@ -11,10 +11,18 @@ interface Props {
 export const StatsView = ({ statsAtom }: Props) => {
   const [stats] = useAtom(statsAtom);
 
-  const tps = (): number => {
+  const tokenCountString =  (): string => {
+    const { tokenCount } = stats;
+    if (tokenCount === 0) return '-';
+    return `${tokenCount}`;
+  }
+
+  const tpsString = (): string => {
     const { ttftService, ttltService, tokenCount } = stats;
-    if (ttftService === 0 || ttltService === 0) return 0;
-    return (ttftService === ttftService) ? (1000 * tokenCount) / ttltService : (1000 * tokenCount) / (ttltService - ttftService);
+    if (tokenCount === 0) return '-';
+    if (ttftService === 0 || ttltService === 0) return '-';
+    const tps = (ttftService === ttftService) ? (1000 * tokenCount) / ttltService : (1000 * tokenCount) / (ttltService - ttftService);
+    return `${tps.toFixed(2)}`
   }
 
   return (
@@ -24,11 +32,11 @@ export const StatsView = ({ statsAtom }: Props) => {
       </Tooltip>
       |
       <div>
-        <b>{tps().toFixed(2)}</b> TOKENS/SEC
+        <b>{tpsString()}</b> TOKENS/SEC
       </div>
       |
       <div>
-        <b>{stats.tokenCount}</b> TOKENS
+        <b>{tokenCountString()}</b> TOKENS
       </div>
       |
       <div>
