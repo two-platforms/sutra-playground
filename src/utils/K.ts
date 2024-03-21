@@ -8,6 +8,7 @@ const DEBUG_MODE_DISABLED = import.meta.env.VITE_DEBUG_MODE === 'false';
 
 export const K = {
     // SUTRA_SERVICE: 'http://192.168.21.38:7010/sutra',
+    // SUTRA_SERVICE: 'https://sutra-server-tmwuc6vstq-uw.a.run.app/sutra',
     SUTRA_SERVICE: 'https://api.two.ai/sutra',
 
     LOG_LEVEL: DEBUG_MODE_DISABLED ? WARN_LEVEL : INFO_LEVEL,
