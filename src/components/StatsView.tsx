@@ -13,6 +13,7 @@ export const StatsView = ({ statsAtom }: Props) => {
 
   const tps = (): number => {
     const { ttftService, ttltService, tokenCount } = stats;
+    if (ttftService === 0 || ttltService === 0) return 0;
     return (ttftService === ttftService) ? (1000 * tokenCount) / ttltService : (1000 * tokenCount) / (ttltService - ttftService);
   }
 
