@@ -6,8 +6,8 @@ export const SigninView = () => {
     <>
       <div className="flex h-dvh items-center justify-center ">
         <div className="flex h-full w-full basis-3/5 items-center justify-center gap-5 bg-gray-400">
-          <Image src="/public/sutra512X512.png" width={150} height={150} />
-          <div className="overflow-hidden text-4xl">SUTRA PLAYGROUND</div>
+          <Image className="h-8" src="sutra.svg" />
+          <div className="overflow-hidden text-4xl text-black/60">PLAYGROUND</div>
         </div>
         <div className="flex h-full basis-2/5 items-center justify-center">
           <SignIn />
