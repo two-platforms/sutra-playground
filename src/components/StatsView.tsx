@@ -10,6 +10,12 @@ interface Props {
 }
 export const StatsView = ({ statsAtom }: Props) => {
   const [stats] = useAtom(statsAtom);
+
+  const tps = (): number => {
+    const { ttftService, ttltService, tokenCount } = stats;
+    return (ttftService === ttftService) ? (1000 * tokenCount) / ttltService : (1000 * tokenCount) / (ttltService - ttftService);
+  }
+
   return (
     <div className="flex flex-row items-center gap-2 font-mono text-sm">
       <Tooltip content={stats.enTranslation} placement="top" className=" max-w-96">
@@ -17,7 +23,7 @@ export const StatsView = ({ statsAtom }: Props) => {
       </Tooltip>
       |
       <div>
-        <b>{stats.tps.toFixed(2)}</b> TOKENS/SEC
+        <b>{tps().toFixed(2)}</b> TOKENS/SEC
       </div>
       |
       <div>
@@ -29,7 +35,7 @@ export const StatsView = ({ statsAtom }: Props) => {
       </div>
       |
       <div>
-        <b>{(stats.ttltService/1000).toFixed(2)}</b> SEC
+        <b>{stats.ttltService}</b> MSEC
       </div>
       {/* <Chip size="md" color="primary">
         {stats.tps.toFixed(2)} Tokens/Sec
