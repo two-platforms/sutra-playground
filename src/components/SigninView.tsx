@@ -44,20 +44,20 @@ export const SigninView = () => {
 };
 
 
-const BG = () => {
-  return (
-    <>
-      <div className="absolute inset-0 flex items-center justify-center overflow-hidden blur-[10vw] saturate-150">
-        <div className="absolute h-1/2 w-full animate-orbit2">
-          <div className="absolute left-[25%] top-[20%] w-[40%] rounded-full bg-blue-200 pb-[40%]"></div>
-        </div>
-        <div className="absolute h-full w-full animate-orbit3">
-          <div className="absolute left-[30%] top-[50%] w-[30%] rounded-full bg-gray-400 pb-[30%]"></div>
-        </div>
-        <div className="absolute h-full w-1/2 animate-orbit4">
-          <div className="absolute left-[25%] top-[25%] w-[30%] rounded-full bg-white pb-[30%]"></div>
-        </div>
-      </div>
-    </>
-  );
-};
+// const BG = () => {
+//   return (
+//     <>
+//       <div className="absolute inset-0 flex items-center justify-center overflow-hidden blur-[10vw] saturate-150">
+//         <div className="absolute h-1/2 w-full animate-orbit2">
+//           <div className="absolute left-[25%] top-[20%] w-[40%] rounded-full bg-blue-200 pb-[40%]"></div>
+//         </div>
+//         <div className="absolute h-full w-full animate-orbit3">
+//           <div className="absolute left-[30%] top-[50%] w-[30%] rounded-full bg-gray-400 pb-[30%]"></div>
+//         </div>
+//         <div className="absolute h-full w-1/2 animate-orbit4">
+//           <div className="absolute left-[25%] top-[25%] w-[30%] rounded-full bg-white pb-[30%]"></div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
