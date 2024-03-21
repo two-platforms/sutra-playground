@@ -15,10 +15,12 @@
   "dependencies": {
     "@chatscope/chat-ui-kit-react": "^2.0.3",
     "@chatscope/chat-ui-kit-styles": "^1.4.0",
+    "@clerk/clerk-react": "^4.30.7",
     "@egjs/agent": "^2.4.3",
     "@hookstate/core": "^4.0.1",
     "@nextui-org/react": "^2.2.10",
     "@two-platforms/ion-multilingual-types": "1.2.1",
+    "@uidotdev/usehooks": "^2.4.1",
     "@vercel/analytics": "^1.2.2",
     "axios": "^1.6.8",
     "framer-motion": "^11.0.14",
