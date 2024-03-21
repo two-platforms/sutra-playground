@@ -45,6 +45,7 @@ import { OutputViewSutra } from './components/OutputViewSutra';
 import { OutputViewOther } from './components/OutputViewOther';
 import { SystemRestart } from 'iconoir-react';
 import Pricing from './components/Pricing';
+import { SignOutButton } from '@clerk/clerk-react';
 
 const App = () => {
   const [userInput, setUserInput] = useAtom(userInputAtom);
@@ -153,8 +154,8 @@ const App = () => {
               <Image className="h-8" src="sutra.svg" />
               <div className="pl-1 font-bold">PLAYGROUND {packageJson.version}</div>
             </div>
-            <Divider />
 
+            <Divider />
             {/* Sutra model selection */}
             <Select
               aria-label="Select Sutra Model"
@@ -260,6 +261,9 @@ const App = () => {
             </Link>
             <Pricing />
           </div>
+          <SignOutButton>
+            <Button>Sign Out</Button>
+          </SignOutButton>
         </div>
         {/* 100vh */}
         <div className="z-10 flex h-screen max-h-screen w-full flex-col gap-3 p-4">
