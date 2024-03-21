@@ -1,13 +1,17 @@
-import React from 'react';
-
-import { SignedIn, SignedOut, SignIn, SignInButton, UserButton } from '@clerk/clerk-react';
-import { Button } from '@nextui-org/react';
+import { SignIn } from '@clerk/clerk-react';
+import { Image } from '@nextui-org/react';
 
 export const SigninView = () => {
   return (
     <>
       <div className="flex h-dvh items-center justify-center ">
-        <SignIn />
+        <div className="flex h-full w-full basis-3/5 items-center justify-center gap-5 bg-gray-400">
+          <Image src="/public/sutra512X512.png" width={150} height={150} />
+          <div className="overflow-hidden text-4xl">SUTRA PLAYGROUND</div>
+        </div>
+        <div className="flex h-full basis-2/5 items-center justify-center">
+          <SignIn />
+        </div>
       </div>
 
       {/* <SignedOut>
