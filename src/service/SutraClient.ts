@@ -74,7 +74,7 @@ export class Sutra {
         try {
             const reply = await axios.post(url, body, cfg);
             const stream = reply.data as NodeJS.ReadableStream;
-            await Sutra.consumeStream(stream, cbs);
+            Sutra.consumeStream(stream, cbs);
         } catch (err: unknown) {
             log.error(err);
             cbs.onError(JSON.stringify(err));
@@ -92,7 +92,7 @@ export class Sutra {
         try {
             const reply = await axios.post(url, iolBody, cfg);
             const stream = reply.data as NodeJS.ReadableStream;
-            await Sutra.consumeStream(stream, cbs);
+            Sutra.consumeStream(stream, cbs);
         } catch (err: unknown) {
             log.error(err);
             cbs.onError(JSON.stringify(err));
