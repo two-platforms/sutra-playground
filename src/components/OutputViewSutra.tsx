@@ -4,7 +4,7 @@ import { useAtom } from 'jotai';
 
 import { LLMChunk, LLMReply } from '@two-platforms/ion-multilingual-types';
 
-import { AnswerView } from './AnswerView';
+import { AnswerViewSutra } from './AnswerViewSutra';
 import { Sutra, SutraCallbacks } from '../service/SutraClient';
 import { buildCompletionRequest } from '../service/SutraModels';
 import { log } from '../utils/log';
@@ -81,7 +81,7 @@ export function OutputViewSutra() {
 
   return (
     <React.Fragment>
-      <AnswerView answer={answer} loading={loading} />
+      <AnswerViewSutra answer={answer} loading={loading} />
     </React.Fragment>
   );
 }
