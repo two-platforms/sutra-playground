@@ -1,15 +1,11 @@
 import { Tooltip } from '@nextui-org/react';
-import { useAtom, PrimitiveAtom } from 'jotai';
-import { SutraStats } from '../service/SutraModels';
+import { useAtom } from 'jotai';
 import { DashboardDots } from 'iconoir-react';
 
-interface Props {
-  statsAtom: PrimitiveAtom<SutraStats>;
-  temperature: number;
-  maxTokens: number;
-}
-export const StatsView = ({ statsAtom }: Props) => {
-  const [stats] = useAtom(statsAtom);
+import { sutraStatsAtom } from '../state/atoms';
+
+export const StatsViewSutra = () => {
+  const [stats] = useAtom(sutraStatsAtom);
 
   const tokenCountString =  (): string => {
     const { tokenCount } = stats;

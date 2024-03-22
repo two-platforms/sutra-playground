@@ -19,8 +19,9 @@ import {
 } from '@nextui-org/react';
 
 import './styles/chatui.css';
-// import { OutputView } from './components/OutputView';
-import { StatsView } from './components/StatsView';
+
+import { StatsViewSutra } from './components/StatsViewSutra';
+import { StatsViewOther } from './components/StatsViewOther';
 import { IPv4, Location } from './components/GeoInfo';
 // import Ping from "./components/Ping";
 
@@ -33,19 +34,20 @@ import {
   sutraModelAtom,
   sutraTemperatureAtom,
   sutraMaxTokensAtom,
-  sutraStatsAtom,
   sutraLoadingAtom,
   otherModelAtom,
   otherTemperatureAtom,
   otherMaxTokensAtom,
-  otherStatsAtom,
   otherLoadingAtom,
+  playgroundQuestionsAtom,
 } from './state/atoms';
 import { OutputViewSutra } from './components/OutputViewSutra';
 import { OutputViewOther } from './components/OutputViewOther';
 import { SystemRestart } from 'iconoir-react';
 import Pricing from './components/Pricing';
 import { SignOutButton } from '@clerk/clerk-react';
+
+const QUESTIONS_URL = 'https://raw.githubusercontent.com/TwoResearch/playground-questions/main/questions.json';
 
 const App = () => {
   const [userInput, setUserInput] = useAtom(userInputAtom);
@@ -63,6 +65,7 @@ const App = () => {
   const [text, setText] = React.useState('');
   const [error] = React.useState<string | undefined>(undefined);
   const [compareDUO, setCompareDUO] = React.useState(false);
+  const [questions, setQuestions] = useAtom(playgroundQuestionsAtom);
 
   //const errorRef = React.useRef<string | undefined>(undefined);
 
@@ -82,32 +85,21 @@ const App = () => {
   //   setOtherInFlight(false);
   // };
 
-  const questions = [
-    'What are some of the main tourist attractions in San Francisco?',
-    'What are the benefits of Yoga?',
-    'How to cut a mango?',
-    'What is the best time to visit Ladakh?',
+  const getQuestionFromOnline = async () => {
+    const response = await fetch(QUESTIONS_URL);
+    const data = await response.json();
+    return data;
+  };
 
-    'Where can I see the most fantastic night view in Seoul?',
-    'अदरक के स्वास्थ्य लाभ क्या हैं?',
-    'Dhokla kaise banate hai?',
-    'एफिल टावर कितना पुराना है?',
-    'ગોવામાં કયા દરિયાકિનારાઓ પર ઓછી ભીડ હોય છે?',
-    'லடாக்குக்கு செல்ல சிறந்த நேரம் எது?',
-    'কলকাতায় দুর্গাপূজা কীভাবে উদযাপিত হয়?',
-    'What is the tallest building in the world?',
-    'What are the health benefits of ginger?',
-    'चाय कैसे बनाते है?',
-    '강남역에서 가장 혼잡한 시간은 언제인가요?',
-    '서울에서 가장 환상적인 야경을 볼 수 있는 곳은 어디인가요?',
-    '다른 EV 자동차와 비교하여 Tesla의 장점은 무엇입니까?',
-    '로마는 언제 건설되었나요?',
-    '미국의 부활절 문화를 구체적으로 설명해주세요',
-    '인도에서 가장 흔한 성씨는 무엇인가요?',
-    '앨런 튜링의 과학적인 업적 및 역사적 역할에 대해 전문 과학 기자처럼 알려줘',
-    '지구를 처음 본 외계인이 감격해서 부르는 노래를 창의적으로 작사해줘',
-    '노래할 수 있어?',
-  ];
+  React.useEffect(() => {
+    getQuestionFromOnline().then((data: { ultra: string[]; online: string[] }) => {
+      if (sutraModel.displayName === 'SUTRA-ONLINE') {
+        setQuestions(data.online);
+      } else {
+        setQuestions(data.ultra);
+      }
+    });
+  }, []);
 
   const changeSutra = (newModel: SutraModel): void => {
     sutraModel.temperature = sutraTemperature;
@@ -286,7 +278,7 @@ const App = () => {
               </CardBody>
               <Divider />
               <CardFooter className="h-12">
-                <StatsView statsAtom={sutraStatsAtom} temperature={sutraTemperature} maxTokens={sutraMaxTokens} />
+                <StatsViewSutra />
               </CardFooter>
             </Card>
 
@@ -307,7 +299,7 @@ const App = () => {
                 </CardBody>
                 <Divider />
                 <CardFooter className="h-12">
-                  <StatsView statsAtom={otherStatsAtom} temperature={otherTemperature} maxTokens={otherMaxTokens} />
+                  <StatsViewOther />
                 </CardFooter>
               </Card>
             )}
