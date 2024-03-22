@@ -76,7 +76,7 @@ export function OutputViewSutra() {
     haveFirstToken = false;
     const request = buildCompletionRequest(newText, model);
     setLoading(true);
-    await Sutra.postComplete(request, sutraCallbacks);
+    Sutra.postComplete(request, sutraCallbacks);
   };
 
   return (

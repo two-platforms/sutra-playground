@@ -19,8 +19,9 @@ import {
 } from '@nextui-org/react';
 
 import './styles/chatui.css';
-// import { OutputView } from './components/OutputView';
-import { StatsView } from './components/StatsView';
+
+import { StatsViewSutra } from './components/StatsViewSutra';
+import { StatsViewOther } from './components/StatsViewOther';
 import { IPv4, Location } from './components/GeoInfo';
 // import Ping from "./components/Ping";
 
@@ -33,12 +34,10 @@ import {
   sutraModelAtom,
   sutraTemperatureAtom,
   sutraMaxTokensAtom,
-  sutraStatsAtom,
   sutraLoadingAtom,
   otherModelAtom,
   otherTemperatureAtom,
   otherMaxTokensAtom,
-  otherStatsAtom,
   otherLoadingAtom,
 } from './state/atoms';
 import { OutputViewSutra } from './components/OutputViewSutra';
@@ -286,7 +285,7 @@ const App = () => {
               </CardBody>
               <Divider />
               <CardFooter className="h-12">
-                <StatsView statsAtom={sutraStatsAtom} temperature={sutraTemperature} maxTokens={sutraMaxTokens} />
+                <StatsViewSutra />
               </CardFooter>
             </Card>
 
@@ -307,7 +306,7 @@ const App = () => {
                 </CardBody>
                 <Divider />
                 <CardFooter className="h-12">
-                  <StatsView statsAtom={otherStatsAtom} temperature={otherTemperature} maxTokens={otherMaxTokens} />
+                  <StatsViewOther />
                 </CardFooter>
               </Card>
             )}
