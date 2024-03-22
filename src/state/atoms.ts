@@ -23,6 +23,8 @@ const otherStatsAtom = atom<SutraStats>(initStats());
 const otherLoadingAtom = atom(false);
 const otherAnswerAtom = atom('');
 
+const playgroundQuestionsAtom = atom<string[]>([]);
+
 export {
     agentInfoAtom,
     darkModeAtom,
@@ -39,4 +41,5 @@ export {
     otherStatsAtom,
     otherLoadingAtom,
     otherAnswerAtom,
+    playgroundQuestionsAtom,
 };
