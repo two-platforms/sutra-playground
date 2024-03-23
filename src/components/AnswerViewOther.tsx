@@ -4,7 +4,7 @@ interface Props {
   answer: string;
   loading: boolean;
 }
-export const AnswerView = ({ answer, loading }: Props) => {
+export const AnswerViewOther = ({ answer, loading }: Props) => {
   return (
     <div className="prose prose-xl prose-p:leading-normal max-w-[600px] leading-normal text-black">
       {answer + (loading && answer.length > 0 ? '●' : '')}

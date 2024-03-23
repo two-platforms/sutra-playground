@@ -16,6 +16,8 @@ import {
   CardHeader,
   Button,
   Progress,
+  RadioGroup,
+  Radio,
 } from '@nextui-org/react';
 
 import './styles/chatui.css';
@@ -139,7 +141,7 @@ const App = () => {
         {/* <div className="flex flex-col"> */}
         <BG />
         {/* MENU  */}
-        <div className="sticky top-0 flex h-screen w-72 flex-col gap-4 p-4">
+        <div className="sticky top-0 flex h-screen min-w-64 flex-col gap-4 p-4">
           {/* SELECTS */}
           <>
             <div className="flex flex-col items-start gap-0 font-mono text-sm">
@@ -221,22 +223,16 @@ const App = () => {
               </Select>
             )}
           </>
-          {/* <Button
-            variant="bordered"
-            color="primary"
-            className="shadow-geniyablue/50 h-9 px-4 text-xl font-medium  shadow-lg hover:shadow-md"
-            onClick={() => {
-              const question = questions[Math.floor(Math.random() * questions.length)];
-              setText(question);
-            }}
-          >
-            random
-          </Button> */}
 
           <Divider />
-          <div className="absolute bottom-4 left-4 flex flex-col items-start gap-0 font-mono text-sm">
+          <div className="absolute bottom-0 left-0 flex w-full flex-col items-start gap-0 p-4 font-mono text-sm">
             {/* <Image className="h-8" src="sutra.svg" />
             <div className="font-bold">PLAYGROUND {packageJson.version}</div> */}
+            <SignOutButton>
+              <Link size="sm" className="hover:cursor-pointer">
+                SIGN OUT
+              </Link>
+            </SignOutButton>
             <Divider className="my-2" />
             <div>
               {agentInfoAtom.os.name.toUpperCase()} | {agentInfoAtom.browser.name.toUpperCase()}
@@ -248,15 +244,18 @@ const App = () => {
               <IPv4 />
             </div>
             <Divider className="my-2" />
+            <RadioGroup label="SUTRA SERVER" orientation="horizontal" size="sm" defaultValue="US">
+              <Radio value="US">US</Radio>
+              <Radio value="IN">IN</Radio>
+              <Radio value="KR">KR</Radio>
+            </RadioGroup>
+            <Divider className="my-2" />
             <Link isExternal showAnchorIcon size="sm" href="https://docs.two.ai">
               SUTRA API
             </Link>
             <Pricing />
             <div>© 2024 TWO.</div>
           </div>
-          <SignOutButton>
-            <Button>Sign Out</Button>
-          </SignOutButton>
         </div>
         {/* 100vh */}
         <div className="z-10 flex h-screen max-h-screen w-full flex-col gap-3 p-4">
@@ -266,18 +265,18 @@ const App = () => {
               <CardHeader className="flex gap-3">
                 <Image alt="sutra" height={40} radius="sm" src={sutraModel.iconUrl} width={40} />
                 <div className="flex flex-col">
-                  <p className="text-md">{sutraModel.displayName}</p>
+                  <p className="text-lg font-bold">{sutraModel.displayName}</p>
                   <p className="text-small text-default-500">{sutraModel.provider}</p>
                 </div>
               </CardHeader>
               <Divider />
               {sutraLoading && <Progress size="sm" isIndeterminate aria-label="Loading..." className="w-full" />}
               <CardBody>
-                <p className="py-5 text-xl font-semibold">{userInput}</p>
+                <p className="py-5 text-2xl font-semibold">{userInput}</p>
                 <OutputViewSutra />
               </CardBody>
               <Divider />
-              <CardFooter className="h-12">
+              <CardFooter className="h-16 min-h-16">
                 <StatsViewSutra />
               </CardFooter>
             </Card>
@@ -287,18 +286,18 @@ const App = () => {
                 <CardHeader className="flex gap-3">
                   <Image alt="nextui logo" height={40} radius="sm" src={otherModel.iconUrl} width={40} />
                   <div className="flex flex-col">
-                    <p className="text-md">{otherModel.displayName}</p>
+                    <p className="text-lg font-bold">{otherModel.displayName}</p>
                     <p className="text-small text-default-500">{otherModel.provider}</p>
                   </div>
                 </CardHeader>
                 <Divider />
                 {otherLoading && <Progress size="sm" isIndeterminate aria-label="Loading..." className="w-full" />}
                 <CardBody>
-                  <p className="py-5 text-xl font-semibold">{userInput}</p>
-                    <OutputViewOther />
+                  <p className="py-5 text-2xl font-semibold">{userInput}</p>
+                  <OutputViewOther />
                 </CardBody>
                 <Divider />
-                <CardFooter className="h-12">
+                <CardFooter className="h-16 min-h-16">
                   <StatsViewOther />
                 </CardFooter>
               </Card>

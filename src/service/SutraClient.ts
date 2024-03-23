@@ -67,7 +67,7 @@ export class Sutra {
     // TODO - node and browser variants
     public static async postComplete(body: MultilingualUserInput, cbs: SutraCallbacks): Promise<void> {
         // special handling for sutra online model
-        if(body.modelId === 'sutra-online') {
+        if (body.modelId === 'sutra-online') {
             Sutra.postSchat(body, cbs);
             return;
         }
@@ -170,7 +170,7 @@ export class Sutra {
                     const llmChunk = streamObj as MyLLMChunk;
                     onLLMChunk(llmChunk as LLMChunk);
                     /**/
-                } else if (streamObj.typeName === "MyLLMReply") {
+                } else if (streamObj.typeName === 'MyLLMReply') {
                     const myLLMreply = streamObj as MyLLMReply;
                     const llmReply: LLMReply = {
                         typeName: 'LLMReply',
@@ -185,8 +185,8 @@ export class Sutra {
                         ttltMsec: myLLMreply.llmMsec,
                         errMsg: myLLMreply.errMsg,
                         tokenCount: 0,
-                        wordCount: 0
-                    }
+                        wordCount: 0,
+                    };
                     onLLMReply(llmReply);
                 } else {
                     onError(`unknown stream object ${streamObj.typeName}`);
