@@ -1,7 +1,7 @@
-import { State } from '@hookstate/core';
+// import { State } from '@hookstate/core';
 
 interface Props {
-  answer: State<string>;
+  answer: string;
   loading: boolean;
 }
 export const AnswerViewSutra = ({ answer, loading }: Props) => {
