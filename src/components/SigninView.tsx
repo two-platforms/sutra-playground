@@ -14,10 +14,10 @@ export const SigninView = () => {
       <div className="flex h-dvh items-center justify-center ">
         {!isMobile && (
           <div className="flex h-full w-full basis-3/5 flex-col flex-wrap items-center justify-center gap-2 bg-blue-500">
-              {/* <BG/> */}
-              <Image className="h-11" src="sutra.svg" />
-              <div className="overflow-hidden font-mono text-sm text-white">PLAYGROUND {packageJson.version}</div>
-              <div className="absolute bottom-2 left-4 overflow-hidden text-sm text-white">by TWO.AI</div>
+            {/* <BG/> */}
+            <Image className="h-11" src="sutra.svg" />
+            <div className="overflow-hidden font-mono text-sm text-white">PLAYGROUND {packageJson.version}</div>
+            <div className="absolute bottom-2 left-4 overflow-hidden text-sm text-white">by TWO.AI</div>
           </div>
         )}
         <div className="flex h-full basis-2/5 flex-col items-center justify-center gap-5">
@@ -42,7 +42,6 @@ export const SigninView = () => {
     </>
   );
 };
-
 
 // const BG = () => {
 //   return (
