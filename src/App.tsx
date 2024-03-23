@@ -16,8 +16,8 @@ import {
   CardHeader,
   Button,
   Progress,
-  RadioGroup,
-  Radio,
+  // RadioGroup,
+  // Radio,
 } from '@nextui-org/react';
 
 import './styles/chatui.css';
@@ -29,10 +29,12 @@ import { IPv4, Location } from './components/GeoInfo';
 
 // const darkMode = useDarkMode(true);
 
+import { SutraLocation, SUTRA_LOCATIONS } from './service/SutraLocations';
 import { SutraModel, SUTRA_MODELS, OTHER_MODELS } from './service/SutraModels';
 import {
   agentInfoAtom,
   userInputAtom,
+  sutraLocationAtom,
   sutraModelAtom,
   sutraTemperatureAtom,
   sutraMaxTokensAtom,
@@ -54,6 +56,7 @@ const QUESTIONS_URL = 'https://raw.githubusercontent.com/TwoResearch/playground-
 const App = () => {
   const [userInput, setUserInput] = useAtom(userInputAtom);
 
+  const [sutraLocation, setSutraLocation] = useAtom(sutraLocationAtom);
   const [sutraModel, setSutraModel] = useAtom(sutraModelAtom);
   const [sutraTemperature, setSutraTemperature] = useAtom(sutraTemperatureAtom);
   const [sutraMaxTokens, setSutraMaxTokens] = useAtom(sutraMaxTokensAtom);
@@ -102,6 +105,10 @@ const App = () => {
       }
     });
   }, []);
+
+  const changeSutraLocation = (newLocation: SutraLocation): void => {
+    setSutraLocation(newLocation);
+  };
 
   const changeSutra = (newModel: SutraModel): void => {
     sutraModel.temperature = sutraTemperature;
@@ -244,11 +251,41 @@ const App = () => {
               <IPv4 />
             </div>
             <Divider className="my-2" />
-            <RadioGroup label="SUTRA SERVER" orientation="horizontal" size="sm" defaultValue="US">
+            {/* <RadioGroup label="SUTRA SERVER" orientation="horizontal" size="sm" defaultValue="US">
               <Radio value="US">US</Radio>
               <Radio value="IN">IN</Radio>
               <Radio value="KR">KR</Radio>
-            </RadioGroup>
+            </RadioGroup> */}
+            <Select
+              aria-label="Select Sutra Location"
+              placeholder="Select Sutra Location"
+              labelPlacement="inside"
+              label="Select Sutra Location"
+              selectedKeys={[sutraLocation.displayName]}
+              classNames={{
+                base: 'max-w-xs',
+                trigger: 'h-12',
+              }}
+              renderValue={() => {
+                return (
+                  <div className="flex items-center gap-2">
+                    <div className="flex flex-col">
+                      <span className="text-small">{sutraLocation.displayName}</span>
+                    </div>
+                  </div>
+                );
+              }}
+            >
+              {SUTRA_LOCATIONS.map((loc) => (
+                <SelectItem key={loc.displayName} textValue={loc.displayName} onClick={() => changeSutraLocation(loc)}>
+                  <div className="flex items-center gap-2">
+                    <div className="flex flex-col">
+                      <span className="text-small">{loc.displayName}</span>
+                    </div>
+                  </div>
+                </SelectItem>
+              ))}
+            </Select>
             <Divider className="my-2" />
             <Link isExternal showAnchorIcon size="sm" href="https://docs.two.ai">
               SUTRA API
