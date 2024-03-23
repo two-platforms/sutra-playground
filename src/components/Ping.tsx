@@ -8,7 +8,7 @@ export default function Ping() {
   const [ping, setPing] = React.useState(null);
 
   React.useEffect(() => {
-    axios.get(`${K.SUTRA_SERVICE.replace('sutra', 'ping')}`).then((response) => {
+    axios.get(`${K.SUTRA_SERVICE_US.replace('sutra', 'ping')}`).then((response) => {
       setPing(response.data);
       log.debug({ ping });
     });

@@ -4,7 +4,6 @@ import { IonStreamObject, LLMChunk, LLMReply, MultilingualUserInput } from '@two
 import { MyLLMChunk, MyLLMReply } from '@two-platforms/ion-online-types';
 
 import { log } from '../utils/log';
-import { K } from '../utils/K';
 
 // will come from sutra types
 export type SutraServiceStatus = {
@@ -46,12 +45,12 @@ export class Sutra {
         authorization: import.meta.env.VITE_SUTRA_API_KEY,
     };
 
-    private static selectService(serviceName: SutraService): string {
-        return `${K.SUTRA_SERVICE}/${serviceName}`;
+    private static selectService(serviceURL: string, serviceName: SutraService): string {
+        return `${serviceURL}/${serviceName}`;
     }
 
-    public static async getStatus(): Promise<SutraServiceStatus | undefined> {
-        const service = Sutra.selectService('multilingual');
+    public static async getStatus(serviceURL: string): Promise<SutraServiceStatus | undefined> {
+        const service = Sutra.selectService(serviceURL, 'multilingual');
         const url = `${service}/status`;
 
         try {
@@ -64,14 +63,14 @@ export class Sutra {
     }
 
     // TODO - node and browser variants
-    public static async postComplete(body: MultilingualUserInput, cbs: SutraCallbacks): Promise<void> {
+    public static async postComplete(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks, canonicalLocation?: string): Promise<void> {
         // special handling for sutra online model
         if (body.modelId === 'sutra-online') {
-            Sutra.postSchat(body, cbs);
+            Sutra.postSchat(serviceURL, body, cbs, canonicalLocation);
             return;
         }
 
-        const service = Sutra.selectService('multilingual');
+        const service = Sutra.selectService(serviceURL, 'multilingual');
         const url = `${service}/completion`;
 
         log.info(url);
@@ -91,12 +90,17 @@ export class Sutra {
         }
     }
 
-    private static async postSchat(body: MultilingualUserInput, cbs: SutraCallbacks): Promise<void> {
-        const service = Sutra.selectService('online');
+    private static async postSchat(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks, canonicalLocation?: string): Promise<void> {
+        const service = Sutra.selectService(serviceURL, 'online');
         const url = `${service}/schat`;
 
         log.info(url);
-        const iolBody = { userInput: body.prompt };
+        const iolBody = { 
+            userInput: body.prompt,
+            searchLocation: {
+                canonicalLocation, 
+            },
+         };
 
         try {
             const tStart = Date.now();

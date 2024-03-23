@@ -7,7 +7,7 @@ import { AnswerViewOther } from './AnswerViewOther';
 import { Sutra, SutraCallbacks } from '../service/SutraClient';
 import { buildCompletionRequest } from '../service/SutraModels';
 import { log } from '../utils/log';
-import { otherLoadingAtom, otherModelAtom, otherStatsAtom, userInputAtom } from '../state/atoms';
+import { sutraLocationAtom, otherLoadingAtom, otherModelAtom, otherStatsAtom, userInputAtom } from '../state/atoms';
 
 export function OutputViewOther() {
   const [answer, setAnswer] = React.useState('');
@@ -15,6 +15,7 @@ export function OutputViewOther() {
   const haveFirstToken = React.useRef(false);
 
   // from jotaiState
+  const [sutraLocation] = useAtom(sutraLocationAtom);
   const [loading, setLoading] = useAtom(otherLoadingAtom);
   const [model] = useAtom(otherModelAtom);
   const [stats, setStats] = useAtom(otherStatsAtom);
@@ -27,7 +28,7 @@ export function OutputViewOther() {
       setAnswer('');
       const request = buildCompletionRequest(userInput, model);
       setLoading(true);
-      Sutra.postComplete(request, sutraCallbacks);
+      Sutra.postComplete(sutraLocation.serviceURL, request, sutraCallbacks, sutraLocation.uule);
     };
     if (userInput.length === 0) return;
     sendToSutra();

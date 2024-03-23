@@ -1,5 +1,6 @@
 import { LLMChunk, LLMReply, MultilingualUserInput } from '@two-platforms/ion-multilingual-types';
 import { Sutra, SutraCallbacks } from '../service/SutraClient';
+import { K } from '../utils/K';
 import { describe, it } from 'vitest';
 
 const callbacks: SutraCallbacks = {
@@ -14,6 +15,6 @@ describe('GPT3.5 completion stream tests', () => {
         prompt: 'Explain how to fly a plane',
     };
     it('can consume stream', async () => {
-        await Sutra.postComplete(request, callbacks);
+        await Sutra.postComplete(K.SUTRA_SERVICE_US, request, callbacks);
     });
 });
