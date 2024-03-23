@@ -63,10 +63,10 @@ export class Sutra {
     }
 
     // TODO - node and browser variants
-    public static async postComplete(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks): Promise<void> {
+    public static async postComplete(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks, canonicalLocation?: string): Promise<void> {
         // special handling for sutra online model
         if (body.modelId === 'sutra-online') {
-            Sutra.postSchat(serviceURL, body, cbs);
+            Sutra.postSchat(serviceURL, body, cbs, canonicalLocation);
             return;
         }
 
@@ -90,12 +90,17 @@ export class Sutra {
         }
     }
 
-    private static async postSchat(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks): Promise<void> {
+    private static async postSchat(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks, canonicalLocation?: string): Promise<void> {
         const service = Sutra.selectService(serviceURL, 'online');
         const url = `${service}/schat`;
 
         log.info(url);
-        const iolBody = { userInput: body.prompt };
+        const iolBody = { 
+            userInput: body.prompt,
+            searchLocation: {
+                canonicalLocation, 
+            },
+         };
 
         try {
             const tStart = Date.now();

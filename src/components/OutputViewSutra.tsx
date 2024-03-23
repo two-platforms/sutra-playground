@@ -28,7 +28,7 @@ export function OutputViewSutra() {
       setAnswer('');
       const request = buildCompletionRequest(userInput, model);
       setLoading(true);
-      Sutra.postComplete(sutraLocation.serviceURL, request, sutraCallbacks);
+      Sutra.postComplete(sutraLocation.serviceURL, request, sutraCallbacks, sutraLocation.uule);
     };
     if (userInput.length === 0) return;
     sendToSutra();
