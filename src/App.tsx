@@ -295,7 +295,7 @@ const App = () => {
                 {otherLoading && <Progress size="sm" isIndeterminate aria-label="Loading..." className="w-full" />}
                 <CardBody>
                   <p className="py-5 text-xl font-semibold">{userInput}</p>
-                  <OutputViewOther />
+                    <OutputViewOther />
                 </CardBody>
                 <Divider />
                 <CardFooter className="h-12">

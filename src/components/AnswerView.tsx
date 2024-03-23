@@ -1,13 +1,13 @@
-import { State } from '@hookstate/core';
+// import { State } from '@hookstate/core';
 
 interface Props {
-  answer: State<string>;
+  answer: string;
   loading: boolean;
 }
 export const AnswerView = ({ answer, loading }: Props) => {
   return (
     <div className="prose prose-xl prose-p:leading-normal max-w-[600px] leading-normal text-black">
-      {answer.get() + (loading && answer.get().length > 0 ? '●' : '')}
+      {answer + (loading && answer.length > 0 ? '●' : '')}
     </div>
   );
 };

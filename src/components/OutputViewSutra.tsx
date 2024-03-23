@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHookstate } from '@hookstate/core';
 import { useAtom } from 'jotai';
 
 import { LLMChunk, LLMReply } from '@two-platforms/ion-multilingual-types';
@@ -11,8 +10,9 @@ import { log } from '../utils/log';
 import { sutraLoadingAtom, sutraModelAtom, sutraStatsAtom, userInputAtom } from '../state/atoms';
 
 export function OutputViewSutra() {
-  const answer = useHookstate('');
-  const [, setAnswer] = React.useState('');
+  const [answer, setAnswer] = React.useState('');
+  const timerStart = React.useRef(0);
+  const haveFirstToken = React.useRef(false);
 
   // from jotaiState
   const [loading, setLoading] = useAtom(sutraLoadingAtom);
@@ -20,31 +20,34 @@ export function OutputViewSutra() {
   const [stats, setStats] = useAtom(sutraStatsAtom);
   const [userInput] = useAtom(userInputAtom);
 
-  let timerStart = 0;
-  let haveFirstToken = false;
-
-  // console.log('OutputView', props.userInput);
   React.useEffect(() => {
-    console.log('useEffect', userInput);
+    const sendToSutra = async () => {
+      timerStart.current = Date.now();
+      haveFirstToken.current = false;
+      setAnswer('');
+      const request = buildCompletionRequest(userInput, model);
+      setLoading(true);
+      Sutra.postComplete(request, sutraCallbacks);
+    };
     if (userInput.length === 0) return;
-    sendToSutra(userInput);
-  }, [userInput]);
+    sendToSutra();
+  }, [model, userInput]);
 
   // callbacks for streaming mode
+  // const sutraCallbacks: SutraCallbacks = React.useMemo(() => ({
   const sutraCallbacks: SutraCallbacks = {
     onLLMChunk: (v: LLMChunk) => {
-      if (!haveFirstToken) {
-        haveFirstToken = true;
-        const ttft = Date.now() - timerStart;
+      if (!haveFirstToken.current) {
+        haveFirstToken.current = true;
+        const ttft = Date.now() - timerStart.current;
         const newStats = { ...stats, ttftClient: ttft };
         setStats(newStats);
       }
-      answer.set((current) => current + v.content);
-      // log.info(`${model.provider}: onLLMChunk:`, v.content);
+      setAnswer((current) => current + v.content);
       if (v.isFinal) setLoading(false);
     },
     onLLMReply: (v: LLMReply) => {
-      const ttlt = Date.now() - timerStart;
+      const ttlt = Date.now() - timerStart.current;
       const tps = (1000 * v.tokenCount) / (ttlt - stats.ttftClient);
       const newStats = {
         ...stats,
@@ -57,10 +60,8 @@ export function OutputViewSutra() {
         enTranslation: v.enOutput,
       };
       setStats(newStats);
-      // log.info(`${model.provider}: onLLMReply:`, v);
-      log.info(`${model.provider}: onLLMReply:`, newStats);
+      console.log('sutra', newStats);
       if (v.isFinal) {
-        setAnswer(answer.get());
         setLoading(false);
       }
     },
@@ -68,15 +69,6 @@ export function OutputViewSutra() {
       log.error(`${model.provider}: onError:`, v);
       setLoading(false);
     },
-  };
-
-  const sendToSutra = async (newText: string) => {
-    timerStart = Date.now();
-    answer.set('');
-    haveFirstToken = false;
-    const request = buildCompletionRequest(newText, model);
-    setLoading(true);
-    Sutra.postComplete(request, sutraCallbacks);
   };
 
   return (
