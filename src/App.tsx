@@ -163,20 +163,17 @@ const App = () => {
             <Divider />
             {/* Sutra model selection */}
             <Select
+
               aria-label="Select Sutra Model"
               placeholder="Select Sutra Model"
               labelPlacement="inside"
               label="Select Sutra Model"
               selectedKeys={[sutraModel.displayName]}
-              classNames={{
-                base: 'max-w-xs',
-                trigger: 'h-12',
-              }}
               renderValue={() => {
                 return (
                   <div className="flex items-center gap-2">
                     <div className="flex flex-col">
-                      <span className="text-small">{sutraModel.displayName}</span>
+                      <span className="font-semibold">{sutraModel.displayName}</span>
                     </div>
                   </div>
                 );
@@ -184,11 +181,9 @@ const App = () => {
             >
               {SUTRA_MODELS.map((m) => (
                 <SelectItem key={m.displayName} textValue={m.displayName} onClick={() => changeSutra(m)}>
-                  <div className="flex items-center gap-2">
                     <div className="flex flex-col">
-                      <span className="text-small">{m.displayName}</span>
+                      <span className="">{m.displayName}</span>
                     </div>
-                  </div>
                 </SelectItem>
               ))}
             </Select>
@@ -208,27 +203,19 @@ const App = () => {
                 labelPlacement="inside"
                 label="Select Other Model"
                 selectedKeys={[otherModel.displayName]}
-                classNames={{
-                  base: 'max-w-xs',
-                  trigger: 'h-12',
-                }}
                 renderValue={() => {
                   return (
-                    <div className="flex items-center gap-2">
-                      <div className="flex flex-col">
-                        <span className="text-small">{otherModel.displayName}</span>
+                      <div className="flex flex-row">
+                        <span className="font-semibold">{otherModel.displayName}</span>                        
                       </div>
-                    </div>
                   );
                 }}
               >
                 {OTHER_MODELS.map((m) => (
                   <SelectItem key={m.displayName} textValue={m.displayName} onClick={() => changeOther(m)}>
-                    <div className="flex items-center gap-2">
                       <div className="flex flex-col">
-                        <span className="text-small">{m.displayName}</span>
+                        <span className="">{m.displayName}</span>
                       </div>
-                    </div>
                   </SelectItem>
                 ))}
               </Select>
@@ -255,41 +242,36 @@ const App = () => {
               <IPv4 />
             </div>
             <Divider className="my-2" />
-            {/* <RadioGroup label="SUTRA SERVER" orientation="horizontal" size="sm" defaultValue="US">
+            <RadioGroup label="SUTRA SERVER" orientation="horizontal" size="sm" defaultValue="US">
               <Radio value="US">US</Radio>
               <Radio value="IN">IN</Radio>
               <Radio value="KR">KR</Radio>
-            </RadioGroup> */}
+            </RadioGroup>
+            {sutraModel.modelId=="sutra-online" &&
             <Select
-              aria-label="Select Sutra Location"
-              placeholder="Select Sutra Location"
+              variant="underlined"
+              aria-label="User Location"
+              placeholder="User Location"
               labelPlacement="inside"
-              label="Select Sutra Location"
+              label="USER LOCATION"
               selectedKeys={[sutraLocation.displayName]}
-              classNames={{
-                base: 'max-w-xs',
-                trigger: 'h-12',
-              }}
               renderValue={() => {
                 return (
-                  <div className="flex items-center gap-2">
                     <div className="flex flex-col">
-                      <span className="text-small">{sutraLocation.displayName}</span>
+                      <span className='font-semibold font-sans'>{sutraLocation.displayName}</span>
                     </div>
-                  </div>
                 );
               }}
             >
               {SUTRA_LOCATIONS.map((loc) => (
                 <SelectItem key={loc.displayName} textValue={loc.displayName} onClick={() => changeSutraLocation(loc)}>
-                  <div className="flex items-center gap-2">
                     <div className="flex flex-col">
-                      <span className="text-small">{loc.displayName}</span>
+                      <span>{loc.displayName}</span>
                     </div>
-                  </div>
                 </SelectItem>
               ))}
             </Select>
+            }
             <Divider className="my-2" />
             <Link isExternal showAnchorIcon size="sm" href="https://docs.two.ai">
               SUTRA API

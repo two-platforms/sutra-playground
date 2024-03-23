@@ -7,10 +7,10 @@ export interface SutraLocation {
 }
 
 export const SUTRA_LOCATIONS: SutraLocation[] = [
-    { serviceURL: K.SUTRA_SERVICE_US, displayName: 'San Francisco', uule: 'San Francisco Bay Area,United States' },
-    { serviceURL: K.SUTRA_SERVICE_US, displayName: 'New York', uule: 'New York,New York,United States' },
     { serviceURL: K.SUTRA_SERVICE_US, displayName: 'Mumbai', uule: 'Mumbai,Maharashtra,India' },
     { serviceURL: K.SUTRA_SERVICE_US, displayName: 'New Delhi', uule: 'New Delhi,Delhi,India' },
+    { serviceURL: K.SUTRA_SERVICE_US, displayName: 'San Francisco', uule: 'San Francisco Bay Area,United States' },
+    { serviceURL: K.SUTRA_SERVICE_US, displayName: 'New York', uule: 'New York,New York,United States' },
     { serviceURL: K.SUTRA_SERVICE_US, displayName: 'Paris', uule: 'Paris,Paris,Ile-de-France,France' },
     { serviceURL: K.SUTRA_SERVICE_US, displayName: 'Greater London', uule: 'Greater London,England,United Kingdom' },
     { serviceURL: K.SUTRA_SERVICE_US, displayName: 'Seoul', uule: 'Seoul,South Korea' },
