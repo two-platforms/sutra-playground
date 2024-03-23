@@ -28,7 +28,6 @@ export type SutraService = 'multilingual' | 'online';
 
 // static class
 export class Sutra {
-
     // TODO, use with node/vitest
     private static cfgAxios: AxiosRequestConfig = {
         headers: {
@@ -115,7 +114,11 @@ export class Sutra {
     }
 
     // this is the fetch version of consumeStream, axios version has been removed since it seemed to stall in browser
-    private static async consumeStream(stream: ReadableStream<Uint8Array> | null, cbs: SutraCallbacks, _tStart: number): Promise<void> {
+    private static async consumeStream(
+        stream: ReadableStream<Uint8Array> | null,
+        cbs: SutraCallbacks,
+        _tStart: number,
+    ): Promise<void> {
         const { onLLMChunk, onLLMReply, onError } = cbs;
         const decoder = new TextDecoder();
         let value = '';
@@ -129,9 +132,9 @@ export class Sutra {
             if (chunk === null || chunk.done) {
                 console.log('******** stream closed');
                 // send a final chunk, needed for non-streming models
-                onLLMChunk({typeName: 'LLMChunk', isFinal: true, content: ''});
+                onLLMChunk({ typeName: 'LLMChunk', isFinal: true, content: '' });
                 return;
-            };
+            }
 
             const lines = decoder.decode(chunk.value);
             const splits = lines.split('\n');
@@ -163,7 +166,7 @@ export class Sutra {
                     /**/
                 } else if (streamObj.typeName === 'LLMReply') {
                     onLLMReply(streamObj as LLMReply);
-                } else if (streamObj.typeName === "MyLLMChunk") {
+                } else if (streamObj.typeName === 'MyLLMChunk') {
                     // special handling for sutra online model
                     // V1 ion-online MyLLMChunk is same as ion-multilingual LLMChunk
                     await sleep(10);

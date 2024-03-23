@@ -9,7 +9,7 @@ export default defineConfig({
         globals: true,
         clearMocks: true,
         isolate: false,
-        exclude: ["./node_modules/**", "./dist/**", "./public/**"],
+        exclude: ['./node_modules/**', './dist/**', './public/**'],
         testTimeout: 30000,
     },
     resolve: {
