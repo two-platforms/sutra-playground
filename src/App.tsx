@@ -21,21 +21,27 @@ import {
   Checkbox,
 } from '@nextui-org/react';
 
-import './styles/chatui.css';
+import { SignOutButton } from '@clerk/clerk-react';
+import { SystemRestart } from 'iconoir-react';
 
 import { StatsViewSutra } from './components/StatsViewSutra';
 import { StatsViewOther } from './components/StatsViewOther';
 import { IPv4, Location } from './components/GeoInfo';
-// import Ping from "./components/Ping";
+import { OutputViewSutra } from './components/OutputViewSutra';
+import { OutputViewOther } from './components/OutputViewOther';
+import Pricing from './components/Pricing';
+import './styles/chatui.css';
 
+// import Ping from "./components/Ping";
 // const darkMode = useDarkMode(true);
 
-import { SutraLocation, SUTRA_LOCATIONS } from './service/SutraLocations';
+import { SearchLocation, SEARCH_LOCATIONS } from './service/SearchLocations';
 import { SutraModel, SUTRA_MODELS, OTHER_MODELS } from './service/SutraModels';
 import {
   agentInfoAtom,
   userInputAtom,
-  sutraLocationAtom,
+  serviceURLAtom,
+  searchLocationAtom,
   sutraModelAtom,
   sutraTemperatureAtom,
   sutraMaxTokensAtom,
@@ -47,18 +53,15 @@ import {
   syncAtom,
   playgroundQuestionsAtom,
 } from './state/atoms';
-import { OutputViewSutra } from './components/OutputViewSutra';
-import { OutputViewOther } from './components/OutputViewOther';
-import { SystemRestart } from 'iconoir-react';
-import Pricing from './components/Pricing';
-import { SignOutButton } from '@clerk/clerk-react';
+import { K } from './utils/K';
 
 const QUESTIONS_URL = 'https://raw.githubusercontent.com/TwoResearch/playground-questions/main/questions.json';
 
 const App = () => {
   const [userInput, setUserInput] = useAtom(userInputAtom);
 
-  const [sutraLocation, setSutraLocation] = useAtom(sutraLocationAtom);
+  const [, setServiceURL] = useAtom(serviceURLAtom);
+  const [searchLocation, setSearchLocation] = useAtom(searchLocationAtom);
   const [sutraModel, setSutraModel] = useAtom(sutraModelAtom);
   const [sutraTemperature, setSutraTemperature] = useAtom(sutraTemperatureAtom);
   const [sutraMaxTokens, setSutraMaxTokens] = useAtom(sutraMaxTokensAtom);
@@ -110,8 +113,8 @@ const App = () => {
     });
   }, []);
 
-  const changeSutraLocation = (newLocation: SutraLocation): void => {
-    setSutraLocation(newLocation);
+  const changeSearchLocation = (newLocation: SearchLocation): void => {
+    setSearchLocation(newLocation);
   };
 
   const changeSutra = (newModel: SutraModel): void => {
@@ -243,35 +246,37 @@ const App = () => {
             </div>
             <Divider className="my-2" />
             <RadioGroup label="SUTRA SERVER" orientation="horizontal" size="sm" defaultValue="US">
-              <Radio value="US">US</Radio>
-              <Radio value="IN">IN</Radio>
-              <Radio value="KR">KR</Radio>
+              <Radio value="US" onClick={() => setServiceURL(K.SUTRA_SERVICE_US)}>US</Radio>
+              <Radio value="IN" onClick={() => setServiceURL(K.SUTRA_SERVICE_IN)}>IN</Radio>
+              <Radio value="KR" onClick={() => setServiceURL(K.SUTRA_SERVICE_KR)}>KR</Radio>
             </RadioGroup>
-            {sutraModel.modelId=="sutra-online" &&
+            <Divider className="my-2" />
             <Select
-              variant="underlined"
-              aria-label="User Location"
-              placeholder="User Location"
+              aria-label="Select Search Location"
+              placeholder="Select Search Location"
               labelPlacement="inside"
-              label="USER LOCATION"
-              selectedKeys={[sutraLocation.displayName]}
+              label="Select Search Location"
+              selectedKeys={[searchLocation.displayName]}
+              classNames={{
+                base: 'max-w-xs',
+                trigger: 'h-12',
+              }}
               renderValue={() => {
                 return (
                     <div className="flex flex-col">
-                      <span className='font-semibold font-sans'>{sutraLocation.displayName}</span>
+                      <span className="text-small">{searchLocation.displayName}</span>
                     </div>
                 );
               }}
             >
-              {SUTRA_LOCATIONS.map((loc) => (
-                <SelectItem key={loc.displayName} textValue={loc.displayName} onClick={() => changeSutraLocation(loc)}>
+              {SEARCH_LOCATIONS.map((loc) => (
+                <SelectItem key={loc.displayName} textValue={loc.displayName} onClick={() => changeSearchLocation(loc)}>
                     <div className="flex flex-col">
                       <span>{loc.displayName}</span>
                     </div>
                 </SelectItem>
               ))}
             </Select>
-            }
             <Divider className="my-2" />
             <Link isExternal showAnchorIcon size="sm" href="https://docs.two.ai">
               SUTRA API

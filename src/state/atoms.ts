@@ -3,14 +3,16 @@ import { atomWithStorage } from 'jotai/utils';
 import getAgent from '@egjs/agent';
 
 import { SutraModel, SutraStats, initStats, SUTRA_MODELS, OTHER_MODELS } from '../service/SutraModels';
-import { SutraLocation, SUTRA_LOCATIONS } from '../service/SutraLocations';
+import { SearchLocation, SEARCH_LOCATIONS } from '../service/SearchLocations';
+import { K } from '../utils/K';
 
 const agentInfoAtom = atom(getAgent()).init;
 const darkModeAtom = atomWithStorage('darkMode', false);
 const userInputAtom = atom('');
 const isMobileAtom = atom<boolean>(false);
 
-const sutraLocationAtom = atom<SutraLocation>(SUTRA_LOCATIONS[0]);
+const serviceURLAtom = atom<string>(K.SUTRA_SERVICE_US);
+const searchLocationAtom = atom<SearchLocation>(SEARCH_LOCATIONS[0]);
 
 const sutraModelAtom = atom<SutraModel>(SUTRA_MODELS[0]);
 const sutraTemperatureAtom = atom(SUTRA_MODELS[0].temperature);
@@ -34,7 +36,8 @@ export {
     agentInfoAtom,
     darkModeAtom,
     userInputAtom,
-    sutraLocationAtom,
+    serviceURLAtom,
+    searchLocationAtom,
     sutraModelAtom,
     isMobileAtom,
     sutraTemperatureAtom,
