@@ -13,8 +13,8 @@ export const K = {
 
     // modify as deployed
     SUTRA_SERVICE_US: 'https://api.two.ai/sutra',
-    SUTRA_SERVICE_IN: 'https://api.two.ai/sutra',
-    SUTRA_SERVICE_KR: 'https://api.two.ai/sutra',
+    SUTRA_SERVICE_IN: 'https://sutra-server-nazz5qdeia-el.a.run.app/sutra',
+    SUTRA_SERVICE_KR: 'https://sutra-server-nazz5qdeia-du.a.run.app/sutra',
 
     LOG_LEVEL: DEBUG_MODE_DISABLED ? WARN_LEVEL : INFO_LEVEL,
 };
