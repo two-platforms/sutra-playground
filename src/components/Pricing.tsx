@@ -2,18 +2,14 @@ import {
   Modal,
   ModalContent,
   ModalBody,
-  ModalFooter,
-  Button,
   useDisclosure,
   Link,
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
   Divider,
   ModalHeader,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
 } from '@nextui-org/react';
 
 export default function Pricing() {
@@ -26,52 +22,86 @@ export default function Pricing() {
       </Link>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="2xl" scrollBehavior="inside">
         <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="text-2xl">SUTRA PRICING</ModalHeader>
-              <ModalBody>
-                <div className="flex flex-col gap-1">
-                  <div className=" text-lg font-bold">SUTRA-Online Series</div>
-                  <Table removeWrapper aria-label="Example static collection table">
-                    <TableHeader>
-                      <TableColumn> </TableColumn>
-                      <TableColumn>Input (per Million Tokens)</TableColumn>
-                      <TableColumn>Output (per Million Tokens)</TableColumn>
-                    </TableHeader>
-                    <TableBody>
-                      <TableRow key="1">
-                        <TableCell>SUTRA-50B-Online</TableCell>
-                        <TableCell>$1.00</TableCell>
-                        <TableCell>$1.00</TableCell>
-                      </TableRow>
-                    </TableBody>
-                  </Table>
-                  <div className="pl-3 text-sm text-gray-500">
-                    <div>Search Add-on</div>
-                    <div className="pl-3">$3 per 1,000 requests</div>
-                  </div>
-                  <Divider className="mb-3" />
-                  <div className=" text-lg font-bold">SUTRA-Multilingual Series</div>
-                  <Table removeWrapper aria-label="Example static collection table">
-                    <TableHeader>
-                      <TableColumn> </TableColumn>
-                      <TableColumn>Input (per Million Tokens)</TableColumn>
-                      <TableColumn>Output (per Million Tokens)</TableColumn>
-                    </TableHeader>
-                    <TableBody>
-                      <TableRow key="1">
-                        <TableCell>SUTRA-50B-ML</TableCell>
-                        <TableCell>$1.00</TableCell>
-                        <TableCell>$1.00</TableCell>
-                      </TableRow>
-                    </TableBody>
-                  </Table>
-                  <div className="pl-3 text-sm text-gray-500">
-                    <div>Language Add-on</div>
-                    <div className="pl-3">$1.00-$2.20 per 1,000 requests</div>
-                    <div>Long-Term Memory Add-on</div>
-                    <div className="pl-3">$5 per 1,000 requests</div>
-                  </div>
+          <ModalHeader className="text-xl font-bold">SUTRA PRICING</ModalHeader>
+          <ModalBody>
+            <Card className="">
+              <CardHeader className="flex gap-3">
+                <div className="flex flex-col">
+                  <p className="text-lg">SUTRA MultiLingual Series Models</p>
+                  <p className="font-mono text-small text-blue-500">SUTRA-50B-ML</p>
+                </div>
+              </CardHeader>
+              <Divider />
+              <CardBody>
+                <div className="flex flex-row justify-between">
+                  <div>Input (per Million Tokens)</div>
+                  <div>$1.00</div>
+                </div>
+                <div className="flex flex-row justify-between">
+                  <div>Output (per Million Tokens)</div>
+                  <div>$1.00</div>
+                </div>
+              </CardBody>
+              <Divider />
+              <CardFooter className='flex flex-col'>
+                <div className="flex flex-col justify-between w-full">
+                  <div>Language Add-on</div>
+                  <div>$1.00-$2.20 per 1,000 requests</div>
+                </div>
+                <div className="flex flex-col justify-between w-full">
+                  <div>Long-Term Memory Add-on</div>
+                  <div>$5 per 1,000 requests</div>
+                </div>
+              </CardFooter>
+            </Card>
+            <Card className="">
+              <CardHeader className="flex gap-3">
+                <div className="flex flex-col">
+                  <p className="text-lg">SUTRA Online Series Models</p>
+                  <p className="font-mono text-small text-blue-500">SUTRA-50B-ML</p>
+                </div>
+              </CardHeader>
+              <Divider />
+              <CardBody>
+                <div className="flex flex-row justify-between">
+                  <div>Input (per Million Tokens)</div>
+                  <div>$1.00</div>
+                </div>
+                <div className="flex flex-row justify-between">
+                  <div>Output (per Million Tokens)</div>
+                  <div>$1.00</div>
+                </div>
+              </CardBody>
+              <Divider />
+              <CardFooter className='flex flex-col'>
+                <div className="flex flex-col justify-between w-full">
+                  <div>Search Add-on</div>
+                  <div>$3.00 per 1,000 requests</div>
+                </div>
+              </CardFooter>
+            </Card>
+            <Card className="">
+              <CardHeader className="flex gap-3">
+                <div className="flex flex-col">
+                  <p className="text-lg">SUTRA Avatar Models</p>
+                  <p className="font-mono text-small text-blue-500">SUTRA-50B-ML</p>
+                </div>
+              </CardHeader>
+              <Divider />
+              <CardBody>
+                <div className="flex flex-row justify-between">
+                  <div>SUTRA-Avatar (per Video/Stream request)</div>
+                  <div>$0.30*</div>
+                </div>
+                <div className="flex flex-row justify-between">
+                  <div>SUTRA-Avatar-Realtime (per Video/Stream request)</div>
+                  <div>$0.50*</div>
+                </div>
+              </CardBody>
+              <Divider />
+            </Card>
+            {/* 
+                  
                   <Divider className="mb-3" />
                   <div className=" text-lg font-bold">SUTRA-Avatar Series</div>
                   <Table removeWrapper aria-label="Example static collection table">
@@ -95,18 +125,11 @@ export default function Pricing() {
                   </Table>
                   <div className="pl-3 text-sm text-gray-500">*Subject to customization options.</div>
                   <Divider />
-                </div>
-                <Link isExternal href="https://www.two.ai/contact">
-                  Contact US
-                </Link>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-              </ModalFooter>
-            </>
-          )}
+                  */}
+            <Link className='w-full justify-end' isExternal href="https://www.two.ai/contact">
+              Contact us for more information
+            </Link>
+          </ModalBody>
         </ModalContent>
       </Modal>
     </>
