@@ -1,8 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
-
 import { IonStreamObject, LLMChunk, LLMReply, MultilingualUserInput } from '@two-platforms/ion-multilingual-types';
 import { MyLLMChunk, MyLLMReply } from '@two-platforms/ion-online-types';
 
+import { SearchLocation } from './SearchLocations';
 import { log } from '../utils/log';
 
 // will come from sutra types
@@ -63,10 +63,10 @@ export class Sutra {
     }
 
     // TODO - node and browser variants
-    public static async postComplete(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks, canonicalLocation?: string): Promise<void> {
+    public static async postComplete(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks, searchAt?: SearchLocation): Promise<void> {
         // special handling for sutra online model
         if (body.modelId === 'sutra-online') {
-            Sutra.postSchat(serviceURL, body, cbs, canonicalLocation);
+            Sutra.postSchat(serviceURL, body, cbs, searchAt);
             return;
         }
 
@@ -90,16 +90,14 @@ export class Sutra {
         }
     }
 
-    private static async postSchat(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks, canonicalLocation?: string): Promise<void> {
+    private static async postSchat(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks, searchAt?: SearchLocation): Promise<void> {
         const service = Sutra.selectService(serviceURL, 'online');
         const url = `${service}/schat`;
 
         log.info(url);
         const iolBody = { 
             userInput: body.prompt,
-            searchLocation: {
-                canonicalLocation, 
-            },
+            searchLocation: searchAt,
          };
 
         try {

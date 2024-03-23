@@ -7,9 +7,14 @@ export const FATAL_LEVEL = 4;
 const DEBUG_MODE_DISABLED = import.meta.env.VITE_DEBUG_MODE === 'false';
 
 export const K = {
-    // SUTRA_SERVICE: 'http://192.168.21.38:7010/sutra',
-    // SUTRA_SERVICE: 'https://sutra-server-tmwuc6vstq-uw.a.run.app/sutra',
+    // for testing
+    // SUTRA_SERVICE_US: 'http://192.168.21.38:7010/sutra',
+    // SUTRA_SERVICE_US: 'https://sutra-server-tmwuc6vstq-uw.a.run.app/sutra',
+
+    // modify as deployed
     SUTRA_SERVICE_US: 'https://api.two.ai/sutra',
+    SUTRA_SERVICE_IN: 'https://api.two.ai/sutra',
+    SUTRA_SERVICE_KR: 'https://api.two.ai/sutra',
 
     LOG_LEVEL: DEBUG_MODE_DISABLED ? WARN_LEVEL : INFO_LEVEL,
 };
