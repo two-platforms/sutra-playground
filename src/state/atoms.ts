@@ -26,6 +26,8 @@ const otherStatsAtom = atom<SutraStats>(initStats());
 const otherLoadingAtom = atom(false);
 const otherAnswerAtom = atom('');
 
+const syncAtom = atom(true);
+
 const playgroundQuestionsAtom = atom<string[]>([]);
 
 export {
@@ -46,5 +48,6 @@ export {
     otherStatsAtom,
     otherLoadingAtom,
     otherAnswerAtom,
+    syncAtom,
     playgroundQuestionsAtom,
 };

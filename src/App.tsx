@@ -16,8 +16,9 @@ import {
   CardHeader,
   Button,
   Progress,
-  // RadioGroup,
-  // Radio,
+  RadioGroup,
+  Radio,
+  Checkbox,
 } from '@nextui-org/react';
 
 import './styles/chatui.css';
@@ -43,6 +44,7 @@ import {
   otherTemperatureAtom,
   otherMaxTokensAtom,
   otherLoadingAtom,
+  syncAtom,
   playgroundQuestionsAtom,
 } from './state/atoms';
 import { OutputViewSutra } from './components/OutputViewSutra';
@@ -66,6 +68,8 @@ const App = () => {
   const [otherTemperature, setOtherTemperature] = useAtom(otherTemperatureAtom);
   const [otherMaxTokens, setOtherMaxTokens] = useAtom(otherMaxTokensAtom);
   const [otherLoading] = useAtom(otherLoadingAtom);
+
+  const [sync, setSync] = useAtom(syncAtom);
 
   const [text, setText] = React.useState('');
   const [error] = React.useState<string | undefined>(undefined);
@@ -298,46 +302,118 @@ const App = () => {
         <div className="z-10 flex h-screen max-h-screen w-full flex-col gap-3 p-4">
           {/* CHAT */}
           <div className="flex h-64 flex-1 flex-row justify-between gap-3">
-            <Card className="w-full">
-              <CardHeader className="flex gap-3">
-                <Image alt="sutra" height={40} radius="sm" src={sutraModel.iconUrl} width={40} />
-                <div className="flex flex-col">
-                  <p className="text-lg font-bold">{sutraModel.displayName}</p>
-                  <p className="text-small text-default-500">{sutraModel.provider}</p>
-                </div>
-              </CardHeader>
-              <Divider />
-              {sutraLoading && <Progress size="sm" isIndeterminate aria-label="Loading..." className="w-full" />}
-              <CardBody>
-                <p className="py-5 text-2xl font-semibold">{userInput}</p>
-                <OutputViewSutra />
-              </CardBody>
-              <Divider />
-              <CardFooter className="h-16 min-h-16">
-                <StatsViewSutra />
-              </CardFooter>
-            </Card>
-
-            {compareDUO && (
-              <Card className="w-full">
+            <div className="flex w-full flex-col gap-4">
+              <Card className="w-full flex-1">
                 <CardHeader className="flex gap-3">
-                  <Image alt="nextui logo" height={40} radius="sm" src={otherModel.iconUrl} width={40} />
+                  <Image alt="sutra" height={40} radius="sm" src={sutraModel.iconUrl} width={40} />
                   <div className="flex flex-col">
-                    <p className="text-lg font-bold">{otherModel.displayName}</p>
-                    <p className="text-small text-default-500">{otherModel.provider}</p>
+                    <p className="text-lg font-bold">{sutraModel.displayName}</p>
+                    <p className="text-small text-default-500">{sutraModel.provider}</p>
                   </div>
                 </CardHeader>
                 <Divider />
-                {otherLoading && <Progress size="sm" isIndeterminate aria-label="Loading..." className="w-full" />}
+                {sutraLoading && <Progress size="sm" isIndeterminate aria-label="Loading..." className="w-full" />}
                 <CardBody>
                   <p className="py-5 text-2xl font-semibold">{userInput}</p>
-                  <OutputViewOther />
+                  <OutputViewSutra />
                 </CardBody>
                 <Divider />
                 <CardFooter className="h-16 min-h-16">
-                  <StatsViewOther />
+                  <StatsViewSutra />
                 </CardFooter>
               </Card>
+              <Input
+                isClearable
+                variant="faded"
+                placeholder="Ask Anything..."
+                fullWidth
+                size="lg"
+                defaultValue=""
+                onClear={() => {
+                  console.log('input cleared');
+                  setText('');
+                }}
+                onChange={handleNewText}
+                onKeyUp={issueNewText}
+                value={text}
+                autoFocus={true}
+                startContent={
+                  <Button
+                    variant="light"
+                    isIconOnly
+                    onClick={() => {
+                      const question = questions[Math.floor(Math.random() * questions.length)];
+                      setText(question);
+                    }}
+                  >
+                    <SystemRestart />
+                  </Button>
+                }
+                classNames={{
+                  input: [
+                    'bg-transparent',
+                    'text-black text-xl font-semibold',
+                    'placeholder:text-default-700/50 dark:placeholder:text-white/60',
+                  ],
+                  innerWrapper: ['flex'],
+                  inputWrapper: ['shadow-xl', 'bg-white', 'border-2 border-blue-500 h-14'],
+                }}
+              />
+            </div>
+
+            {compareDUO && (
+              <div className="flex w-full flex-col gap-4">
+                <Card className="w-full flex-1">
+                  <CardHeader className="flex gap-3">
+                    <Image alt="nextui logo" height={40} radius="sm" src={otherModel.iconUrl} width={40} />
+                    <div className="flex flex-col">
+                      <p className="text-lg font-bold">{otherModel.displayName}</p>
+                      <p className="text-small text-default-500">{otherModel.provider}</p>
+                    </div>
+                  </CardHeader>
+                  <Divider />
+                  {otherLoading && <Progress size="sm" isIndeterminate aria-label="Loading..." className="w-full" />}
+                  <CardBody>
+                    <p className="py-5 text-2xl font-semibold">{userInput}</p>
+                    <OutputViewOther />
+                  </CardBody>
+                  <Divider />
+                  <CardFooter className="h-16 min-h-16">
+                    <StatsViewOther />
+                  </CardFooter>
+                </Card>
+                <Input
+                  isClearable
+                  variant="faded"
+                  placeholder="Ask Anything..."
+                  fullWidth
+                  size="lg"
+                  defaultValue=""
+                  onClear={() => {
+                    console.log('input cleared');
+                    setText('');
+                  }}
+                  onChange={()=> {
+                    if(sync) 
+                    {
+                      handleNewText;
+                    }
+                  }}
+                  onKeyUp={issueNewText}
+                  value={text}
+                  autoFocus={true}
+                  startContent={<Checkbox isSelected={sync} onValueChange={()=>setSync(!sync)}></Checkbox>}
+                  classNames={{
+                    input: [
+                      'bg-transparent',
+                      'text-black text-xl font-semibold',
+                      'placeholder:text-default-700/50 dark:placeholder:text-white/60',
+                    ],
+                    innerWrapper: ['flex'],
+                    inputWrapper: ['shadow-xl', 'bg-white', 'border-2 border-blue-500 h-14'],
+                  }}
+                />
+              </div>
             )}
           </div>
 
@@ -348,37 +424,6 @@ const App = () => {
               </CardBody>
             </Card>
           )}
-
-          {/* INPUT */}
-          <Input
-            isClearable
-            variant="faded"
-            placeholder="Ask Anything..."
-            fullWidth
-            size="lg"
-            className="flex"
-            defaultValue=""
-            onClear={() => {
-              console.log('input cleared');
-              setText('');
-            }}
-            onChange={handleNewText}
-            onKeyUp={issueNewText}
-            value={text}
-            autoFocus={true}
-            startContent={
-              <Button
-                variant="light"
-                isIconOnly
-                onClick={() => {
-                  const question = questions[Math.floor(Math.random() * questions.length)];
-                  setText(question);
-                }}
-              >
-                <SystemRestart />
-              </Button>
-            } // endContent
-          />
         </div>
       </div>
       {/* </main> */}
