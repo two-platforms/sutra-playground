@@ -78,6 +78,8 @@ const App = () => {
   const [compareDUO, setCompareDUO] = React.useState(false);
   const [questions, setQuestions] = useAtom(playgroundQuestionsAtom);
 
+  const [isMouseEnter, setIsMouseEnter] = React.useState(false);
+
   //const errorRef = React.useRef<string | undefined>(undefined);
 
   // // two potential error sources, show both if both erred
@@ -311,7 +313,19 @@ const App = () => {
                 <Divider />
                 {sutraLoading && <Progress size="sm" isIndeterminate aria-label="Loading..." className="w-full" />}
                 <CardBody>
-                  <p className="py-5 text-2xl font-semibold">{userInput}</p>
+                  <p
+                    className=" cursor-pointer gap-1 py-5 text-2xl font-semibold"
+                    onClick={() => setText(userInput)}
+                    onMouseEnter={() => {
+                      setIsMouseEnter(true);
+                    }}
+                    onMouseLeave={() => {
+                      setIsMouseEnter(false);
+                    }}
+                  >
+                    {userInput}
+                    {isMouseEnter && '↺'}
+                  </p>
                   <OutputViewSutra />
                 </CardBody>
                 <Divider />
@@ -371,7 +385,19 @@ const App = () => {
                   <Divider />
                   {otherLoading && <Progress size="sm" isIndeterminate aria-label="Loading..." className="w-full" />}
                   <CardBody>
-                    <p className="py-5 text-2xl font-semibold">{userInput}</p>
+                    <p
+                      className="cursor-pointer py-5 text-2xl font-semibold"
+                      onClick={() => setText(userInput)}
+                      onMouseEnter={() => {
+                        setIsMouseEnter(true);
+                      }}
+                      onMouseLeave={() => {
+                        setIsMouseEnter(false);
+                      }}
+                    >
+                      {userInput}
+                      {isMouseEnter && '↺'}
+                    </p>
                     <OutputViewOther />
                   </CardBody>
                   <Divider />
