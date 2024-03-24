@@ -25,7 +25,8 @@ import { OutputViewOther } from './components/OutputViewOther';
 
 import { initStats } from './service/SutraModels';
 import {
-  userInputAtom,
+  sutraUserInputAtom,
+  otherUserInputAtom,
   sutraModelAtom,
   sutraLoadingAtom,
   otherModelAtom,
@@ -41,7 +42,8 @@ import { MenuLeftView } from './components/MenuLeftView';
 const QUESTIONS_URL = 'https://raw.githubusercontent.com/TwoResearch/playground-questions/main/questions.json';
 
 const App = () => {
-  const [userInput, setUserInput] = useAtom(userInputAtom);
+  const [sutraUserInput, setSutraUserInput] = useAtom(sutraUserInputAtom);
+  const [otherUserInput, setOtherUserInput] = useAtom(otherUserInputAtom);
 
   const [sutraModel] = useAtom(sutraModelAtom);
   const [sutraLoading] = useAtom(sutraLoadingAtom);
@@ -51,7 +53,9 @@ const App = () => {
 
   const [sync, setSync] = useAtom(syncAtom);
 
-  const [text, setText] = React.useState('');
+  const [sutraText, setSutraText] = React.useState('');
+  const [otherText, setOtherText] = React.useState('');
+
   const [error] = React.useState<string | undefined>(undefined);
   const [compareDUO] = useAtom(compareDUOAtom);
   const [questions, setQuestions] = useAtom(playgroundQuestionsAtom);
@@ -85,6 +89,14 @@ const App = () => {
     return data;
   };
 
+  console.log(sync);
+
+  React.useEffect(() => {
+    if (sync) {
+      setOtherText(sutraText);
+    }
+  }, [sync, sutraText]);
+
   React.useEffect(() => {
     getQuestionFromOnline().then((data: { ultra: string[]; online: string[] }) => {
       if (sutraModel.displayName === 'SUTRA-ONLINE') {
@@ -97,18 +109,25 @@ const App = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleNewText = (ev: any): void => {
-    setText(ev.target.value);
+    if (sync) {
+      setSutraText(ev.target.value);
+      setOtherText(ev.target.value);
+    } else {
+      setSutraText(ev.target.value);
+    }
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const issueNewText = (ev: any) => {
     if (ev && ev.code !== 'Enter' && ev.code !== 'NumpadEnter' && ev.keyCode !== 13) return;
-    if (text.length === 0) return;
-    console.log('setting userInput', text);
+    if (sutraText.length === 0 && otherText.length === 0) return;
+
     setSutrastats(initStats());
     setOtherstats(initStats());
-    setUserInput(text);
-    setText('');
+    setSutraUserInput(sutraText);
+    setOtherUserInput(otherText);
+    setSutraText('');
+    setOtherText('');
   };
 
   return (
@@ -138,7 +157,7 @@ const App = () => {
                 <CardBody>
                   <p
                     className=" cursor-pointer gap-1 py-5 text-2xl font-semibold"
-                    onClick={() => setText(userInput)}
+                    onClick={() => setSutraText(sutraUserInput)}
                     onMouseEnter={() => {
                       setIsMouseEnter(true);
                     }}
@@ -146,7 +165,7 @@ const App = () => {
                       setIsMouseEnter(false);
                     }}
                   >
-                    {userInput}
+                    {sutraUserInput}
                     {isMouseEnter && '↺'}
                   </p>
                   <OutputViewSutra />
@@ -165,11 +184,11 @@ const App = () => {
                 defaultValue=""
                 onClear={() => {
                   console.log('input cleared');
-                  setText('');
+                  setSutraText('');
                 }}
                 onChange={handleNewText}
                 onKeyUp={issueNewText}
-                value={text}
+                value={sutraText}
                 autoFocus={true}
                 startContent={
                   <Button
@@ -177,7 +196,7 @@ const App = () => {
                     isIconOnly
                     onClick={() => {
                       const question = questions[Math.floor(Math.random() * questions.length)];
-                      setText(question);
+                      setSutraText(question);
                     }}
                   >
                     <SystemRestart />
@@ -210,7 +229,7 @@ const App = () => {
                   <CardBody>
                     <p
                       className="cursor-pointer py-5 text-2xl font-semibold"
-                      onClick={() => setText(userInput)}
+                      onClick={() => setOtherText(otherUserInput)}
                       onMouseEnter={() => {
                         setIsMouseEnter(true);
                       }}
@@ -218,7 +237,7 @@ const App = () => {
                         setIsMouseEnter(false);
                       }}
                     >
-                      {userInput}
+                      {otherUserInput}
                       {isMouseEnter && '↺'}
                     </p>
                     <OutputViewOther />
@@ -237,16 +256,17 @@ const App = () => {
                   defaultValue=""
                   onClear={() => {
                     console.log('input cleared');
-                    setText('');
+                    setOtherText('');
                   }}
-                  onChange={() => {
-                    // if (sync) {
-                    handleNewText;
-                    // }
+                  onChange={(ev) => {
+                    if (sync) {
+                      handleNewText;
+                    } else {
+                      setOtherText(ev.target.value);
+                    }
                   }}
-                  onKeyUp={issueNewText}
-                  value={text}
-                  autoFocus={true}
+                  // onKeyUp={issueNewText}
+                  value={otherText}
                   startContent={<Checkbox isSelected={sync} onValueChange={() => setSync(!sync)}></Checkbox>}
                   classNames={{
                     input: [
