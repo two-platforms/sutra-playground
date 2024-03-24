@@ -13,11 +13,21 @@ export const SigninView = () => {
     <>
       <div className="flex h-dvh items-center justify-center ">
         {!isMobile && (
-          <div className="flex h-full w-full basis-3/5 flex-col flex-wrap items-center justify-center gap-2 bg-blue-500">
+          <div className="flex h-full w-full basis-3/5 flex-col flex-wrap gap-2 bg-blue-500">
+            <div className="flex h-[50%] items-end self-center">
+              <Image className="h-11" src="sutra.svg" />
+            </div>
+            <div className="flex w-full flex-1 items-end justify-between overflow-hidden px-3">
+              <div className=" text-white">PLAYGROUND {packageJson.version}</div>
+              <div className="text-sm text-white">by TWO.AI</div>
+            </div>
+
             {/* <BG/> */}
-            <Image className="h-11" src="sutra.svg" />
-            <div className="overflow-hidden font-mono text-sm text-white">PLAYGROUND {packageJson.version}</div>
-            <div className="absolute bottom-2 left-4 overflow-hidden text-sm text-white">by TWO.AI</div>
+            {/* <Image className="h-11" src="sutra.svg" />
+            <div className="absolute bottom-2 right-[41%] overflow-hidden text-sm text-black">
+              PLAYGROUND {packageJson.version}
+            </div>
+            <div className="absolute bottom-2 left-4 overflow-hidden text-sm text-white">by TWO.AI</div> */}
           </div>
         )}
         <div className="flex h-full basis-2/5 flex-col items-center justify-center gap-5">
