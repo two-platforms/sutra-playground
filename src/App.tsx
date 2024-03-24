@@ -30,9 +30,8 @@ import { IPv4, Location } from './components/GeoInfo';
 import { OutputViewSutra } from './components/OutputViewSutra';
 import { OutputViewOther } from './components/OutputViewOther';
 import Pricing from './components/Pricing';
-import './styles/chatui.css';
+import Ping from "./components/Ping";
 
-// import Ping from "./components/Ping";
 // const darkMode = useDarkMode(true);
 
 import { SearchLocation, SEARCH_LOCATIONS } from './service/SearchLocations';
@@ -166,7 +165,6 @@ const App = () => {
             <Divider />
             {/* Sutra model selection */}
             <Select
-
               aria-label="Select Sutra Model"
               placeholder="Select Sutra Model"
               labelPlacement="inside"
@@ -184,9 +182,9 @@ const App = () => {
             >
               {SUTRA_MODELS.map((m) => (
                 <SelectItem key={m.displayName} textValue={m.displayName} onClick={() => changeSutra(m)}>
-                    <div className="flex flex-col">
-                      <span className="">{m.displayName}</span>
-                    </div>
+                  <div className="flex flex-col">
+                    <span className="">{m.displayName}</span>
+                  </div>
                 </SelectItem>
               ))}
             </Select>
@@ -208,17 +206,17 @@ const App = () => {
                 selectedKeys={[otherModel.displayName]}
                 renderValue={() => {
                   return (
-                      <div className="flex flex-row">
-                        <span className="font-semibold">{otherModel.displayName}</span>                        
-                      </div>
+                    <div className="flex flex-row">
+                      <span className="font-semibold">{otherModel.displayName}</span>
+                    </div>
                   );
                 }}
               >
                 {OTHER_MODELS.map((m) => (
                   <SelectItem key={m.displayName} textValue={m.displayName} onClick={() => changeOther(m)}>
-                      <div className="flex flex-col">
-                        <span className="">{m.displayName}</span>
-                      </div>
+                    <div className="flex flex-col">
+                      <span className="">{m.displayName}</span>
+                    </div>
                   </SelectItem>
                 ))}
               </Select>
@@ -245,38 +243,50 @@ const App = () => {
               <IPv4 />
             </div>
             <Divider className="my-2" />
-            <RadioGroup label="SUTRA SERVER" orientation="horizontal" size="sm" defaultValue="US">
-              <Radio value="US" onClick={() => setServiceURL(K.SUTRA_SERVICE_US)}>US</Radio>
-              <Radio value="IN" onClick={() => setServiceURL(K.SUTRA_SERVICE_IN)}>IN</Radio>
-              <Radio value="KR" onClick={() => setServiceURL(K.SUTRA_SERVICE_KR)}>KR</Radio>
-            </RadioGroup>
+            <div>
+              <Ping />
+            </div>
             <Divider className="my-2" />
-            <Select
-              aria-label="Select Search Location"
-              placeholder="Select Search Location"
-              labelPlacement="inside"
-              label="Select Search Location"
-              selectedKeys={[searchLocation.displayName]}
-              classNames={{
-                base: 'max-w-xs',
-                trigger: 'h-12',
-              }}
-              renderValue={() => {
-                return (
+            <RadioGroup label="SUTRA SERVER" orientation="horizontal" size="sm" defaultValue="US">
+              <Radio value="US" onClick={() => setServiceURL(K.SUTRA_SERVICE_US)}>
+                US
+              </Radio>
+              <Radio value="IN" onClick={() => setServiceURL(K.SUTRA_SERVICE_IN)}>
+                IN
+              </Radio>
+              <Radio value="KR" onClick={() => setServiceURL(K.SUTRA_SERVICE_KR)}>
+                KR
+              </Radio>
+            </RadioGroup>
+            {sutraModel.modelId == 'sutra-online' && (
+              <Select
+                variant="underlined"
+                aria-label="User Location"
+                placeholder="User Location"
+                labelPlacement="inside"
+                label="USER LOCATION"
+                selectedKeys={[searchLocation.displayName]}
+                renderValue={() => {
+                  return (
                     <div className="flex flex-col">
                       <span className="text-small">{searchLocation.displayName}</span>
                     </div>
-                );
-              }}
-            >
-              {SEARCH_LOCATIONS.map((loc) => (
-                <SelectItem key={loc.displayName} textValue={loc.displayName} onClick={() => changeSearchLocation(loc)}>
+                  );
+                }}
+              >
+                {SEARCH_LOCATIONS.map((loc) => (
+                  <SelectItem
+                    key={loc.displayName}
+                    textValue={loc.displayName}
+                    onClick={() => changeSearchLocation(loc)}
+                  >
                     <div className="flex flex-col">
                       <span>{loc.displayName}</span>
                     </div>
-                </SelectItem>
-              ))}
-            </Select>
+                  </SelectItem>
+                ))}
+              </Select>
+            )}
             <Divider className="my-2" />
             <Link isExternal showAnchorIcon size="sm" href="https://docs.two.ai">
               SUTRA API
@@ -380,16 +390,15 @@ const App = () => {
                     console.log('input cleared');
                     setText('');
                   }}
-                  onChange={()=> {
-                    if(sync) 
-                    {
+                  onChange={() => {
+                    if (sync) {
                       handleNewText;
                     }
                   }}
                   onKeyUp={issueNewText}
                   value={text}
                   autoFocus={true}
-                  startContent={<Checkbox isSelected={sync} onValueChange={()=>setSync(!sync)}></Checkbox>}
+                  startContent={<Checkbox isSelected={sync} onValueChange={() => setSync(!sync)}></Checkbox>}
                   classNames={{
                     input: [
                       'bg-transparent',

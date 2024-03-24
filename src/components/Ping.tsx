@@ -1,20 +1,27 @@
 import * as React from 'react';
-import axios from 'axios';
+import { useAtom } from 'jotai';
 
-import { K } from '../utils/K';
-import { log } from '../utils/log';
+import { Sutra } from '../service/SutraClient';
+import { serviceURLAtom } from '../state/atoms';
 
 export default function Ping() {
-  const [ping, setPing] = React.useState(null);
+  const [pingTime, setPingTime] = React.useState(0);
+
+  // from jotaiState
+  const [serviceURL] = useAtom(serviceURLAtom);
+
+  const pingTimeString = () => {
+    if(pingTime === 0) return '-';
+    return `${pingTime} ms`;  
+  }
 
   React.useEffect(() => {
-    axios.get(`${K.SUTRA_SERVICE_US.replace('sutra', 'ping')}`).then((response) => {
-      setPing(response.data);
-      log.debug({ ping });
-    });
-  }, []);
+    const getPing = async () => {
+      const newTime = await Sutra.ping(serviceURL);
+      if(newTime) setPingTime(newTime);
+    }
+    getPing();
+  }, [serviceURL]);
 
-  if (!ping) return null;
-
-  return <>{ping['httpCode']}</>;
+  return <>Ping: {pingTimeString()}</>;
 }
