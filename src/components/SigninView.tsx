@@ -1,8 +1,9 @@
 import { SignIn } from '@clerk/clerk-react';
-import { Image } from '@nextui-org/react';
+import { Image, cn } from '@nextui-org/react';
 import { useAtom } from 'jotai';
 import { isMobileAtom } from '../state/atoms';
 import packageJson from '../../package.json';
+import Spline from '@splinetool/react-spline';
 
 export const SigninView = () => {
   const [isMobile] = useAtom(isMobileAtom);
@@ -11,15 +12,16 @@ export const SigninView = () => {
 
   return (
     <>
-      <div className="flex h-dvh items-center justify-center ">
+      <div className={cn('flex h-dvh items-center justify-center', isMobile && 'bg-blue-500')}>
         {!isMobile && (
-          <div className="flex h-full w-full basis-3/5 flex-col flex-wrap gap-2 bg-blue-500">
-            <div className="flex h-[50%] items-end self-center">
-              <Image className="h-11" src="sutra.svg" />
+          <div className="flex h-full w-full basis-3/5 flex-col flex-wrap gap-2 bg-white">
+            <Image className="m-5 h-8" src="sutra.svg" />
+            <div className="h-[80%] w-full">
+              <Spline scene="https://prod.spline.design/XlgWaQLdgYYWTyEg/scene.splinecode" />
             </div>
-            <div className="flex w-full flex-1 items-end justify-between overflow-hidden px-3">
-              <div className=" text-white">PLAYGROUND {packageJson.version}</div>
-              <div className="text-sm text-white">by TWO.AI</div>
+            <div className="flex w-full flex-1 items-end justify-between overflow-hidden p-0">
+              <div className=" pb-3 text-gray-500">PLAYGROUND {packageJson.version}</div>
+              <div className="pb-3 text-sm text-gray-500">by TWO.AI</div>
             </div>
 
             {/* <BG/> */}
@@ -30,14 +32,17 @@ export const SigninView = () => {
             <div className="absolute bottom-2 left-4 overflow-hidden text-sm text-white">by TWO.AI</div> */}
           </div>
         )}
-        <div className="flex h-full basis-2/5 flex-col items-center justify-center gap-5">
+        <div className="flex h-full basis-2/5 flex-col items-center justify-center gap-5 bg-blue-500">
           {isMobile && (
             <div className="flex flex-wrap items-end gap-3">
               <Image className="h-8" src="sutra.svg" />
               <div className="font-mono text-2xl">PLAYGROUND</div>
             </div>
           )}
-          <SignIn />
+          <div>
+            <SignIn />
+            {/* <div className="flex-1 bg-red-300">hello</div> */}
+          </div>
         </div>
       </div>
 
