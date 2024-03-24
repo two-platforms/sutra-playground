@@ -27,6 +27,7 @@ const otherMaxTokensAtom = atom(OTHER_MODELS[0].maxTokens);
 const otherStatsAtom = atom<SutraStats>(initStats());
 const otherLoadingAtom = atom(false);
 const otherAnswerAtom = atom('');
+const compareDUOAtom = atom(false);
 
 const syncAtom = atom(true);
 
@@ -53,4 +54,5 @@ export {
     otherAnswerAtom,
     syncAtom,
     playgroundQuestionsAtom,
+    compareDUOAtom,
 };
