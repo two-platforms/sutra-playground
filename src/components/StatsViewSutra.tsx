@@ -18,9 +18,10 @@ export const StatsViewSutra = () => {
     if (tokenCount === 0) return '-';
     if (ttftService === 0 || ttltService === 0) return '-';
 
-    const tps = ttftService === ttftService
-      ? (1000 * tokenCount) / ttltService
-      : (1000 * tokenCount) / (ttltService - ttftService);
+    const tps =
+      ttftService === ttftService
+        ? (1000 * tokenCount) / ttltService
+        : (1000 * tokenCount) / (ttltService - ttftService);
     return `${tps.toFixed(2)}`;
   };
 
@@ -28,9 +29,7 @@ export const StatsViewSutra = () => {
     const { ttftService, ttltService } = stats;
     if (ttftService === 0 || ttltService === 0) return `0`;
 
-    const serviceSecs = ttftService === ttftService
-      ? ttltService / 1000
-      : (ttltService - ttftService) / 1000;
+    const serviceSecs = ttftService === ttftService ? ttltService / 1000 : (ttltService - ttftService) / 1000;
     return `${serviceSecs.toFixed(2)}`;
   };
 
@@ -51,12 +50,17 @@ export const StatsViewSutra = () => {
       </div>
       <Divider orientation="vertical" className="h-10" />
       <div>
+        <div className="text-medium font-bold">{stats.wordCount}</div>
+        <div>WORD COUNTS</div>
+      </div>
+      <Divider orientation="vertical" className="h-10" />
+      <div>
         <div className="text-medium font-bold">{stats.ttftService} ms</div>
         <div>1ST TOKEN</div>
       </div>
       <Divider orientation="vertical" className="h-10" />
       <div>
-      <div className="text-medium font-bold">{serviceSecsString()} sec</div>
+        <div className="text-medium font-bold">{serviceSecsString()} sec</div>
         <div>TOTAL</div>
       </div>
       {/* <Chip size="md" color="primary">
