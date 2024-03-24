@@ -45,7 +45,7 @@ export const SUTRA_MODELS: SutraModel[] = [
         maxTokens: DEFAULT_MAXTOKENS,
     },
     {
-        displayName: 'SUTRA-9B',
+        displayName: 'SUTRA-LIGHT',
         modelId: 'sutra-9B-multilingual',
         provider: 'TWO.AI',
         iconUrl: 'two.png',
@@ -53,7 +53,7 @@ export const SUTRA_MODELS: SutraModel[] = [
         maxTokens: DEFAULT_MAXTOKENS,
     },
     {
-        displayName: 'SUTRA-50B',
+        displayName: 'SUTRA-LIGHT2',
         modelId: 'sutra-50B-multilingual',
         provider: 'TWO.AI',
         iconUrl: 'two.png',
