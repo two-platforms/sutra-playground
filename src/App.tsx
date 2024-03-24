@@ -391,9 +391,9 @@ const App = () => {
                     setText('');
                   }}
                   onChange={() => {
-                    if (sync) {
+                    // if (sync) {
                       handleNewText;
-                    }
+                    // }
                   }}
                   onKeyUp={issueNewText}
                   value={text}
