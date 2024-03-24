@@ -43,9 +43,16 @@ export const SigninView = () => {
               <div className="font-mono text-2xl">PLAYGROUND</div>
             </div>
           )}
-          <div>
+          <div className="relative">
             <SignIn />
-            {/* <div className="flex-1 bg-red-300">hello</div> */}
+            <div className=" absolute -bottom-32 right-[40%] flex flex-col items-center justify-center gap-5 text-white">
+              <div>TWO.AI</div>
+              <div className="flex gap-4">
+                <div className="cursor-pointer pl-0">
+                  <a href="https://www.two.ai/legal/privacy">PRIVACY</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
