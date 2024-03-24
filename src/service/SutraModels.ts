@@ -10,6 +10,7 @@ export interface SutraModel {
     iconUrl: string;
     temperature: number;
     maxTokens: number;
+    parameters?: string;
 }
 
 export interface SutraStats {
@@ -37,20 +38,13 @@ export function initStats(): SutraStats {
 
 export const SUTRA_MODELS: SutraModel[] = [
     {
-        displayName: 'SUTRA-TURBO',
-        modelId: 'sutra-multilingual-turbo',
-        provider: 'TWO.AI',
-        iconUrl: 'two.png',
-        temperature: DEFAULT_TEMPERATURE,
-        maxTokens: DEFAULT_MAXTOKENS,
-    },
-    {
         displayName: 'SUTRA-LIGHT',
         modelId: 'sutra-9B-multilingual',
         provider: 'TWO.AI',
         iconUrl: 'two.png',
         temperature: DEFAULT_TEMPERATURE,
         maxTokens: DEFAULT_MAXTOKENS,
+        parameters: '9B',
     },
     {
         displayName: 'SUTRA-LIGHT2',
@@ -59,6 +53,16 @@ export const SUTRA_MODELS: SutraModel[] = [
         iconUrl: 'two.png',
         temperature: DEFAULT_TEMPERATURE,
         maxTokens: DEFAULT_MAXTOKENS,
+        parameters: '50B',
+    },
+    {
+        displayName: 'SUTRA-TURBO',
+        modelId: 'sutra-multilingual-turbo',
+        provider: 'TWO.AI',
+        iconUrl: 'two.png',
+        temperature: DEFAULT_TEMPERATURE,
+        maxTokens: DEFAULT_MAXTOKENS,
+        parameters: '50B',
     },
     {
         displayName: 'SUTRA-ONLINE',
@@ -67,6 +71,7 @@ export const SUTRA_MODELS: SutraModel[] = [
         iconUrl: 'two.png',
         temperature: DEFAULT_TEMPERATURE,
         maxTokens: DEFAULT_MAXTOKENS,
+        parameters: '50B',
     },
 ];
 
@@ -78,6 +83,7 @@ export const OTHER_MODELS: SutraModel[] = [
         iconUrl: 'openai.png',
         temperature: DEFAULT_TEMPERATURE,
         maxTokens: DEFAULT_MAXTOKENS,
+        parameters: '~175B',
     },
     {
         displayName: 'GPT-4',
@@ -86,6 +92,7 @@ export const OTHER_MODELS: SutraModel[] = [
         iconUrl: 'openai.png',
         temperature: DEFAULT_TEMPERATURE,
         maxTokens: DEFAULT_MAXTOKENS,
+        parameters: '~1000B',
     },
     {
         displayName: 'HYPER-CLOVA-X',
@@ -94,6 +101,7 @@ export const OTHER_MODELS: SutraModel[] = [
         iconUrl: 'naver.png',
         temperature: DEFAULT_TEMPERATURE,
         maxTokens: DEFAULT_MAXTOKENS,
+        parameters: 'N/A',
     },
     {
         displayName: 'MIXTRAL-8x7B',
@@ -102,6 +110,7 @@ export const OTHER_MODELS: SutraModel[] = [
         iconUrl: 'mistral.png',
         temperature: DEFAULT_TEMPERATURE,
         maxTokens: DEFAULT_MAXTOKENS,
+        parameters: '48B',
     },
     {
         displayName: 'PERPLEXITY CHAT',
@@ -110,6 +119,7 @@ export const OTHER_MODELS: SutraModel[] = [
         iconUrl: 'perplexity.png',
         temperature: DEFAULT_TEMPERATURE,
         maxTokens: DEFAULT_MAXTOKENS,
+        parameters: 'N/A',
     },
     {
         displayName: 'PERPLEXITY ONLINE',
@@ -118,6 +128,7 @@ export const OTHER_MODELS: SutraModel[] = [
         iconUrl: 'perplexity.png',
         temperature: DEFAULT_TEMPERATURE,
         maxTokens: DEFAULT_MAXTOKENS,
+        parameters: 'N/A',
     },
 ];
 
