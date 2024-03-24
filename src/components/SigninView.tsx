@@ -1,9 +1,10 @@
 import { SignIn } from '@clerk/clerk-react';
-import { Image, cn } from '@nextui-org/react';
+import { Image, Link, cn } from '@nextui-org/react';
 import { useAtom } from 'jotai';
 import { isMobileAtom } from '../state/atoms';
 import packageJson from '../../package.json';
 import Spline from '@splinetool/react-spline';
+
 
 export const SigninView = () => {
   const [isMobile] = useAtom(isMobileAtom);
@@ -19,13 +20,13 @@ export const SigninView = () => {
             <div className="h-[80%] w-full">
               <Spline scene="https://prod.spline.design/XlgWaQLdgYYWTyEg/scene.splinecode" />
             </div>
-            <div className=" absolute bottom-0 left-4 pb-3 ">
-              <p className="max-w-[50%] text-tiny text-gray-400">
+            <div className="absolute bottom-4 left-4 w-96 text-sm text-gray-500 flex flex-col gap-3">
+              <p className="">
                 SUTRA is a series of ultrafast, multilingual, online Generative AI models. This playground demonstrates
-                and compares SUTRA with other SOTA LLMs like GPT, Mistral, Perplexity and more. Learn more about SUTRA
-                at https://two.ai
+                and compares SUTRA with other SOTA LLMs like GPT, Mistral, Perplexity and more. 
               </p>
-              PLAYGROUND {packageJson.version} by TWO.AI
+              <p>PLAYGROUND {packageJson.version}</p>
+              <Link isExternal showAnchorIcon size="sm" href="https://two.ai">© 2024 TWO.</Link>
             </div>
 
             {/* <BG/> */}
@@ -36,7 +37,7 @@ export const SigninView = () => {
             <div className="absolute bottom-2 left-4 overflow-hidden text-sm text-white">by TWO.AI</div> */}
           </div>
         )}
-        <div className="flex h-full basis-2/5 flex-col items-center justify-center gap-5 bg-blue-500">
+        <div className="flex h-full basis-2/5 flex-col items-center justify-center gap-5 bg-blue-50">
           {isMobile && (
             <div className="flex flex-wrap items-end gap-3">
               <Image className="h-8" src="sutra.svg" />
@@ -45,14 +46,6 @@ export const SigninView = () => {
           )}
           <div className="relative">
             <SignIn />
-            <div className=" absolute -bottom-32 right-[40%] flex flex-col items-center justify-center gap-5 text-white">
-              <div>TWO.AI</div>
-              <div className="flex gap-4">
-                <div className="cursor-pointer pl-0">
-                  <a href="https://www.two.ai/legal/privacy">PRIVACY</a>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
