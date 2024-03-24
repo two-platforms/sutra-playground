@@ -8,12 +8,12 @@ import { Sutra, SutraCallbacks } from '../service/SutraClient';
 import { buildCompletionRequest } from '../service/SutraModels';
 import { log } from '../utils/log';
 import {
-  serviceURLAtom, 
+  serviceURLAtom,
   searchLocationAtom,
   sutraLoadingAtom,
   sutraModelAtom,
   sutraStatsAtom,
-  userInputAtom,
+  sutraUserInputAtom,
 } from '../state/atoms';
 
 export function OutputViewSutra() {
@@ -27,20 +27,20 @@ export function OutputViewSutra() {
   const [loading, setLoading] = useAtom(sutraLoadingAtom);
   const [model] = useAtom(sutraModelAtom);
   const [stats, setStats] = useAtom(sutraStatsAtom);
-  const [userInput] = useAtom(userInputAtom);
+  const [sutraUserInput] = useAtom(sutraUserInputAtom);
 
   React.useEffect(() => {
     const sendToSutra = async () => {
       timerStart.current = Date.now();
       haveFirstToken.current = false;
       setAnswer('');
-      const request = buildCompletionRequest(userInput, model);
+      const request = buildCompletionRequest(sutraUserInput, model);
       setLoading(true);
       Sutra.postComplete(serviceURL, request, sutraCallbacks, searchLocation);
     };
-    if (userInput.length === 0) return;
+    if (sutraUserInput.length === 0) return;
     sendToSutra();
-  }, [model, userInput]);
+  }, [model, sutraUserInput]);
 
   // callbacks for streaming mode
   // const sutraCallbacks: SutraCallbacks = React.useMemo(() => ({

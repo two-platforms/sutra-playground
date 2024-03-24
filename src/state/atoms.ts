@@ -8,7 +8,6 @@ import { K } from '../utils/K';
 
 const agentInfoAtom = atom(getAgent()).init;
 const darkModeAtom = atomWithStorage('darkMode', false);
-const userInputAtom = atom('');
 const isMobileAtom = atom<boolean>(false);
 
 const serviceURLAtom = atom<string>(K.SUTRA_SERVICE_US);
@@ -20,6 +19,7 @@ const sutraMaxTokensAtom = atom(SUTRA_MODELS[0].maxTokens);
 const sutraStatsAtom = atom<SutraStats>(initStats());
 const sutraLoadingAtom = atom(false);
 const sutraAnswerAtom = atom('');
+const sutraUserInputAtom = atom('');
 
 const otherModelAtom = atom<SutraModel>(OTHER_MODELS[0]);
 const otherTemperatureAtom = atom(OTHER_MODELS[0].temperature);
@@ -27,16 +27,17 @@ const otherMaxTokensAtom = atom(OTHER_MODELS[0].maxTokens);
 const otherStatsAtom = atom<SutraStats>(initStats());
 const otherLoadingAtom = atom(false);
 const otherAnswerAtom = atom('');
+const otherUserInputAtom = atom('');
+
 const compareDUOAtom = atom(false);
-
 const syncAtom = atom(true);
-
 const playgroundQuestionsAtom = atom<string[]>([]);
 
 export {
     agentInfoAtom,
     darkModeAtom,
-    userInputAtom,
+    sutraUserInputAtom,
+    otherUserInputAtom,
     serviceURLAtom,
     searchLocationAtom,
     sutraModelAtom,
