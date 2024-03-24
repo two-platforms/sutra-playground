@@ -30,7 +30,7 @@ import { IPv4, Location } from './components/GeoInfo';
 import { OutputViewSutra } from './components/OutputViewSutra';
 import { OutputViewOther } from './components/OutputViewOther';
 import Pricing from './components/Pricing';
-import Ping from "./components/Ping";
+import Ping from './components/Ping';
 
 // const darkMode = useDarkMode(true);
 
@@ -110,7 +110,7 @@ const App = () => {
         setQuestions(data.ultra);
       }
     });
-  }, []);
+  }, [sutraModel]);
 
   const changeSearchLocation = (newLocation: SearchLocation): void => {
     setSearchLocation(newLocation);
@@ -392,7 +392,7 @@ const App = () => {
                   }}
                   onChange={() => {
                     // if (sync) {
-                      handleNewText;
+                    handleNewText;
                     // }
                   }}
                   onKeyUp={issueNewText}
