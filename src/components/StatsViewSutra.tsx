@@ -51,7 +51,7 @@ export const StatsViewSutra = () => {
       <Divider orientation="vertical" className="h-10" />
       <div>
         <div className="text-medium font-bold">{stats.wordCount}</div>
-        <div>WORD COUNTS</div>
+        <div>WORDS</div>
       </div>
       <Divider orientation="vertical" className="h-10" />
       <div>
