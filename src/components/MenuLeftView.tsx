@@ -57,7 +57,7 @@ export const MenuLeftView = () => {
       {/* SELECTS */}
       <>
         <div className="flex flex-col items-start gap-0 font-mono text-sm">
-          <Image className="h-8" src="sutra.svg" />
+          <Image className="h-8" src="Sutra-Logo.svg" />
           <div className="pl-1 text-xs font-bold">PLAYGROUND {packageJson.version}</div>
         </div>
 
