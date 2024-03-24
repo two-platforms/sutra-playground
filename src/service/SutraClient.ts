@@ -27,7 +27,6 @@ export type SutraService = 'multilingual' | 'online';
 
 // static class
 export class Sutra {
-
     private static cfgAxios: AxiosRequestConfig = {
         headers: {
             Accept: 'application/json',
@@ -85,7 +84,12 @@ export class Sutra {
         }
     }
 
-    public static async postComplete(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks, searchAt?: SearchLocation): Promise<void> {
+    public static async postComplete(
+        serviceURL: string,
+        body: MultilingualUserInput,
+        cbs: SutraCallbacks,
+        searchAt?: SearchLocation,
+    ): Promise<void> {
         // special handling for sutra online model
         if (body.modelId === 'sutra-online') {
             Sutra.postSchat(serviceURL, body, cbs, searchAt);
@@ -112,7 +116,12 @@ export class Sutra {
         }
     }
 
-    private static async postSchat(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks, searchAt?: SearchLocation): Promise<void> {
+    private static async postSchat(
+        serviceURL: string,
+        body: MultilingualUserInput,
+        cbs: SutraCallbacks,
+        searchAt?: SearchLocation,
+    ): Promise<void> {
         const service = Sutra.selectService(serviceURL, 'online');
         const url = `${service}/schat`;
 
@@ -224,7 +233,12 @@ export class Sutra {
     }
 
     // Node testing versions
-    public static async postCompleteNode(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks, searchAt?: SearchLocation): Promise<void> {
+    public static async postCompleteNode(
+        serviceURL: string,
+        body: MultilingualUserInput,
+        cbs: SutraCallbacks,
+        searchAt?: SearchLocation,
+    ): Promise<void> {
         // special handling for sutra online model
         if (body.modelId === 'sutra-online') {
             Sutra.postSchatNode(serviceURL, body, cbs, searchAt);
@@ -247,7 +261,12 @@ export class Sutra {
         }
     }
 
-    private static async postSchatNode(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks, searchAt?: SearchLocation): Promise<void> {
+    private static async postSchatNode(
+        serviceURL: string,
+        body: MultilingualUserInput,
+        cbs: SutraCallbacks,
+        searchAt?: SearchLocation,
+    ): Promise<void> {
         const service = Sutra.selectService(serviceURL, 'online');
         const url = `${service}/schat`;
 
@@ -311,13 +330,13 @@ export class Sutra {
                     /**/
 
                     // special handling for sutra online model
-                } else if (streamObj.typeName === "MyLLMChunk") {
+                } else if (streamObj.typeName === 'MyLLMChunk') {
                     await sleep(10);
                     const llmChunk = streamObj as MyLLMChunk;
                     // V1 ion-online MyLLMChunk is same as ion-multilingual LLMChunk
                     onLLMChunk(llmChunk as LLMChunk);
                     /**/
-                } else if (streamObj.typeName === "MyLLMReply") {
+                } else if (streamObj.typeName === 'MyLLMReply') {
                     const myLLMreply = streamObj as MyLLMReply;
                     const llmReply: LLMReply = {
                         typeName: 'LLMReply',
@@ -332,8 +351,8 @@ export class Sutra {
                         ttltMsec: myLLMreply.llmMsec,
                         errMsg: myLLMreply.errMsg,
                         tokenCount: 0,
-                        wordCount: 0
-                    }
+                        wordCount: 0,
+                    };
                     onLLMReply(llmReply);
                 } else {
                     onError(`unknown stream object ${streamObj.typeName}`);
