@@ -22,7 +22,7 @@ export default function Pricing() {
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="2xl" scrollBehavior="inside">
         <ModalContent>
           <ModalHeader className="text-xl font-bold">SUTRA PRICING</ModalHeader>
-          <ModalBody className='font-mono'>
+          <ModalBody className="font-mono">
             <Card>
               <CardHeader className="flex gap-3">
                 <div className="flex flex-col">
@@ -61,7 +61,7 @@ export default function Pricing() {
             <Card className="">
               <CardHeader className="flex gap-3">
                 <div className="flex flex-col">
-                <p className="text-lg text-blue-500">SUTRA-ONLINE</p>
+                  <p className="text-lg text-blue-500">SUTRA-ONLINE</p>
                 </div>
               </CardHeader>
               <Divider />
@@ -80,21 +80,21 @@ export default function Pricing() {
             <Card className="">
               <CardBody>
                 <div className="flex w-full flex-col justify-between">
-                  <div className='text-blue-500'>Search Add-on</div>
+                  <div className="text-blue-500">Search Add-on</div>
                   <div>$3.00 per 1,000 requests</div>
                 </div>
               </CardBody>
               <Divider />
               <CardBody>
                 <div className="flex w-full flex-col justify-between">
-                  <div className='text-blue-500'>Language Add-on</div>
+                  <div className="text-blue-500">Language Add-on</div>
                   <div>$1.00-$2.20 per 1,000 requests</div>
                 </div>
               </CardBody>
               <Divider />
               <CardBody>
                 <div className="flex w-full flex-col justify-between">
-                  <div className='text-blue-500'>Long-Term Memory Add-on</div>
+                  <div className="text-blue-500">Long-Term Memory Add-on</div>
                   <div>$5.00 per 1,000 requests</div>
                 </div>
               </CardBody>

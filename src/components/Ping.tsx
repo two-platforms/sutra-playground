@@ -11,15 +11,15 @@ export default function Ping() {
   const [serviceURL] = useAtom(serviceURLAtom);
 
   const pingTimeString = () => {
-    if(pingTime === 0) return '-';
-    return `${pingTime} ms`;  
-  }
+    if (pingTime === 0) return '-';
+    return `${pingTime} ms`;
+  };
 
   React.useEffect(() => {
     const getPing = async () => {
       const newTime = await Sutra.ping(serviceURL);
-      if(newTime) setPingTime(newTime);
-    }
+      if (newTime) setPingTime(newTime);
+    };
     getPing();
   }, [serviceURL]);
 
