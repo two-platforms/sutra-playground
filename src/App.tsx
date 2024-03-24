@@ -35,7 +35,7 @@ import Ping from './components/Ping';
 // const darkMode = useDarkMode(true);
 
 import { SearchLocation, SEARCH_LOCATIONS } from './service/SearchLocations';
-import { SutraModel, SUTRA_MODELS, OTHER_MODELS } from './service/SutraModels';
+import { SutraModel, SUTRA_MODELS, OTHER_MODELS, initStats } from './service/SutraModels';
 import {
   agentInfoAtom,
   userInputAtom,
@@ -51,6 +51,8 @@ import {
   otherLoadingAtom,
   syncAtom,
   playgroundQuestionsAtom,
+  otherStatsAtom,
+  sutraStatsAtom,
 } from './state/atoms';
 import { K } from './utils/K';
 
@@ -79,6 +81,9 @@ const App = () => {
   const [questions, setQuestions] = useAtom(playgroundQuestionsAtom);
 
   const [isMouseEnter, setIsMouseEnter] = React.useState(false);
+
+  const [, setSutrastats] = useAtom(sutraStatsAtom);
+  const [, setOtherstats] = useAtom(otherStatsAtom);
 
   //const errorRef = React.useRef<string | undefined>(undefined);
 
@@ -144,6 +149,8 @@ const App = () => {
     if (ev && ev.code !== 'Enter' && ev.code !== 'NumpadEnter' && ev.keyCode !== 13) return;
     if (text.length === 0) return;
     console.log('setting userInput', text);
+    setSutrastats(initStats());
+    setOtherstats(initStats());
     setUserInput(text);
     setText('');
   };
