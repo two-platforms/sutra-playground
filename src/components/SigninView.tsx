@@ -19,9 +19,13 @@ export const SigninView = () => {
             <div className="h-[80%] w-full">
               <Spline scene="https://prod.spline.design/XlgWaQLdgYYWTyEg/scene.splinecode" />
             </div>
-            <div className="flex w-full flex-1 items-end justify-between overflow-hidden p-0">
-              <div className=" pb-3 text-gray-500">PLAYGROUND {packageJson.version}</div>
-              <div className="pb-3 text-sm text-gray-500">by TWO.AI</div>
+            <div className=" absolute bottom-0 left-4 pb-3 ">
+              <p className="max-w-[50%] text-tiny text-gray-400">
+                SUTRA is a series of ultrafast, multilingual, online Generative AI models. This playground demonstrates
+                and compares SUTRA with other SOTA LLMs like GPT, Mistral, Perplexity and more. Learn more about SUTRA
+                at https://two.ai
+              </p>
+              PLAYGROUND {packageJson.version} by TWO.AI
             </div>
 
             {/* <BG/> */}
