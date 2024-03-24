@@ -5,7 +5,6 @@ import { isMobileAtom } from '../state/atoms';
 import packageJson from '../../package.json';
 import Spline from '@splinetool/react-spline';
 
-
 export const SigninView = () => {
   const [isMobile] = useAtom(isMobileAtom);
 
@@ -16,17 +15,19 @@ export const SigninView = () => {
       <div className={cn('flex h-dvh items-center justify-center', isMobile && 'bg-blue-500')}>
         {!isMobile && (
           <div className="flex h-full w-full basis-3/5 flex-col flex-wrap gap-2 bg-white">
-            <Image className="m-5 h-8" src="sutra.svg" />
+            <Image className="m-5 h-8" src="Sutra-Logo.svg" />
             <div className="h-[80%] w-full">
               <Spline scene="https://prod.spline.design/XlgWaQLdgYYWTyEg/scene.splinecode" />
             </div>
-            <div className="absolute bottom-4 left-4 w-96 text-sm text-gray-500 flex flex-col gap-3">
+            <div className="absolute bottom-4 left-4 flex w-96 flex-col gap-3 text-sm text-gray-500">
               <p className="">
                 SUTRA is a series of ultrafast, multilingual, online Generative AI models. This playground demonstrates
-                and compares SUTRA with other SOTA LLMs like GPT, Mistral, Perplexity and more. 
+                and compares SUTRA with other SOTA LLMs like GPT, Mistral, Perplexity and more.
               </p>
               <p>PLAYGROUND {packageJson.version}</p>
-              <Link isExternal showAnchorIcon size="sm" href="https://two.ai">© 2024 TWO.</Link>
+              <Link isExternal showAnchorIcon size="sm" href="https://two.ai">
+                © 2024 TWO.
+              </Link>
             </div>
 
             {/* <BG/> */}
