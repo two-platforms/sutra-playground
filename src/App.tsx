@@ -30,8 +30,8 @@ import { IPv4, Location } from './components/GeoInfo';
 import { OutputViewSutra } from './components/OutputViewSutra';
 import { OutputViewOther } from './components/OutputViewOther';
 import Pricing from './components/Pricing';
+import Ping from "./components/Ping";
 
-// import Ping from "./components/Ping";
 // const darkMode = useDarkMode(true);
 
 import { SearchLocation, SEARCH_LOCATIONS } from './service/SearchLocations';
@@ -241,6 +241,10 @@ const App = () => {
             </div>
             <div>
               <IPv4 />
+            </div>
+            <Divider className="my-2" />
+            <div>
+              <Ping />
             </div>
             <Divider className="my-2" />
             <RadioGroup label="SUTRA SERVER" orientation="horizontal" size="sm" defaultValue="US">

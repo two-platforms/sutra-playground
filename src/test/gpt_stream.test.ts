@@ -15,6 +15,6 @@ describe('GPT3.5 completion stream tests', () => {
         prompt: 'Explain how to fly a plane',
     };
     it('can consume stream', async () => {
-        await Sutra.postComplete(K.SUTRA_SERVICE_US, request, callbacks);
+        await Sutra.postCompleteNode(K.SUTRA_SERVICE_US, request, callbacks);
     });
 });

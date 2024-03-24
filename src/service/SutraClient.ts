@@ -27,18 +27,25 @@ export type SutraService = 'multilingual' | 'online';
 
 // static class
 export class Sutra {
-    // TODO, use with node/vitest
+
     private static cfgAxios: AxiosRequestConfig = {
         headers: {
             Accept: 'application/json',
-            // Accept: 'application/x-ndjson',
+            'Content-Type': 'application/json',
+            authorization: import.meta.env.VITE_SUTRA_API_KEY,
+        },
+    };
+
+    private static cfgAxiosStream: AxiosRequestConfig = {
+        headers: {
+            Accept: 'application/x-ndjson',
             'Content-Type': 'application/json',
             authorization: import.meta.env.VITE_SUTRA_API_KEY,
         },
         responseType: 'stream',
     };
 
-    // use with borwser
+    // use with browser
     private static cfgFetch = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -47,6 +54,22 @@ export class Sutra {
 
     private static selectService(serviceURL: string, serviceName: SutraService): string {
         return `${serviceURL}/${serviceName}`;
+    }
+
+    public static async ping(serviceURL: string): Promise<number | undefined> {
+        // remove the trailing /sutra and replace with /ping
+        const url = serviceURL.replace(new RegExp('/sutra$'), '/ping');
+
+        try {
+            const tStart = Date.now();
+            await axios.get(url, Sutra.cfgAxios);
+            const tEnd = Date.now();
+
+            return tEnd - tStart;
+        } catch (err: unknown) {
+            log.error(err);
+            return undefined;
+        }
     }
 
     public static async getStatus(serviceURL: string): Promise<SutraServiceStatus | undefined> {
@@ -62,7 +85,6 @@ export class Sutra {
         }
     }
 
-    // TODO - node and browser variants
     public static async postComplete(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks, searchAt?: SearchLocation): Promise<void> {
         // special handling for sutra online model
         if (body.modelId === 'sutra-online') {
@@ -95,10 +117,10 @@ export class Sutra {
         const url = `${service}/schat`;
 
         log.info(url);
-        const iolBody = { 
+        const iolBody = {
             userInput: body.prompt,
             searchLocation: searchAt,
-         };
+        };
 
         try {
             const tStart = Date.now();
@@ -192,6 +214,126 @@ export class Sutra {
                         tokenCount: 0,
                         wordCount: 0,
                     };
+                    onLLMReply(llmReply);
+                } else {
+                    onError(`unknown stream object ${streamObj.typeName}`);
+                }
+                value = '';
+            }
+        }
+    }
+
+    // Node testing versions
+    public static async postCompleteNode(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks, searchAt?: SearchLocation): Promise<void> {
+        // special handling for sutra online model
+        if (body.modelId === 'sutra-online') {
+            Sutra.postSchatNode(serviceURL, body, cbs, searchAt);
+            return;
+        }
+
+        const service = Sutra.selectService(serviceURL, 'multilingual');
+        const url = `${service}/completion`;
+
+        log.info(url);
+
+        try {
+            const tStart = Date.now();
+            const reply = await axios.post(url, body, Sutra.cfgAxiosStream);
+            const stream = reply.data as NodeJS.ReadableStream;
+            await Sutra.consumeStreamNode(stream, cbs, tStart);
+        } catch (err: unknown) {
+            log.error(err);
+            cbs.onError(JSON.stringify(err));
+        }
+    }
+
+    private static async postSchatNode(serviceURL: string, body: MultilingualUserInput, cbs: SutraCallbacks, searchAt?: SearchLocation): Promise<void> {
+        const service = Sutra.selectService(serviceURL, 'online');
+        const url = `${service}/schat`;
+
+        log.info(url);
+        const iolBody = {
+            userInput: body.prompt,
+            searchLocation: searchAt,
+        };
+
+        try {
+            const tStart = Date.now();
+            const reply = await axios.post(url, iolBody, Sutra.cfgAxiosStream);
+            const stream = reply.data as NodeJS.ReadableStream;
+            await Sutra.consumeStreamNode(stream, cbs, tStart);
+        } catch (err: unknown) {
+            log.error(err);
+            cbs.onError(JSON.stringify(err));
+        }
+    }
+
+    // this is the fetch version of consumeStream, axios version has been removed since it seemed to stall in browser
+    private static async consumeStreamNode(
+        stream: NodeJS.ReadableStream,
+        cbs: SutraCallbacks,
+        _tStart: number,
+    ): Promise<void> {
+        const { onLLMChunk, onLLMReply, onError } = cbs;
+        let value = '';
+
+        for await (const chunk of stream) {
+            const lines = chunk.toString();
+            const splits = lines.split('\n');
+
+            // check if full chunk is a partial object
+            if (splits.length === 1) {
+                value += splits[0];
+                continue;
+            }
+
+            for (let idx = 0; idx < splits.length; idx++) {
+                value += splits[idx];
+
+                // ignore whitespace
+                if (value.trim().length === 0) continue;
+
+                // check if last split is a partial object by comparing against '',
+                // if no match then last split is a partial object
+                if (idx === splits.length - 1 && splits[idx] !== '') {
+                    continue;
+                }
+
+                const streamObj = JSON.parse(value) as IonStreamObject;
+
+                if (streamObj.typeName === 'LLMChunk') {
+                    // using this causes RHS panel to wait for LHS
+                    await sleep(10);
+                    onLLMChunk(streamObj as LLMChunk);
+                    /**/
+                } else if (streamObj.typeName === 'LLMReply') {
+                    onLLMReply(streamObj as LLMReply);
+                    /**/
+
+                    // special handling for sutra online model
+                } else if (streamObj.typeName === "MyLLMChunk") {
+                    await sleep(10);
+                    const llmChunk = streamObj as MyLLMChunk;
+                    // V1 ion-online MyLLMChunk is same as ion-multilingual LLMChunk
+                    onLLMChunk(llmChunk as LLMChunk);
+                    /**/
+                } else if (streamObj.typeName === "MyLLMReply") {
+                    const myLLMreply = streamObj as MyLLMReply;
+                    const llmReply: LLMReply = {
+                        typeName: 'LLMReply',
+                        isFinal: true,
+                        requestId: 'requestId',
+                        userInput: {
+                            modelId: 'sutra-online',
+                            prompt: myLLMreply.userInput,
+                        },
+                        success: true,
+                        ttftMsec: 100,
+                        ttltMsec: myLLMreply.llmMsec,
+                        errMsg: myLLMreply.errMsg,
+                        tokenCount: 0,
+                        wordCount: 0
+                    }
                     onLLMReply(llmReply);
                 } else {
                     onError(`unknown stream object ${streamObj.typeName}`);

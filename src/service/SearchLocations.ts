@@ -10,7 +10,7 @@ export const SEARCH_LOCATIONS: SearchLocation[] = [
     { displayName: 'Mumbai', canonicalLocation: 'Mumbai,Maharashtra,India', countryCode: 'IN', languageCode: 'hi' },
     { displayName: 'Seoul', canonicalLocation: 'Seoul,Seoul,South Korea', countryCode: 'KR', languageCode: 'ko' },
 
-    { displayName: 'Beijing', canonicalLocation: 'Beijing,China', countryCode: 'CN', languageCode: 'zh' },
+    { displayName: 'Beijing', canonicalLocation: 'Beijing,China', countryCode: 'CN', languageCode: 'zh-cn' },
     { displayName: 'Cairo', canonicalLocation: 'Cairo,Cairo Governorate,Egypt', countryCode: 'EG', languageCode: 'ar' },
     { displayName: 'Cape Town', canonicalLocation: 'Cape Town,Western Cape,South Africa', countryCode: 'ZA', languageCode: 'af' },
     { displayName: 'London', canonicalLocation: 'Greater London,England,United Kingdom', countryCode: 'GB', languageCode: 'en' },
