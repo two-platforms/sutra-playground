@@ -3,7 +3,6 @@ import { Image, Link, cn } from '@nextui-org/react';
 import { useAtom } from 'jotai';
 import { isMobileAtom } from '../state/atoms';
 import packageJson from '../../package.json';
-import Spline from '@splinetool/react-spline';
 
 export const SigninView = () => {
   const [isMobile] = useAtom(isMobileAtom);
@@ -12,12 +11,17 @@ export const SigninView = () => {
 
   return (
     <>
-      <div className={cn('flex h-dvh items-center justify-center', isMobile && 'bg-blue-500')}>
+      <div className={cn('flex h-dvh items-center justify-center', isMobile && 'bg-blue-50')}>
         {!isMobile && (
           <div className="flex h-full w-full basis-3/5 flex-col flex-wrap gap-2 bg-white">
             <Image className="m-5 h-7" radius="none" src="sutra.svg" />
             <div className="h-[80%] w-full">
-              <Spline scene="https://prod.spline.design/XlgWaQLdgYYWTyEg/scene.splinecode" />
+              <iframe
+                src="https://my.spline.design/CZpqVdZAaJ5IkZdATtMFAfnc/"
+                // frameborder="0"
+                width="100%"
+                height="100%"
+              ></iframe>
             </div>
             <div className="absolute bottom-4 left-4 flex w-96 flex-col gap-3 text-sm text-gray-500">
               <p className="">
