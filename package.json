@@ -13,13 +13,9 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@chatscope/chat-ui-kit-react": "^2.0.3",
-    "@chatscope/chat-ui-kit-styles": "^1.4.0",
     "@clerk/clerk-react": "^4.30.7",
     "@egjs/agent": "^2.4.3",
-    "@hookstate/core": "^4.0.1",
     "@nextui-org/react": "^2.2.10",
-    "@splinetool/react-spline": "^2.2.6",
     "@two-platforms/ion-multilingual-types": "1.2.1",
     "@two-platforms/ion-online-types": "^1.1.1",
     "@uidotdev/usehooks": "^2.4.1",
@@ -27,11 +23,9 @@
     "axios": "^1.6.8",
     "framer-motion": "^11.0.14",
     "iconoir-react": "^7.5.0",
-    "jose": "^5.2.3",
     "jotai": "^2.7.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^5.0.1"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.30",
