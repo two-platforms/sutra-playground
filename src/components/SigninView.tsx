@@ -3,7 +3,6 @@ import { Image, Link, cn } from '@nextui-org/react';
 import { useAtom } from 'jotai';
 import { isMobileAtom } from '../state/atoms';
 import packageJson from '../../package.json';
-import Spline from '@splinetool/react-spline';
 
 export const SigninView = () => {
   const [isMobile] = useAtom(isMobileAtom);
