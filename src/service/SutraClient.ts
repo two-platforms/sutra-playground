@@ -155,6 +155,7 @@ export class Sutra {
         const { onLLMChunk, onLLMReply, onError } = cbs;
         const decoder = new TextDecoder();
         let value = '';
+        let onLineContent = '';
 
         if (stream === null) return;
         const reader = stream.getReader();
@@ -204,10 +205,13 @@ export class Sutra {
                     // V1 ion-online MyLLMChunk is same as ion-multilingual LLMChunk
                     await sleep(10);
                     const llmChunk = streamObj as MyLLMChunk;
+                    onLineContent += llmChunk.content;
                     onLLMChunk(llmChunk as LLMChunk);
                     /**/
                 } else if (streamObj.typeName === 'MyLLMReply') {
                     const myLLMreply = streamObj as MyLLMReply;
+                    const wordCount = onLineContent.split(' ').length;
+                    const tokenCount = wordCount * 1.33; // FIXME, this is an approximation
                     const llmReply: LLMReply = {
                         typeName: 'LLMReply',
                         isFinal: true,
@@ -217,11 +221,11 @@ export class Sutra {
                             prompt: myLLMreply.userInput,
                         },
                         success: true,
-                        ttftMsec: 100,
+                        ttftMsec: myLLMreply.llmMsec,
                         ttltMsec: myLLMreply.llmMsec,
                         errMsg: myLLMreply.errMsg,
-                        tokenCount: 0,
-                        wordCount: 0,
+                        tokenCount,
+                        wordCount,
                     };
                     onLLMReply(llmReply);
                 } else {
