@@ -13,12 +13,7 @@ export const SigninView = () => {
         <div className={cn('flex h-full w-full flex-col flex-wrap gap-2', !isMobile && 'basis-3/5')}>
           <Image className="fixed left-0 top-0 m-5 h-7" radius="none" src="sutra.svg" />
           <div className="h-[80%] w-full">
-            <iframe
-              src="https://my.spline.design/CZpqVdZAaJ5IkZdATtMFAfnc/"
-              // frameborder="0"
-              width="100%"
-              height="100%"
-            ></iframe>
+            <iframe src="https://my.spline.design/CZpqVdZAaJ5IkZdATtMFAfnc/" width="100%" height="100%"></iframe>
           </div>
           <div className="absolute bottom-4 left-4 flex w-96 flex-col gap-3 text-sm text-gray-500">
             <p>❗️Only available on desktop</p>
