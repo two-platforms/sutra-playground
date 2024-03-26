@@ -1,7 +1,7 @@
 {
   "name": "sutra-playground",
   "private": true,
-  "version": "0.3.1 BETA",
+  "version": "0.3.2 BETA",
   "type": "module",
   "scripts": {
     "lab2": "vite --host",
