@@ -19,7 +19,7 @@ export default function Pricing() {
       <Link size="sm" className=" hover:cursor-pointer" onPress={onOpen}>
         SUTRA PRICING
       </Link>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="2xl" scrollBehavior="inside">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="2xl">
         <ModalContent>
           <ModalHeader className="text-xl font-bold">SUTRA PRICING</ModalHeader>
           <ModalBody className="font-mono">
