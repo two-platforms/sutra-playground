@@ -16,5 +16,7 @@ export const K = {
     SUTRA_SERVICE_IN: 'https://sutra-server-nazz5qdeia-el.a.run.app/sutra',
     SUTRA_SERVICE_KR: 'https://sutra-server-nazz5qdeia-du.a.run.app/sutra',
 
+    TOKENS_PER_WORD: 1.333, // estimate of 3 words -> 4 tokens
+
     LOG_LEVEL: DEBUG_MODE_DISABLED ? WARN_LEVEL : INFO_LEVEL,
 };
