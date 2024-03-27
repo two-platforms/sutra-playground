@@ -4,6 +4,7 @@ import { MyLLMChunk, MyLLMReply } from '@two-platforms/ion-online-types';
 
 import { SearchLocation } from './SearchLocations';
 import { log } from '../utils/log';
+import { K } from '../utils/K';
 
 // will come from sutra types
 export type SutraServiceStatus = {
@@ -211,7 +212,7 @@ export class Sutra {
                 } else if (streamObj.typeName === 'MyLLMReply') {
                     const myLLMreply = streamObj as MyLLMReply;
                     const wordCount = onLineContent.split(' ').length;
-                    const tokenCount = wordCount * 1.33; // FIXME, this is an approximation
+                    const tokenCount = Math.round(wordCount * K.TOKENS_PER_WORD);
                     const llmReply: LLMReply = {
                         typeName: 'LLMReply',
                         isFinal: true,
