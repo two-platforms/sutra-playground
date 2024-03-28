@@ -7,50 +7,40 @@ import packageJson from '../../package.json';
 export const SigninView = () => {
   const [isMobile] = useAtom(isMobileAtom);
 
-  console.log(isMobile);
-
   return (
     <>
-      <div className={cn('flex h-dvh items-center justify-center', isMobile && 'bg-blue-50')}>
+      <div className={cn('flex h-dvh w-full items-center justify-center')}>
+        <div className={cn('flex h-full w-full flex-col flex-wrap gap-2', !isMobile && 'basis-3/5')}>
+          <Image className="fixed left-0 top-0 m-5 h-7" radius="none" src="sutra.svg" />
+          <div className="h-[80%] w-full">
+            <iframe src="https://my.spline.design/CZpqVdZAaJ5IkZdATtMFAfnc/" width="100%" height="100%"></iframe>
+          </div>
+          <div className="absolute bottom-4 left-4 flex w-96 flex-col gap-3 text-sm text-gray-500">
+            <p>❗️Only available on desktop</p>
+            <p className="">
+              SUTRA is a series of ultrafast, multilingual, online Generative AI models. This playground demonstrates
+              and compares SUTRA with other SOTA LLMs like GPT, Mistral, Perplexity and more.
+            </p>
+            <p>PLAYGROUND {packageJson.version}</p>
+            <Link isExternal showAnchorIcon size="sm" href="https://two.ai">
+              © 2024 TWO.
+            </Link>
+          </div>
+        </div>
+
         {!isMobile && (
-          <div className="flex h-full w-full basis-3/5 flex-col flex-wrap gap-2 bg-white">
-            <Image className="m-5 h-7" radius="none" src="sutra.svg" />
-            <div className="h-[80%] w-full">
-              <iframe
-                src="https://my.spline.design/CZpqVdZAaJ5IkZdATtMFAfnc/"
-                // frameborder="0"
-                width="100%"
-                height="100%"
-              ></iframe>
-            </div>
+          <div className="flex h-full basis-2/5 flex-col items-center justify-center gap-5 bg-blue-50">
             <div className="absolute bottom-4 left-4 flex w-96 flex-col gap-3 text-sm text-gray-500">
-              <p className="">
-                SUTRA is a series of ultrafast, multilingual, online Generative AI models. This playground demonstrates
-                and compares SUTRA with other SOTA LLMs like GPT, Mistral, Perplexity and more.
-              </p>
               <p>PLAYGROUND {packageJson.version}</p>
               <Link isExternal showAnchorIcon size="sm" href="https://two.ai">
                 © 2024 TWO.
               </Link>
+            </div>
+            <div className="relative">
+              <SignIn />
             </div>
           </div>
         )}
-        <div className="flex h-full basis-2/5 flex-col items-center justify-center gap-5 bg-blue-50">
-          {isMobile && (
-            <div className="absolute bottom-4 left-4 flex w-96 flex-col gap-3 text-sm text-gray-500">
-              <p>PLAYGROUND {packageJson.version}</p>
-              <Link isExternal showAnchorIcon size="sm" href="https://two.ai">
-                © 2024 TWO.
-              </Link>
-            </div>
-          )}
-          <div className="relative">
-            <SignIn />
-            <div className="flex w-full items-center pt-16 flex-col gap-3 text-sm text-gray-500">
-              <p>Please use business email address for Sign In.</p>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* <SignedOut>
