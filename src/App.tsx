@@ -38,6 +38,8 @@ import {
   compareDUOAtom,
 } from './state/atoms';
 import { MenuLeftView } from './components/MenuLeftView';
+import { useLocalStorage } from '@uidotdev/usehooks';
+import WelcomeModal from './components/modal/WelcomeModal';
 
 const QUESTIONS_URL = 'https://raw.githubusercontent.com/TwoResearch/playground-questions/main/questions.json';
 
@@ -66,6 +68,8 @@ const App = () => {
   const [, setOtherstats] = useAtom(otherStatsAtom);
   const sutraInputRef = React.useRef<HTMLInputElement>(null);
 
+  const [welcomeShwon] = useLocalStorage('welcomeShown', false);
+
   //const errorRef = React.useRef<string | undefined>(undefined);
 
   // // two potential error sources, show both if both erred
@@ -89,8 +93,6 @@ const App = () => {
     const data = await response.json();
     return data;
   };
-
-  console.log(sync);
 
   React.useEffect(() => {
     if (sync) {
@@ -133,6 +135,8 @@ const App = () => {
 
   return (
     <React.Fragment>
+      {welcomeShwon === false && <WelcomeModal />}
+
       {/* <main className="dark"> */}
       <div className="flex w-full flex-row bg-white">
         {/* MAIN PANEL */}
