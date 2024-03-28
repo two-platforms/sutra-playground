@@ -8,7 +8,7 @@ interface Props {
 }
 export const AnswerViewSutra = ({ answer, loading }: Props) => {
   return (
-    <div className="prose prose-xl prose-p:leading-normal max-w-[600px] text-black">
+    <div className="prose prose-lg prose-p:leading-normal md:prose-xl max-w-[600px] text-black">
       <Markdown remarkPlugins={[remarkGfm, remarkMath]}>{answer + (loading && answer.length > 0 ? '●' : '')}</Markdown>
     </div>
   );
