@@ -125,10 +125,15 @@ const App = () => {
     if (ev && ev.code !== 'Enter' && ev.code !== 'NumpadEnter' && ev.keyCode !== 13) return;
     if (sutraText.length === 0 && otherText.length === 0) return;
 
-    setSutrastats(initStats());
-    setOtherstats(initStats());
-    sutraText.length !== 0 && setSutraUserInput(sutraText);
-    otherText.length !== 0 && setOtherUserInput(otherText);
+    if (sutraText.length !== 0) {
+      setSutrastats(initStats());
+      sutraText.length !== 0 && setSutraUserInput(sutraText);
+    }
+    if (otherText.length !== 0) {
+      setOtherstats(initStats());
+      otherText.length !== 0 && setOtherUserInput(otherText);
+    }
+
     setSutraText('');
     setOtherText('');
   };
