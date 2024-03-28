@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const { nextui } = require('@nextui-org/react');
-const { tailwind_prose } = require('@tailwindcss/typography'),
+const tailwindcss_prose = require('@tailwindcss/typography');
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}', './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'],
@@ -23,7 +23,7 @@ export default {
     },
   },
   darkMode: 'class',
-  plugins: [nextui(),tailwind_prose()],
+  plugins: [nextui(), tailwindcss_prose()],
   future: {
     hoverOnlyWhenSupported: true,
   },
