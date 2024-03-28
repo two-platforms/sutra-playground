@@ -38,6 +38,9 @@ export const SigninView = () => {
             </div>
             <div className="relative">
               <SignIn />
+              <div className="flex w-full flex-col items-center gap-3 pt-16 text-sm text-gray-500">
+                <p>Please use business email address for Sign In.</p>
+              </div>
             </div>
           </div>
         )}
