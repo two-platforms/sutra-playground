@@ -271,6 +271,7 @@ const App = () => {
                   }}
                   // onKeyUp={issueNewText}
                   value={otherText}
+                  onKeyUp={issueNewText}
                   startContent={<Checkbox isSelected={sync} onValueChange={() => setSync(!sync)}></Checkbox>}
                   classNames={{
                     input: [
