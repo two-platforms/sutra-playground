@@ -16,7 +16,7 @@ export const SigninView = () => {
             <iframe src="https://my.spline.design/CZpqVdZAaJ5IkZdATtMFAfnc/" width="100%" height="100%"></iframe>
           </div>
           <div className="absolute bottom-4 left-4 flex w-96 flex-col gap-3 text-sm text-gray-500">
-            <p>❗️Only available on desktop</p>
+            {isMobile && <p>❗️Only available on desktop</p>}
             <p className="">
               SUTRA is a series of ultrafast, multilingual, online Generative AI models. This playground demonstrates
               and compares SUTRA with other SOTA LLMs like GPT, Mistral, Perplexity and more.
