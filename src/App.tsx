@@ -127,8 +127,8 @@ const App = () => {
 
     setSutrastats(initStats());
     setOtherstats(initStats());
-    setSutraUserInput(sutraText);
-    setOtherUserInput(otherText);
+    sutraText.length !== 0 && setSutraUserInput(sutraText);
+    otherText.length !== 0 && setOtherUserInput(otherText);
     setSutraText('');
     setOtherText('');
   };
