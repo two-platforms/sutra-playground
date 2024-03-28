@@ -64,6 +64,7 @@ const App = () => {
 
   const [, setSutrastats] = useAtom(sutraStatsAtom);
   const [, setOtherstats] = useAtom(otherStatsAtom);
+  const sutraInputRef = React.useRef<HTMLInputElement>(null);
 
   //const errorRef = React.useRef<string | undefined>(undefined);
 
@@ -186,10 +187,10 @@ const App = () => {
                   console.log('input cleared');
                   setSutraText('');
                 }}
+                ref={sutraInputRef}
                 onChange={handleNewText}
                 onKeyUp={issueNewText}
                 value={sutraText}
-                autoFocus={true}
                 startContent={
                   <Button
                     variant="light"
@@ -197,6 +198,9 @@ const App = () => {
                     onClick={() => {
                       const question = questions[Math.floor(Math.random() * questions.length)];
                       setSutraText(question);
+                      if (sutraInputRef.current) {
+                        sutraInputRef.current.focus();
+                      }
                     }}
                   >
                     <SystemRestart />
